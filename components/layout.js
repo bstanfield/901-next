@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styles from './layout.module.css'
 import Link from 'next/link'
 
 const name = '901'
@@ -7,7 +6,7 @@ export const siteTitle = '901 Next'
 
 export default function Layout({ children, home }) {
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -23,12 +22,12 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
+      <header className="header">
         {home ? (
           <>
             <img
               src="/images/profile.jpg"
-              className={`${styles.headerHomeImage} borderCircle`}
+              className="headerHomeImage borderCircle"}
               alt={name}
             />
             <h1 className="heading2Xl">{name}</h1>
@@ -39,7 +38,7 @@ export default function Layout({ children, home }) {
                 <a>
                   <img
                     src="/images/profile.jpg"
-                    className={`${styles.headerImage} borderCircle`}
+                    className="headerImage borderCircle"
                     alt={name}
                   />
                 </a>
@@ -54,7 +53,7 @@ export default function Layout({ children, home }) {
       </header>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <div className="styles.backToHome">
           <Link href="/">
             <a>← Back to home</a>
           </Link>
