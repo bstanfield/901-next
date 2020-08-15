@@ -11,9 +11,6 @@ export default function Article({ article }) {
       </Head>
       <article>
         <h1>{article.id}</h1>
-        <div>
-          No date
-        </div>
         Put data here:
         <ul>
           {categories.map((category) => (<li>{category.name}</li>))}
