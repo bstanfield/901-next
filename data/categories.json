@@ -1,0 +1,227 @@
+[
+  {
+    "name": "General",
+    "lists": [
+      "Beer",
+      "All booze and bitters",
+      "Five-star cocktails",
+      "Latino",
+      "Standards",
+      "“Manly”",
+      "“Womanly”",
+      "My originals",
+      "The 16 Greatest Cocktails in Creation",
+      "Pretentious or otherwise annoying"
+    ]
+  },
+  {
+    "name": "Era",
+    "lists": [
+      "Antique",
+      "Prohibition era and vintage",
+      "Mad men"
+    ]
+  },
+  {
+    "name": "Classiness",
+    "lists": [
+      "Highbrow",
+      "Lowbrow"
+    ]
+  },
+  {
+    "name": "Party Drinks",
+    "lists": [
+      "Coolers, collinses, highballs, fizzes, and swizzles",
+      "Punchy",
+      "Shooters"
+    ]
+  },
+  {
+    "name": "Weather",
+    "lists": [
+      "Cold outside",
+      "Hot outside"
+    ]
+  },
+  {
+    "name": "Flavor",
+    "lists": [
+      "Fruity",
+      "Bitter",
+      "Creamy",
+      "Dry",
+      "Sweet",
+      "Veggie",
+      "Minty",
+      "Tart",
+      "Herbaceous",
+      "Meringue-y",
+      "Salty",
+      "Smoky",
+      "Spicy"
+    ]
+  },
+  {
+    "name": "Color",
+    "lists": [
+      "Blue",
+      "Red",
+      "Green"
+    ]
+  },
+  {
+    "name": "Serving Style",
+    "lists": [
+      "Fizzy",
+      "Frozen",
+      "Rocks",
+      "Milkshakes"
+    ]
+  },
+  {
+    "name": "Time of Day",
+    "lists": [
+      "Preprandial",
+      "Postprandial",
+      "Breakfast",
+      "Dessert",
+      "Nite nite"
+    ]
+  },
+  {
+    "name": "Price",
+    "lists": [
+      "Cheap (potentially)",
+      "Expensive"
+    ]
+  },
+  {
+    "name": "Classics",
+    "lists": [
+      "Manhattan’s progeny",
+      "Margaritas and spin-offs",
+      "Martinis and their like",
+      "Negroni-inspired"
+    ]
+  },
+  {
+    "name": "Difficulty",
+    "lists": [
+      "Simple",
+      "Complicated"
+    ]
+  },
+  {
+    "name": "Wine-Based",
+    "lists": [
+      "Wine",
+      "Sherry",
+      "Port",
+      "Champagne"
+    ]
+  },
+  {
+    "name": "Coffee-Based",
+    "lists": [
+      "Coffee",
+      "Espresso"
+    ]
+  },
+  {
+    "name": "Holiday",
+    "lists": [
+      "Valentine’s Day",
+      "Fat Tuesday",
+      "St. Patrick’s Day",
+      "Cinco de Mayo",
+      "Independence Day",
+      "Halloween",
+      "Thanksgiving",
+      "Hanukkah, Christmas, Kwanzaa, and New Year’s Eve"
+    ]
+  },
+  {
+    "name": "Locale",
+    "lists": [
+      "Urban",
+      "Southern"
+    ]
+  },
+  {
+    "name": "Intensity",
+    "lists": [
+      "Gentle",
+      "Potent"
+    ]
+  },
+  {
+    "name": "Theme",
+    "lists": [
+      "Movies",
+      "Tiki time",
+      "Names"
+    ]
+  },
+  {
+    "name": "The drink to have when you're in...",
+    "lists": [
+      "Alaska",
+      "Astoria, Queens",
+      "Bahamas",
+      "Bermuda",
+      "Boston",
+      "Brazil",
+      "Bronx, The",
+      "Brooklyn",
+      "Canada",
+      "Catalina",
+      "Chile",
+      "Cincinnati",
+      "Colorado",
+      "Cuba",
+      "Delaware",
+      "Dominican Republic, The",
+      "Dublin, Ireland",
+      "Florence",
+      "Florida",
+      "France",
+      "Gramercy Park",
+      "Havana",
+      "Hawaii",
+      "Hollywood",
+      "Ireland",
+      "Jamaica",
+      "Japan",
+      "Kentucky",
+      "Las Vegas",
+      "Lexington, KY",
+      "London",
+      "Long Island",
+      "Los Angeles",
+      "Louisville, KY",
+      "Lynchburg, TN",
+      "Malibu",
+      "Martinique",
+      "Mexico",
+      "New Orleans",
+      "New York",
+      "Oakland, CA",
+      "Paris",
+      "Peru",
+      "Philadelphia",
+      "Polynesia",
+      "Puerto Rico",
+      "Quebec",
+      "San Antonio",
+      "San Francisco",
+      "Singapore",
+      "Spain",
+      "St. Lucia",
+      "St. Thomas",
+      "Tennessee",
+      "Toronto",
+      "Vancouver"
+    ]
+  }
+]
