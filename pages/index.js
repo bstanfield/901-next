@@ -1,38 +1,36 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { getCategories } from '../lib/data'
+import { getData } from '../lib/data'
 import Link from 'next/link'
-import Date from '../components/date'
 
 export async function getStaticProps() {
-  const allCategories = getCategories()
+  const data = getData()
+
   return {
     props: {
-      allCategories
+      data
     }
   }
 }
 
-export default function Home({ allCategories }) {
+export default function Home({ data }) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>901 Cocktails</p>
         <p>
-          (This is a sample website - you’ll be building a site like this on{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+          Next.js app for 901 Very Good Cocktails
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>901 Cocktails</h2>
+        <h2 className={utilStyles.headingLg}>Choose a category</h2>
         <ul className={utilStyles.list}>
-          {allCategories.map(({ name, lists }) => (
+          {data.categories.map(({ name, lists }) => (
             <li className={utilStyles.listItem}>
-              <Link href="/articles/[id]" as={`/articles/thing`}>
+              <Link href="/search?category=[id]" as={`/search?category=${name}`}>
                 <a>{name}</a>
               </Link>
               <br />
