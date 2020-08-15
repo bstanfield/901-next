@@ -27,7 +27,7 @@ export default function Layout({ children, home }) {
           <>
             <img
               src="/images/profile.jpg"
-              className="headerHomeImage borderCircle"}
+              className="headerHomeImage borderCircle"
               alt={name}
             />
             <h1 className="heading2Xl">{name}</h1>
