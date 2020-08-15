@@ -16,5 +16,8 @@
     "react-dom": "^16.13.1",
     "remark": "^12.0.1",
     "remark-html": "^12.0.0"
+  },
+  "devDependencies": {
+    "style-loader": "^1.2.1"
   }
 }
