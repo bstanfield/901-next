@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-const name = '901'
+const name = '🍸 901'
 export const siteTitle = '901 Next'
 
 export default function Layout({ children, home }) {
@@ -25,24 +25,10 @@ export default function Layout({ children, home }) {
       <header className="header">
         {home ? (
           <>
-            <img
-              src="images/profile.jpg"
-              className="headerHomeImage borderCircle"
-              alt={name}
-            />
             <h1 className="heading2Xl">{name}</h1>
           </>
         ) : (
             <>
-              <Link href="/">
-                <a>
-                  <img
-                    src="/images/profile.jpg"
-                    className="headerImage borderCircle"
-                    alt={name}
-                  />
-                </a>
-              </Link>
               <h2 className="headingLg">
                 <Link href="/">
                   <a className="colorInherit">{name}</a>

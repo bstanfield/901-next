@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
 import Link from 'next/link'
+import Cocktail from '../components/cocktail'
 
 export async function getStaticProps() {
   const data = getData()
@@ -14,6 +15,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ data }) {
+  console.log('data.cocktails: ', data.cocktails);
   return (
     <Layout home>
       <Head>
@@ -25,17 +27,8 @@ export default function Home({ data }) {
         </p>
       </section>
       <section className="headingMd padding1px">
-        <h2 className="headingLg">Choose a category</h2>
-        <ul className="list">
-          {data.categories.map(({ name, lists }) => (
-            <li className="listItem">
-              <Link href="/search?category=[id]" as={`/search?category=${name}`}>
-                <a>{name}</a>
-              </Link>
-              <br />
-            </li>
-          ))}
-        </ul>
+        <h2 className="headingLg">Cocktails</h2>
+        {data.cocktails.map((cocktail) => (<Cocktail cocktail={cocktail} />))}
       </section>
     </Layout>
   )
