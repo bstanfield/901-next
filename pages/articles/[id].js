@@ -1,8 +1,6 @@
 import Layout from '../../components/layout'
 import Head from 'next/head'
 import { getAllArticleIds, getArticleData } from '../../lib/data'
-import Date from '../../components/date'
-// import utilStyles from '../../styles/utils.module.css'
 
 export default function Article({ article }) {
   const categories = JSON.parse(article.fileContents);
