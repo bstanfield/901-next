@@ -22,7 +22,7 @@ export default function Home({ data }) {
       </Head>
       <section className={utilStyles.headingMd}>
         <p>
-          Next.js app for 901 Very Good Cocktails
+          Next.js app for 901 Cocktails
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
