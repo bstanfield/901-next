@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-const name = '🍸 901'
+const name = '🍸 901 Cocktails'
 export const siteTitle = '901 Next'
 
 export default function Layout({ children, home }) {

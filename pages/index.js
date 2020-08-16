@@ -111,10 +111,11 @@ export default function Home({ data }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className="headingMd">
+      <section className="headingMd intro">
         <p>
-          Next.js app for 901 Cocktails
+          Reviews and data by <a target="_blank" href="http://www.901cocktails.com/about.html">Stew Ellington</a>.
         </p>
+        <p>Website built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
       </section>
       <section className="headingMd padding1px">
         <h2 className="headingLg">({cocktailsToDisplay.length}) Cocktails</h2>
