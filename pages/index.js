@@ -125,7 +125,7 @@ export default function Home({ data }) {
           className="basic-multi-select"
           classNamePrefix="select"
           formatGroupLabel={formatGroupLabel}
-          placeholder="Filter by ingredient or drink name"
+          placeholder="Filter by ingredient or name"
           onChange={values => {
             if (values === null) {
               setFilters([])
