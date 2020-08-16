@@ -31,9 +31,22 @@ const formatGroupLabel = data => (
   </div>
 );
 
-const getRelevantCocktails = (data, filter) => {
-  const relevantCocktailsByIngredients = data.cocktails.filter(cocktail => cocktail.ingredients.includes(filter))
-  return relevantCocktailsByIngredients
+const getRelevantCocktails = (data, filters) => {
+  console.log('filters: ', filters)
+  const relevantCocktails = data.cocktails.filter(cocktail => {
+    let count = 0
+    let filterCount = filters.length
+    for (const filter in filters) {
+      if (cocktail.ingredients.includes(filters[filter]) || cocktail.name.includes(filters[filter])) {
+        count++
+      }
+    }
+    if (filterCount === count) {
+      return true
+    }
+    return false
+  })
+  return relevantCocktails
 }
 
 export default function Home({ data }) {
@@ -53,23 +66,22 @@ export default function Home({ data }) {
   }, [])
 
   useEffect(() => {
-    if (filters.length === 0) return;
+    if (filters.length === 0) return setCocktailsToDisplay(data.cocktails);
     const getCocktails = () => {
-      const relevantCocktails = filters.map(filter => getRelevantCocktails(data, filter)).flat()
-      const reducer = (accArr, currentCocktail) => {
-        if (accArr.length === 0) {
-          accArr.push(currentCocktail)
-          return accArr
-        }
-        const truthyFilter = accArr.filter((cocktail) => cocktail.name === currentCocktail.name)
-        if (truthyFilter.length === 0) {
-          accArr.push(currentCocktail)
-        }
-        return accArr
-      }
-      const noDuplicates = relevantCocktails.reduce(reducer, [])
-      // console.log('no duplicates: ', noDuplicates)
-      setCocktailsToDisplay(noDuplicates)
+      const relevantCocktails = getRelevantCocktails(data, filters)
+      // const reducer = (accArr, currentCocktail) => {
+      //   if (accArr.length === 0) {
+      //     accArr.push(currentCocktail)
+      //     return accArr
+      //   }
+      //   const truthyFilter = accArr.filter((cocktail) => cocktail.name === currentCocktail.name)
+      //   if (truthyFilter.length === 0) {
+      //     accArr.push(currentCocktail)
+      //   }
+      //   return accArr
+      // }
+      // const noDuplicates = relevantCocktails.reduce(reducer, [])
+      setCocktailsToDisplay(relevantCocktails)
     }
     getCocktails()
 
@@ -122,6 +134,7 @@ export default function Home({ data }) {
             setFilters(filters)
           }}
         />
+        <br />
         {/* <Categories setFilter={setFilters} categories={data.categories} /> */}
         <Cocktails displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
       </section>
