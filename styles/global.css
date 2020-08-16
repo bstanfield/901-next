@@ -138,3 +138,45 @@ label {
 .sortingButton:hover {
   opacity: 0.7;
 }
+
+.scrollToTop {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 12px 24px;
+  background-color: white;
+  color: #0070f3;
+  cursor: pointer;
+}
+
+.cocktailName {
+  margin: 0;
+  padding: 0;
+  font-size: 26px;
+}
+
+.redStar {
+  font-size: 12px;
+  color: white;
+  background-color: #D4342A;
+  opacity: 1;
+  padding: 2px 3px;
+  margin: 1.5px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.fadedStar {
+  opacity: .2;
+}
+
+
+.halfStar {
+  background-color: white;
+  opacity: 0.95;
+  position: absolute;
+  width: 15px;
+  height: 20px;
+  right: -5px;
+  bottom: 0px;
+}

@@ -1,53 +1,12 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
+import { sortCocktails, watchScroll } from '../lib/helpers'
+import { groupBadgeStyles, formatGroupLabel, groupStyles } from '../lib/search'
 import Cocktails from '../components/cocktails'
 import { useState, useEffect } from 'react'
 import Select from 'react-select';
 import SortingButton from '../components/sortingButton'
-
-const groupStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-};
-const groupBadgeStyles = {
-  backgroundColor: '#EBECF0',
-  borderRadius: '2em',
-  color: '#172B4D',
-  display: 'inline-block',
-  fontSize: 12,
-  fontWeight: 'normal',
-  lineHeight: '1',
-  minWidth: 1,
-  padding: '0.16666666666667em 0.5em',
-  textAlign: 'center',
-};
-
-const formatGroupLabel = data => (
-  <div style={groupStyles}>
-    <span>{data.label}</span>
-    <span style={groupBadgeStyles}>{data.options.length}</span>
-  </div>
-);
-
-const sortCocktails = (cocktails, sortingRule) => {
-  if (sortingRule.toLowerCase() === 'alphabetical') {
-    const sortedCocktails = cocktails.sort((a, b) => {
-      if (a.name < b.name) { return -1 }
-      if (a.name > b.name) { return 1 }
-      return 0
-    })
-    return sortedCocktails
-  } else if (sortingRule.toLowerCase() === 'highest_rated') {
-    const sortedCocktails = cocktails.sort((a, b) => {
-      if (a.rating > b.rating) { return - 1 }
-      if (a.rating < b.rating) { return 1 }
-      return 0
-    })
-    return sortedCocktails
-  }
-}
 
 const getRelevantCocktails = (data, filters) => {
   const relevantCocktails = data.cocktails.filter(cocktail => {
@@ -73,14 +32,7 @@ export default function Home({ data }) {
   const [sortBy, setSortBy] = useState('alphabetical')
 
   useEffect(() => {
-    document.addEventListener('scroll', () => {
-      if (window.scrollY > 4000 && window.scrollY < 10000) {
-        setDisplayMaximum(400)
-      }
-      if (window.scrollY > 10000) {
-        setDisplayMaximum(901)
-      }
-    });
+    watchScroll(document, setDisplayMaximum)
   }, [])
 
   useEffect(() => {
