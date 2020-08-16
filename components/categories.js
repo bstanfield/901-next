@@ -4,4 +4,3 @@ export default function Categories({ categories, setFilter }) {
     categories.map((category, index) => (<a onClick={() => setFilter(category.lists)}><span key={index} className="categoryButton">{category.name}</span></a>))
   )
 }
-

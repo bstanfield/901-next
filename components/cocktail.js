@@ -17,6 +17,19 @@ export default function Cocktail({ cocktail }) {
   }
 
   return (
-    <strong><p>{cocktail.name} <span style={{ opacity: opacity, fontSize: 14 }}>{rating}</span></p></strong >
+    <div>
+      <strong>
+        <p>{cocktail.name}
+          <span style={{ marginLeft: 6, opacity: opacity, fontSize: 14, }}>
+            {rating}
+          </span>
+          <ul style={{ margin: 0, paddingLeft: 32, paddingTop: 8 }}>
+            {cocktail.lines.map((line) => <li style={{ fontSize: 16, fontWeight: 400 }}>{line}</li>)}
+          </ul>
+        </p>
+      </strong>
+
+    </div>
+
   )
 }

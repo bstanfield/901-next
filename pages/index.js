@@ -4,10 +4,36 @@ import { getData } from '../lib/data'
 import Cocktails from '../components/cocktails'
 import { useState, useEffect } from 'react'
 import Categories from '../components/categories'
+import Select from 'react-select';
+
+const groupStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
+const groupBadgeStyles = {
+  backgroundColor: '#EBECF0',
+  borderRadius: '2em',
+  color: '#172B4D',
+  display: 'inline-block',
+  fontSize: 12,
+  fontWeight: 'normal',
+  lineHeight: '1',
+  minWidth: 1,
+  padding: '0.16666666666667em 0.5em',
+  textAlign: 'center',
+};
+
+const formatGroupLabel = data => (
+  <div style={groupStyles}>
+    <span>{data.label}</span>
+    <span style={groupBadgeStyles}>{data.options.length}</span>
+  </div>
+);
 
 const getRelevantCocktails = (data, filter) => {
-  const relevantCocktailsByTerm = data.cocktails.filter(cocktail => cocktail.lists.includes(filter))
-  return relevantCocktailsByTerm
+  const relevantCocktailsByIngredients = data.cocktails.filter(cocktail => cocktail.ingredients.includes(filter))
+  return relevantCocktailsByIngredients
 }
 
 export default function Home({ data }) {
@@ -42,11 +68,31 @@ export default function Home({ data }) {
         return accArr
       }
       const noDuplicates = relevantCocktails.reduce(reducer, [])
+      // console.log('no duplicates: ', noDuplicates)
       setCocktailsToDisplay(noDuplicates)
     }
     getCocktails()
 
   }, [filters])
+
+  const ingredientsInSearchFormat = data.ingredients.map((ingredient) => {
+    return { value: ingredient, label: ingredient, color: '#00B8D9', isFixed: true }
+  })
+
+  const cocktailNamesInSearchFormat = data.cocktails.map((cocktail) => {
+    return { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
+  })
+
+  const groupedOptions = [
+    {
+      label: 'Ingredients',
+      options: ingredientsInSearchFormat,
+    },
+    {
+      label: 'Cocktails',
+      options: cocktailNamesInSearchFormat,
+    }
+  ];
 
   return (
     <Layout home>
@@ -60,7 +106,23 @@ export default function Home({ data }) {
       </section>
       <section className="headingMd padding1px">
         <h2 className="headingLg">({cocktailsToDisplay.length}) Cocktails</h2>
-        <Categories setFilter={setFilters} categories={data.categories} />
+        <Select
+          isMulti
+          name="search-bar"
+          options={groupedOptions}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          formatGroupLabel={formatGroupLabel}
+          onChange={values => {
+            if (values === null) {
+              setFilters([])
+              return
+            }
+            const filters = values.map(value => value.value)
+            setFilters(filters)
+          }}
+        />
+        {/* <Categories setFilter={setFilters} categories={data.categories} /> */}
         <Cocktails displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
       </section>
     </Layout>
@@ -72,7 +134,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      data
+      data,
     }
   }
 }
