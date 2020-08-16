@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
-import Link from 'next/link'
-import Cocktail from '../components/cocktail'
+import Cocktails from '../components/cocktails'
+import { useState, useEffect } from 'react'
 
 export async function getStaticProps() {
   const data = getData()
@@ -15,7 +15,20 @@ export async function getStaticProps() {
 }
 
 export default function Home({ data }) {
-  console.log('data.cocktails: ', data.cocktails);
+  const [displayMaximum, setDisplayMaximum] = useState(100)
+
+  useEffect(() => {
+    document.addEventListener('scroll', () => {
+      console.log('scroll y: ', window.scrollY)
+      if (window.scrollY > 4000 && window.scrollY < 10000) {
+        setDisplayMaximum(400)
+      }
+      if (window.scrollY > 10000) {
+        setDisplayMaximum(1000)
+      }
+    });
+  }, [])
+
   return (
     <Layout home>
       <Head>
@@ -28,7 +41,7 @@ export default function Home({ data }) {
       </section>
       <section className="headingMd padding1px">
         <h2 className="headingLg">Cocktails</h2>
-        {data.cocktails.map((cocktail) => (<Cocktail cocktail={cocktail} />))}
+        <Cocktails displayMaximum={displayMaximum} cocktails={data.cocktails} />
       </section>
     </Layout>
   )
