@@ -104,3 +104,18 @@ img {
 .backToHome {
   margin: 3rem 0 0;
 }
+
+.categoryButton {
+  display: inline-block;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 6px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.categoryButton:hover {
+  background-color: #eee;
+}

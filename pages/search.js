@@ -1,25 +1,65 @@
 import Layout from '../components/layout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { getData } from '../lib/data'
+import { useState, useEffect } from 'react'
+import Cocktails from '../components/cocktails'
+import Categories from '../components/categories'
 
-export default function Results() {
+const getRelevantCocktails = (data, filter) => {
+  const relevantCocktailsByTerm = data.cocktails.filter(cocktail => cocktail.lists.includes(filter))
+  return relevantCocktailsByTerm
+}
+
+export default function Search({ data }) {
+  const [key, setKey] = useState(0)
   const router = useRouter()
-  const { category, ingredients, name } = router.query
+  let relevantCocktails = [];
+  console.log('key: ', router.query)
+
+  useEffect(() => {
+    console.log('setting key: ', router.query.key)
+    setKey(router.query.key)
+  }, [router])
+
+  useEffect(() => {
+    if (router.query.key !== undefined) {
+      const getCocktails = () => {
+        const filters = router.query.terms.split(',')
+        const relevantCocktails = filters.map(filter => getRelevantCocktails(data, filter)).flat()
+        console.log('relevant: ', relevantCocktails)
+      }
+      getCocktails()
+    }
+  }, [key])
+
   return (
-    <Layout>
+    <Layout home>
       <Head>
         <title>901 Search</title>
       </Head>
-      <article>
-        <h1>Category: {category}</h1>
-        Put data here:
-        <ul>
-          {/* {categories.map((category) => (<li>{category.name}</li>))} */}
-          <li>No data yet</li>
-        </ul>
-      </article>
+      <section className="headingMd">
+        <p>
+          Next.js app for 901 Cocktails
+      </p>
+      </section>
+      <section className="headingMd padding1px">
+        <h2 className="headingLg">({relevantCocktails.length}) Cocktails</h2>
+        <Categories categories={data.categories} />
+        <Cocktails cocktails={relevantCocktails} />
+      </section>
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  const data = getData()
+
+  return {
+    props: {
+      data
+    }
+  }
 }
 
 // export async function getStaticPaths() {
@@ -27,12 +67,5 @@ export default function Results() {
 //   return {
 //     paths,
 //     fallback: false
-//   }
-// }
-
-// export async function getStaticProps(context) {
-//   console.log('context: ', context);
-//   return {
-//     props: context, // will be passed to the page component as props
 //   }
 // }
