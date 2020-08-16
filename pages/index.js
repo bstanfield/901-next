@@ -69,18 +69,6 @@ export default function Home({ data }) {
     if (filters.length === 0) return setCocktailsToDisplay(data.cocktails);
     const getCocktails = () => {
       const relevantCocktails = getRelevantCocktails(data, filters)
-      // const reducer = (accArr, currentCocktail) => {
-      //   if (accArr.length === 0) {
-      //     accArr.push(currentCocktail)
-      //     return accArr
-      //   }
-      //   const truthyFilter = accArr.filter((cocktail) => cocktail.name === currentCocktail.name)
-      //   if (truthyFilter.length === 0) {
-      //     accArr.push(currentCocktail)
-      //   }
-      //   return accArr
-      // }
-      // const noDuplicates = relevantCocktails.reduce(reducer, [])
       setCocktailsToDisplay(relevantCocktails)
     }
     getCocktails()
