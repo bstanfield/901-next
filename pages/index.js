@@ -3,8 +3,8 @@ import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
 import Cocktails from '../components/cocktails'
 import { useState, useEffect } from 'react'
-import Categories from '../components/categories'
 import Select from 'react-select';
+import SortingButton from '../components/sortingButton'
 
 const groupStyles = {
   display: 'flex',
@@ -31,8 +31,25 @@ const formatGroupLabel = data => (
   </div>
 );
 
+const sortCocktails = (cocktails, sortingRule) => {
+  if (sortingRule.toLowerCase() === 'alphabetical') {
+    const sortedCocktails = cocktails.sort((a, b) => {
+      if (a.name < b.name) { return -1 }
+      if (a.name > b.name) { return 1 }
+      return 0
+    })
+    return sortedCocktails
+  } else if (sortingRule.toLowerCase() === 'highest_rated') {
+    const sortedCocktails = cocktails.sort((a, b) => {
+      if (a.rating > b.rating) { return - 1 }
+      if (a.rating < b.rating) { return 1 }
+      return 0
+    })
+    return sortedCocktails
+  }
+}
+
 const getRelevantCocktails = (data, filters) => {
-  console.log('filters: ', filters)
   const relevantCocktails = data.cocktails.filter(cocktail => {
     let count = 0
     let filterCount = filters.length
@@ -53,6 +70,7 @@ export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [filters, setFilters] = useState([])
+  const [sortBy, setSortBy] = useState('alphabetical')
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
@@ -69,11 +87,18 @@ export default function Home({ data }) {
     if (filters.length === 0) return setCocktailsToDisplay(data.cocktails);
     const getCocktails = () => {
       const relevantCocktails = getRelevantCocktails(data, filters)
-      setCocktailsToDisplay(relevantCocktails)
+      const sortedCocktails = sortCocktails(relevantCocktails, sortBy)
+      setCocktailsToDisplay(sortedCocktails.flat())
     }
     getCocktails()
 
   }, [filters])
+
+  useEffect(() => {
+    const sortedCocktails = sortCocktails(cocktailsToDisplay, sortBy)
+    setCocktailsToDisplay(sortedCocktails.flat())
+
+  }, [sortBy])
 
   const ingredientsInSearchFormat = data.ingredients.map((ingredient) => {
     return { value: ingredient, label: ingredient, color: '#00B8D9', isFixed: true }
@@ -106,25 +131,40 @@ export default function Home({ data }) {
         <p>Website built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
       </section>
       <section className="headingMd padding1px">
-        <h2 className="headingLg">({cocktailsToDisplay.length}) Cocktails</h2>
-        <Select
-          isMulti
-          name="search-bar"
-          options={groupedOptions}
-          className="basic-multi-select"
-          classNamePrefix="select"
-          formatGroupLabel={formatGroupLabel}
-          placeholder="Filter by ingredient or name"
-          onChange={values => {
-            if (values === null) {
-              setFilters([])
-              return
+        <div style={{ marginBottom: 24 }}>
+          <h2 className="headingLg">({cocktailsToDisplay.length}) Cocktails</h2>
+          <Select
+            isMulti
+            styles={
+              {
+                option: (styles, state) => ({
+                  ...styles,
+                  cursor: 'pointer',
+                }),
+                control: (styles) => ({
+                  ...styles,
+                  cursor: 'pointer',
+                }),
+              }
             }
-            const filters = values.map(value => value.value)
-            setFilters(filters)
-          }}
-        />
-        <br />
+            name="search-bar"
+            options={groupedOptions}
+            className="basic-multi-select"
+            classNamePrefix="select"
+            formatGroupLabel={formatGroupLabel}
+            placeholder="Filter by ingredient or name"
+            onChange={values => {
+              if (values === null) {
+                setFilters([])
+                return
+              }
+              const filters = values.map(value => value.value)
+              setFilters(filters)
+            }}
+          />
+          <SortingButton label="Alphabetical" value="alphabetical" selected={sortBy === "alphabetical"} setSortBy={setSortBy} />
+          <SortingButton label="Rating" value="highest_rated" selected={sortBy === "highest_rated"} setSortBy={setSortBy} />
+        </div>
         {/* <Categories setFilter={setFilters} categories={data.categories} /> */}
         <Cocktails displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
       </section>

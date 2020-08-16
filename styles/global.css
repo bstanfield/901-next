@@ -129,3 +129,12 @@ img {
 .categoryButton:hover {
   background-color: #eee;
 }
+
+label {
+  padding-left: 4px;
+  font-size: 16px;
+}
+
+.sortingButton:hover {
+  opacity: 0.7;
+}
