@@ -2,8 +2,8 @@ import Layout from '../../components/layout'
 import Head from 'next/head'
 import { getAllCocktailNames, getCocktailData } from '../../lib/data'
 
-export default function Cocktail({ params }) {
-  const cocktail = await getCocktailData(params.name)[0]
+export default function Cocktail({ cocktail }) {
+  // const cocktail = await getCocktailData(params.name)[0]
   return (
     <Layout>
       <Head>
@@ -17,4 +17,21 @@ export default function Cocktail({ params }) {
       </article>
     </Layout>
   )
+}
+
+// export async function getStaticPaths() {
+//   const paths = getAllCocktailNames()
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
+
+export async function getServerSideProps(context) {
+  const cocktail = await getCocktailData(context.params.name)[0]
+  return {
+    props: {
+      cocktail
+    }
+  }
 }
