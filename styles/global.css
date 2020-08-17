@@ -153,13 +153,14 @@ label {
 .cocktailName {
   margin: 0;
   padding: 0;
-  font-size: 26px;
+  font-size: 28px;
+  line-height: 32px;
 }
 
-.redStar {
+.star {
   font-size: 12px;
   color: white;
-  background-color: #D4342A;
+  background-color: #50B27F;
   opacity: 1;
   padding: 2px 3px;
   margin: 1.5px;

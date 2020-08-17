@@ -5,37 +5,38 @@ import { differenceInMilliseconds } from 'date-fns';
 export default function Cocktail({ cocktail }) {
   let rating
   if (cocktail.rating == 4.0) {
-    rating = <><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar fadedStar">★</span></>
+    rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star fadedStar">★</span></>
   } else if (cocktail.rating == 4.5) {
-    rating = <><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★<span className="halfStar"></span></span></>
+    rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★<span className="halfStar"></span></span></>
   } else {
-    rating = <><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span></>
+    rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span></>
   }
 
   const getGlassTypeEmoji = (cocktail) => {
     if (cocktail.description.includes("rocks")) {
-      return '🥃  '
+      return <span style={{ fontSize: 18 }}>🥃</span>
     } else if (cocktail.description.includes("cocktail glass")) {
-      return '🍸  '
+      return '🍸'
     } else if (cocktail.description.includes("martini glass")) {
-      return '🍸  '
+      return '🍸'
     } else if (cocktail.description.includes("pint glass")) {
-      return '🍺  '
+      return '🍺'
     } else if (cocktail.description.includes("highball")) {
-      return '🥛  '
+      return '🥛'
     } else if (cocktail.description.includes("wine glass")) {
-      return '🍷  '
+      return '🍷'
     } else if (cocktail.description.includes("champagne flute")) {
-      return '🥂  '
+      return '🥂'
     }
   }
 
   return (
     <>
-      <div style={{ paddingLeft: 16, paddingTop: 16, paddingBottom: 8, paddingRight: 16 }}>
+      <div style={{ paddingLeft: 16, paddingTop: 16, paddingBottom: 8, paddingRight: 16, position: 'relative' }}>
+        <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div>
         <strong>
-          <p className="cocktailName">{getGlassTypeEmoji(cocktail)}{cocktail.name}</p>
-          <div>
+          <p className="cocktailName">{cocktail.name}</p>
+          <div style={{ width: 140, position: 'relative' }}>
             {rating}
           </div>
           <ul style={{ margin: 0, paddingLeft: 32, paddingTop: 12 }}>
