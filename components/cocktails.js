@@ -10,7 +10,7 @@ export default function Cocktails({ cocktails, lists, displayMaximum }) {
   let cocktailsToDisplay = cocktails.slice(0, displayMaximum || 901)
 
   return (
-    cocktailsToDisplay.map((cocktail) => (<Cocktail lists={lists} cocktail={cocktail} />))
+    cocktailsToDisplay.map((cocktail) => (<Cocktail cocktail={cocktail} />))
   )
 }
 

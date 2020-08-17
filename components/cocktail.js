@@ -22,7 +22,7 @@ export default function Cocktail({ cocktail, lists }) {
           </ul>
 
           <i><p style={{ fontSize: 18, fontWeight: 400, fontFamily: 'Georgia, Sanserif' }}>"{cocktail.description}"</p></i>
-          <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: lists.includes(list) ? 600 : 400 }}>{lists.includes(list) && '✔ '}{list}</span>)}</div>
+          {/* <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: lists.includes(list) ? 600 : 400 }}>{lists.includes(list) && '✔ '}{list}</span>)}</div> */}
         </strong>
       </div>
       <hr />

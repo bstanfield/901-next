@@ -14,7 +14,8 @@ export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [filters, setFilters] = useState([]) // from search bar
-  const [lists, setLists] = useState([])
+  const [values, setValues] = useState([])
+  // const [lists, setLists] = useState([])
 
   // "infinite scroll"
   useEffect(() => {
@@ -23,9 +24,9 @@ export default function Home({ data }) {
 
   // include sortBy if sorting returns
   useEffect(() => {
-    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, lists, 'alphabetical')
+    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, 'alphabetical')
     setCocktailsToDisplay(cocktailsToDisplay)
-  }, [filters, lists])
+  }, [filters])
 
   const ingredientsInSearchFormat = data.ingredients.map((ingredient) => {
     return { value: ingredient, label: ingredient, color: '#00B8D9', isFixed: true }
@@ -35,10 +36,25 @@ export default function Home({ data }) {
     return { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
   })
 
+  const getCategoriesInSearchFormat = (categories) => {
+    const lists = []
+    for (const category in categories) {
+      categories[category].lists.map(list => lists.push(list))
+    }
+    const correctFormat = lists.map(list => ({ value: list, label: list, color: '#00B8D9', isFixed: true }))
+    return correctFormat
+  }
+
+  const listsInSearchFormat = getCategoriesInSearchFormat(data.categories)
+
   const groupedOptions = [
     {
       label: 'Ingredients',
       options: ingredientsInSearchFormat,
+    },
+    {
+      label: 'Categories',
+      options: listsInSearchFormat,
     },
     {
       label: 'Cocktails',
@@ -81,34 +97,33 @@ export default function Home({ data }) {
             options={groupedOptions}
             className="basic-multi-select"
             classNamePrefix="select"
+            value={values}
             formatGroupLabel={formatGroupLabel}
             placeholder="Search for ingredients or name"
-            onChange={values => {
-              if (values === null) {
+            onChange={vals => {
+              if (vals === null) {
                 setFilters([])
+                setValues([])
                 return
               }
-              const filters = values.map(value => value.value)
-              console.log('filters: ', filters)
+              const filters = vals.map(val => val.value)
               setFilters(filters)
+              setValues(vals)
             }}
           />
-          {/* <div className="sortingOptions">
-            <label className="topLabel">Sort by</label>
-            <SortingButton label="A-Z" value="alphabetical" selected={sortBy === "alphabetical"} setSortBy={setSortBy} />
-            <SortingButton label="★ Rating" value="highest_rated" selected={sortBy === "highest_rated"} setSortBy={setSortBy} />
-          </div> */}
           <div className="listOptions">
-            <label className="topLabel">Filters</label>
-            <ListButton label="Spicy" lists={lists} setLists={setLists} />
-            <ListButton label="Sweet" lists={lists} setLists={setLists} />
-            <ListButton label="Simple" lists={lists} setLists={setLists} />
-            <ListButton label="Cheap (potentially)" lists={lists} setLists={setLists} />
-            <ListButton label="Mad men" lists={lists} setLists={setLists} />
+            <label className="topLabel">Suggestions</label>
+            <ListButton label="Sweet" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Simple" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Cheap (potentially)" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Mad men" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Tiki time" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            {/* <ListButton label="Simple" lists={lists} setLists={setLists} />
+            <ListButton label="Cheap (potentially)" lists={lists} setLists={setLists} /> */}
           </div>
         </div>
         {/* <Categories setFilter={setFilters} categories={data.categories} /> */}
-        <Cocktails displayMaximum={displayMaximum} lists={lists} cocktails={cocktailsToDisplay} />
+        <Cocktails displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
       </section>
     </Layout>
   )
