@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
-import { sortCocktails, watchScroll, getRelevantCocktails, getRelevantCocktailsByList } from '../lib/helpers'
+import { watchScroll, getRelevantCocktails } from '../lib/helpers'
 import { formatGroupLabel } from '../lib/search'
 import Cocktails from '../components/cocktails'
 import { useState, useEffect } from 'react'
@@ -16,32 +16,14 @@ export default function Home({ data }) {
   const [sortBy, setSortBy] = useState('alphabetical')
   const [list, setList] = useState(null)
 
-  // TODO: Combine fn for taking in lists, sorts, and filters
   useEffect(() => {
     watchScroll(document, setDisplayMaximum)
   }, [])
 
   useEffect(() => {
-    if (filters.length === 0) return setCocktailsToDisplay(data.cocktails);
-    const getCocktails = () => {
-      const relevantCocktails = getRelevantCocktails(data.cocktails, filters)
-      const sortedCocktails = sortCocktails(relevantCocktails, sortBy)
-      setCocktailsToDisplay(sortedCocktails.flat())
-    }
-    getCocktails()
-  }, [filters])
-
-  useEffect(() => {
-    const sortedCocktails = sortCocktails(cocktailsToDisplay, sortBy)
-    setCocktailsToDisplay(sortedCocktails.flat())
-  }, [sortBy])
-
-  useEffect(() => {
-    if (list) {
-      const relevantCocktails = getRelevantCocktailsByList(data.cocktails, list)
-      setCocktailsToDisplay(relevantCocktails)
-    }
-  }, [list])
+    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, list, sortBy)
+    setCocktailsToDisplay(cocktailsToDisplay)
+  }, [filters, list, sortBy])
 
   const ingredientsInSearchFormat = data.ingredients.map((ingredient) => {
     return { value: ingredient, label: ingredient, color: '#00B8D9', isFixed: true }
@@ -71,7 +53,7 @@ export default function Home({ data }) {
         <p>
           Reviews and data by <a target="_blank" href="http://www.901cocktails.com/about.html">Stew Ellington</a>.
         </p>
-        <p>Website built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
+        <p>App built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
       </section>
       <section className="headingMd padding1px">
         <div style={{ marginBottom: 24 }}>
@@ -114,8 +96,10 @@ export default function Home({ data }) {
             <SortingButton label="★ Rating" value="highest_rated" selected={sortBy === "highest_rated"} setSortBy={setSortBy} />
           </div>
           <div className="listOptions">
-            <label className="topLabel">Ideas</label>
+            <label className="topLabel">Lists</label>
             <ListButton label="Spicy" value="Spicy" selected={list === "Spicy"} setList={setList} />
+            <ListButton label="Sweet" value="Sweet" selected={list === "Sweet"} setList={setList} />
+            <ListButton label="Simple" value="Simple" selected={list === "Simple"} setList={setList} />
           </div>
         </div>
         {/* <Categories setFilter={setFilters} categories={data.categories} /> */}

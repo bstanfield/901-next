@@ -54,6 +54,7 @@ img {
 }
 
 .intro p {
+  font-size: 18px;
   margin: 0;
   padding: 0;
 }
@@ -92,7 +93,7 @@ img {
 .container {
   max-width: 36rem;
   padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  margin: 1.5rem auto 6rem;
 }
 
 .header {
@@ -192,12 +193,12 @@ label {
   display: inline-block;
   border-right: 2px solid #eee;
   margin: 10px;
-  margin-top: 28px;
+  margin-top: 32px;
   position: relative;
 }
 
 .listOptions {
-  margin-top: 28px;
+  margin-top: 32px;
   display: inline-block;
   position: relative;
 }
