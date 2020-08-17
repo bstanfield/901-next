@@ -69,7 +69,7 @@ export default function Home({ data }) {
       </Head>
       <section className="headingMd intro">
         <p>
-          Reviews and data by <a target="_blank" href="http://www.901cocktails.com/about.html">Stew Ellington</a>.
+          Data from the book <a target="_blank" href="http://www.901cocktails.com">901 Very Good Cocktails</a>.
         </p>
         <p>App built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
       </section>
@@ -134,7 +134,7 @@ export default function Home({ data }) {
         </div>
         <Cocktails displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
       </section>
-    </Layout>
+    </Layout >
   )
 }
 

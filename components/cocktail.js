@@ -1,4 +1,4 @@
-export default function Cocktail({ cocktail, filters }) {
+export default function Cocktail({ cocktail, filters, index }) {
   let rating
   if (cocktail.rating == 4.0) {
     rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star fadedStar">★</span></>
@@ -10,7 +10,7 @@ export default function Cocktail({ cocktail, filters }) {
 
   return (
     <>
-      <div style={{ paddingLeft: 16, paddingTop: 16, paddingBottom: 8, paddingRight: 16, position: 'relative' }}>
+      <div key={cocktail.name} style={{ paddingLeft: 16, paddingTop: 16, paddingBottom: 8, paddingRight: 16, position: 'relative' }}>
         {/* <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div> */}
         <strong>
           <p className="cocktailName">{cocktail.name}</p>
@@ -18,7 +18,7 @@ export default function Cocktail({ cocktail, filters }) {
             {rating}
           </div>
           <ul style={{ margin: 0, paddingLeft: 32, paddingTop: 12 }}>
-            {cocktail.lines.map((line) => <li style={{ fontSize: 16, fontWeight: 400 }}>{line}</li>)}
+            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: 16, fontWeight: 400 }}>{line}</li>)}
           </ul>
 
           <i><p style={{ fontSize: 18, fontWeight: 400, fontFamily: 'Georgia, Sanserif' }}>"{cocktail.description}"</p></i>
