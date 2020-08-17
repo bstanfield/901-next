@@ -10,20 +10,22 @@ import SortingButton from '../components/sortingButton'
 import ListButton from '../components/listButton'
 
 export default function Home({ data }) {
+  // const [sortBy, setSortBy] = useState('alphabetical')
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
-  const [filters, setFilters] = useState([])
-  const [sortBy, setSortBy] = useState('alphabetical')
-  const [list, setList] = useState(null)
+  const [filters, setFilters] = useState([]) // from search bar
+  const [lists, setLists] = useState([])
 
+  // "infinite scroll"
   useEffect(() => {
     watchScroll(document, setDisplayMaximum)
   }, [])
 
+  // include sortBy if sorting returns
   useEffect(() => {
-    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, list, sortBy)
+    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, lists, 'alphabetical')
     setCocktailsToDisplay(cocktailsToDisplay)
-  }, [filters, list, sortBy])
+  }, [filters, lists])
 
   const ingredientsInSearchFormat = data.ingredients.map((ingredient) => {
     return { value: ingredient, label: ingredient, color: '#00B8D9', isFixed: true }
@@ -87,23 +89,26 @@ export default function Home({ data }) {
                 return
               }
               const filters = values.map(value => value.value)
+              console.log('filters: ', filters)
               setFilters(filters)
             }}
           />
-          <div className="sortingOptions">
+          {/* <div className="sortingOptions">
             <label className="topLabel">Sort by</label>
             <SortingButton label="A-Z" value="alphabetical" selected={sortBy === "alphabetical"} setSortBy={setSortBy} />
             <SortingButton label="★ Rating" value="highest_rated" selected={sortBy === "highest_rated"} setSortBy={setSortBy} />
-          </div>
+          </div> */}
           <div className="listOptions">
-            <label className="topLabel">Lists</label>
-            <ListButton label="Spicy" value="Spicy" selected={list === "Spicy"} setList={setList} />
-            <ListButton label="Sweet" value="Sweet" selected={list === "Sweet"} setList={setList} />
-            <ListButton label="Simple" value="Simple" selected={list === "Simple"} setList={setList} />
+            <label className="topLabel">Filters</label>
+            <ListButton label="Spicy" lists={lists} setLists={setLists} />
+            <ListButton label="Sweet" lists={lists} setLists={setLists} />
+            <ListButton label="Simple" lists={lists} setLists={setLists} />
+            <ListButton label="Cheap (potentially)" lists={lists} setLists={setLists} />
+            <ListButton label="Mad men" lists={lists} setLists={setLists} />
           </div>
         </div>
         {/* <Categories setFilter={setFilters} categories={data.categories} /> */}
-        <Cocktails displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
+        <Cocktails displayMaximum={displayMaximum} lists={lists} cocktails={cocktailsToDisplay} />
       </section>
     </Layout>
   )

@@ -1,8 +1,4 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import { differenceInMilliseconds } from 'date-fns';
-
-export default function Cocktail({ cocktail }) {
+export default function Cocktail({ cocktail, lists }) {
   let rating
   if (cocktail.rating == 4.0) {
     rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star fadedStar">★</span></>
@@ -12,28 +8,10 @@ export default function Cocktail({ cocktail }) {
     rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span></>
   }
 
-  const getGlassTypeEmoji = (cocktail) => {
-    if (cocktail.description.includes("rocks")) {
-      return <span style={{ fontSize: 18 }}>🥃</span>
-    } else if (cocktail.description.includes("cocktail glass")) {
-      return '🍸'
-    } else if (cocktail.description.includes("martini glass")) {
-      return '🍸'
-    } else if (cocktail.description.includes("pint glass")) {
-      return '🍺'
-    } else if (cocktail.description.includes("highball")) {
-      return '🥛'
-    } else if (cocktail.description.includes("wine glass")) {
-      return '🍷'
-    } else if (cocktail.description.includes("champagne flute")) {
-      return '🥂'
-    }
-  }
-
   return (
     <>
       <div style={{ paddingLeft: 16, paddingTop: 16, paddingBottom: 8, paddingRight: 16, position: 'relative' }}>
-        <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div>
+        {/* <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div> */}
         <strong>
           <p className="cocktailName">{cocktail.name}</p>
           <div style={{ width: 140, position: 'relative' }}>
@@ -44,7 +22,7 @@ export default function Cocktail({ cocktail }) {
           </ul>
 
           <i><p style={{ fontSize: 18, fontWeight: 400, fontFamily: 'Georgia, Sanserif' }}>"{cocktail.description}"</p></i>
-          {cocktail.origin && (<p style={{ marginTop: '-8px', padding: 0, textTransform: 'uppercase', fontSize: 13, fontWeight: 700, opacity: 0.5 }}>FROM: {cocktail.origin}</p>)}
+          <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: lists.includes(list) ? 600 : 400 }}>{lists.includes(list) && '✔ '}{list}</span>)}</div>
         </strong>
       </div>
       <hr />
