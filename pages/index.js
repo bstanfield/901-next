@@ -29,11 +29,11 @@ export default function Home({ data }) {
   }, [filters])
 
   const ingredientsInSearchFormat = data.ingredients.map((ingredient) => {
-    return { value: ingredient, label: ingredient, color: '#00B8D9', isFixed: true }
+    return { value: ingredient, label: ingredient, isFixed: true }
   })
 
   const cocktailNamesInSearchFormat = data.cocktails.map((cocktail) => {
-    return { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
+    return { value: cocktail.name, label: cocktail.name, isFixed: true }
   })
 
   const getCategoriesInSearchFormat = (categories) => {
@@ -41,7 +41,7 @@ export default function Home({ data }) {
     for (const category in categories) {
       categories[category].lists.map(list => lists.push(list))
     }
-    const correctFormat = lists.map(list => ({ value: list, label: list, color: '#00B8D9', isFixed: true }))
+    const correctFormat = lists.map(list => ({ value: list, label: list, isFixed: true }))
     return correctFormat
   }
 
@@ -78,12 +78,13 @@ export default function Home({ data }) {
           <h2 className="headingLg">({cocktailsToDisplay.length}) Cocktails</h2>
           <Select
             isMulti
+            autoFocus
             styles={
               {
                 option: (styles, state) => ({
                   ...styles,
                   cursor: 'pointer',
-                  fontSize: 18
+                  fontSize: 18,
                 }),
                 control: (styles) => ({
                   ...styles,
@@ -91,6 +92,11 @@ export default function Home({ data }) {
                   border: '1px solid #333333',
                   fontSize: 18
                 }),
+                multiValue: (styles) => ({
+                  ...styles,
+                  backgroundColor: 'rgb(221, 237, 255)',
+                  border: '1px solid rgb(0, 93, 214)',
+                })
               }
             }
             name="search-bar"
@@ -118,8 +124,12 @@ export default function Home({ data }) {
             <ListButton label="Cheap (potentially)" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
             <ListButton label="Mad men" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
             <ListButton label="Tiki time" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
-            {/* <ListButton label="Simple" lists={lists} setLists={setLists} />
-            <ListButton label="Cheap (potentially)" lists={lists} setLists={setLists} /> */}
+            <ListButton label="Complicated" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Herbaceous" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Smoky" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Lemon" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Lime" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+            <ListButton label="Whiskey, bourbon" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
           </div>
         </div>
         <Cocktails displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
