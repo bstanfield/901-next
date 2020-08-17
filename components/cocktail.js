@@ -3,8 +3,7 @@ import Link from 'next/link'
 import { differenceInMilliseconds } from 'date-fns';
 
 export default function Cocktail({ cocktail }) {
-  let rating = '★★★★★'
-
+  let rating
   if (cocktail.rating == 4.0) {
     rating = <><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar">★</span><span className="redStar fadedStar">★</span></>
   } else if (cocktail.rating == 4.5) {
@@ -42,8 +41,6 @@ export default function Cocktail({ cocktail }) {
           <ul style={{ margin: 0, paddingLeft: 32, paddingTop: 12 }}>
             {cocktail.lines.map((line) => <li style={{ fontSize: 16, fontWeight: 400 }}>{line}</li>)}
           </ul>
-
-
 
           <i><p style={{ fontSize: 18, fontWeight: 400, fontFamily: 'Georgia, Sanserif' }}>"{cocktail.description}"</p></i>
           {cocktail.origin && (<p style={{ marginTop: '-8px', padding: 0, textTransform: 'uppercase', fontSize: 13, fontWeight: 700, opacity: 0.5 }}>FROM: {cocktail.origin}</p>)}

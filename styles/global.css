@@ -170,7 +170,6 @@ label {
   opacity: .2;
 }
 
-
 .halfStar {
   background-color: white;
   opacity: 0.95;
@@ -179,4 +178,37 @@ label {
   height: 20px;
   right: -5px;
   bottom: 0px;
+}
+
+.divider {
+  font-size: 30px;
+  font-weight: 200;
+  line-height: 0;
+  margin-bottom: -5px;
+}
+
+.sortingOptions {
+  height: 36px;
+  display: inline-block;
+  border-right: 2px solid #eee;
+  margin: 10px;
+  margin-top: 28px;
+  position: relative;
+}
+
+.listOptions {
+  margin-top: 28px;
+  display: inline-block;
+  position: relative;
+}
+
+.topLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.5;
+  display: block;
+  position: absolute;
+  top: -20px;
+  left: -2px;
 }
