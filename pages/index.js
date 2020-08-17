@@ -99,7 +99,7 @@ export default function Home({ data }) {
             classNamePrefix="select"
             value={values}
             formatGroupLabel={formatGroupLabel}
-            placeholder="Search for ingredients or name"
+            placeholder="Search for ingredients or categories"
             onChange={vals => {
               if (vals === null) {
                 setFilters([])
@@ -122,8 +122,7 @@ export default function Home({ data }) {
             <ListButton label="Cheap (potentially)" lists={lists} setLists={setLists} /> */}
           </div>
         </div>
-        {/* <Categories setFilter={setFilters} categories={data.categories} /> */}
-        <Cocktails displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
+        <Cocktails displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
       </section>
     </Layout>
   )

@@ -1,4 +1,4 @@
-export default function Cocktail({ cocktail, lists }) {
+export default function Cocktail({ cocktail, filters }) {
   let rating
   if (cocktail.rating == 4.0) {
     rating = <><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star">★</span><span className="star fadedStar">★</span></>
@@ -22,7 +22,7 @@ export default function Cocktail({ cocktail, lists }) {
           </ul>
 
           <i><p style={{ fontSize: 18, fontWeight: 400, fontFamily: 'Georgia, Sanserif' }}>"{cocktail.description}"</p></i>
-          {/* <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: lists.includes(list) ? 600 : 400 }}>{lists.includes(list) && '✔ '}{list}</span>)}</div> */}
+          <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
         </strong>
       </div>
       <hr />
