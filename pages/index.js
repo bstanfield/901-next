@@ -83,13 +83,13 @@ export default function Home({ data }) {
                 option: (styles, state) => ({
                   ...styles,
                   cursor: 'pointer',
-                  fontSize: 20
+                  fontSize: 18
                 }),
                 control: (styles) => ({
                   ...styles,
                   cursor: 'pointer',
                   border: '1px solid #333333',
-                  fontSize: 20
+                  fontSize: 18
                 }),
               }
             }
@@ -99,7 +99,7 @@ export default function Home({ data }) {
             classNamePrefix="select"
             value={values}
             formatGroupLabel={formatGroupLabel}
-            placeholder="Search for ingredients or categories"
+            placeholder="Search by ingredient or category"
             onChange={vals => {
               if (vals === null) {
                 setFilters([])
