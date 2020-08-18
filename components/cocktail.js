@@ -1,3 +1,6 @@
+import { createCocktailId } from '../lib/helpers'
+import Link from 'next/link'
+
 export default function Cocktail({ cocktail, filters, index }) {
   let rating
   if (cocktail.rating == 4.0) {
@@ -10,6 +13,7 @@ export default function Cocktail({ cocktail, filters, index }) {
 
   return (
     <>
+      {/* <Link href="/[cocktail]" as={`/${cocktail.id}`}> */}
       <div key={cocktail.name} style={{ paddingLeft: 16, paddingTop: 16, paddingBottom: 8, paddingRight: 16, position: 'relative' }}>
         {/* <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div> */}
         <strong>
@@ -25,6 +29,7 @@ export default function Cocktail({ cocktail, filters, index }) {
           <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
         </strong>
       </div>
+      {/* </Link> */}
       <hr />
     </>
   )

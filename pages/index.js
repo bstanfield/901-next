@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
-import { getData } from '../lib/data'
+import { getData, createCocktailId } from '../lib/data'
 import { watchScroll, getRelevantCocktails } from '../lib/helpers'
 import { formatGroupLabel } from '../lib/search'
 import Cocktails from '../components/cocktails'
@@ -9,7 +9,7 @@ import Select from 'react-select';
 import SortingButton from '../components/sortingButton'
 import ListButton from '../components/listButton'
 
-export default function Home({ data }) {
+export default function Home({ data, cocktailsWithIds }) {
   // const [sortBy, setSortBy] = useState('alphabetical')
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
@@ -140,10 +140,12 @@ export default function Home({ data }) {
 
 export async function getStaticProps() {
   const data = getData()
+  const cocktailsWithIds = createCocktailId()
 
   return {
     props: {
       data,
+      cocktailsWithIds
     }
   }
 }
