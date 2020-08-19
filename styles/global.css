@@ -237,17 +237,17 @@ ul {
   list-style-type: none !important;
 }
 ul > li {
-  text-indent: -5px;
+  text-indent: -15px;
 }
 
 ul > li:before {
-  content: "- " !important;
+  content: "-" !important;
   opacity: 0.4;
-  text-indent: 0px !important;
+  padding-right: 7px;
 }
 
 .cocktailContainer {
-  opacity: 0.8;
+  opacity: 0.9;
   /* border: 2px solid white; */
   cursor: pointer; 
   padding-left: 16px;
