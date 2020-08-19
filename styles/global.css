@@ -228,3 +228,45 @@ label {
 .listTags {
   margin-bottom: 20px;
 }
+
+ul {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none !important;
+}
+ul > li {
+  text-indent: -5px;
+}
+
+ul > li:before {
+  content: "- " !important;
+  opacity: 0.4;
+  text-indent: 0px !important;
+}
+
+.cocktailContainer {
+  border: 2px solid white;
+  cursor: pointer; 
+  padding-left: 16px;
+  padding-top: 16px;
+  padding-bottom: 8px;
+  padding-right: 16px;
+  position: relative; 
+  transition: border 0.2s ease;
+}
+
+.cocktailContainer:hover .cocktailContainer:focus {
+  border: 2px solid #0071f33d;
+  border-radius: 4px;
+}
+
+.noStyleLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.noStyleLink:hover {
+  text-decoration: none;
+}

@@ -1,6 +1,7 @@
+import React from 'react';
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
-import { getData, createCocktailId } from '../lib/data'
+import { getData } from '../lib/data'
 import { watchScroll, getRelevantCocktails } from '../lib/helpers'
 import { formatGroupLabel } from '../lib/search'
 import Cocktails from '../components/cocktails'
@@ -9,7 +10,7 @@ import Select from 'react-select';
 import SortingButton from '../components/sortingButton'
 import ListButton from '../components/listButton'
 
-export default function Home({ data, cocktailsWithIds }) {
+export default function Home({ data }) {
   // const [sortBy, setSortBy] = useState('alphabetical')
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
@@ -22,7 +23,17 @@ export default function Home({ data, cocktailsWithIds }) {
     watchScroll(document, setDisplayMaximum)
   }, [])
 
-  // include sortBy if sorting returns
+  useEffect(() => {
+    if (filters.length === 0) {
+      const localStorageFilters = JSON.parse(localStorage.getItem('filters'))
+      if (localStorageFilters) {
+        const values = localStorageFilters.map(item => ({ value: item, label: item, color: '#00B8D9', isFixed: true }))
+        setFilters(localStorageFilters)
+        setValues(values)
+      }
+    }
+  }, [])
+
   useEffect(() => {
     const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, 'alphabetical')
     setCocktailsToDisplay(cocktailsToDisplay)
@@ -109,11 +120,13 @@ export default function Home({ data, cocktailsWithIds }) {
             onChange={vals => {
               if (vals === null) {
                 setFilters([])
+                localStorage.setItem('filters', JSON.stringify([]));
                 setValues([])
                 return
               }
               const filters = vals.map(val => val.value)
               setFilters(filters)
+              localStorage.setItem('filters', JSON.stringify(filters));
               setValues(vals)
             }}
           />
@@ -140,12 +153,10 @@ export default function Home({ data, cocktailsWithIds }) {
 
 export async function getStaticProps() {
   const data = getData()
-  const cocktailsWithIds = createCocktailId()
 
   return {
     props: {
       data,
-      cocktailsWithIds
     }
   }
 }

@@ -15,6 +15,7 @@ export default function ListButton({ selected, setValues, setFilters, filters, v
         setValues([values].flat())
         filters.push(label)
         setFilters([filters].flat())
+        localStorage.setItem('filters', JSON.stringify([filters].flat()));
       }
     }}>
       {label}
