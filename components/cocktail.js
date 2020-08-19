@@ -13,7 +13,7 @@ export default function Cocktail({ cocktail, filters = [], index }) {
 
   return (
     <>
-      <Link href="/[cocktail]" as={`/${cocktail.id}`}><a href="" className="noStyleLink">
+      <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href="" className="noStyleLink">
         <div key={cocktail.name} className="cocktailContainer">
           {/* <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div> */}
           <strong>
