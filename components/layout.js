@@ -8,7 +8,6 @@ export default function Layout({ children, home }) {
   return (
     <div className="container">
       <Head>
-        <link rel="shortcut icon" href="/static/favicon.ico" />
         <meta
           name="description"
           content="Search for the very best cocktails you can make with ingredients on hand."
