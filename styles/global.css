@@ -247,7 +247,8 @@ ul > li:before {
 }
 
 .cocktailContainer {
-  border: 2px solid white;
+  opacity: 0.8;
+  /* border: 2px solid white; */
   cursor: pointer; 
   padding-left: 16px;
   padding-top: 16px;
@@ -257,8 +258,9 @@ ul > li:before {
   transition: border 0.2s ease;
 }
 
-.cocktailContainer:hover .cocktailContainer:focus {
-  border: 2px solid #0071f33d;
+.cocktailContainer:hover {
+  opacity: 1;
+  /* border: 2px solid #0071f33d; */
   border-radius: 4px;
 }
 
