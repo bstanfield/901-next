@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
-import { useRouter } from 'next/router'
 import { getData } from '../lib/data'
 import { getCocktailById } from '../lib/helpers'
 import Cocktail from '../components/cocktail'
