@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
 import { watchScroll, getRelevantCocktails } from '../lib/helpers'
-import CocktailList from '../components/cocktailList'
+import CocktailList from '../components/results'
 import { useState, useEffect } from 'react'
 import SearchBar from '../components/searchBar';
 import Suggestions from '../components/suggestions';

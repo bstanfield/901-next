@@ -21,7 +21,7 @@ export default function Cocktail({ cocktail, filters = [], details }) {
       <div key={cocktail.name} className="cocktailContainer">
         {/* {details && <div style={{ position: 'absolute', top: 6, right: 12 }}>{getGlassTypeEmoji(cocktail)}</div>} */}
         <strong>
-          <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href="" className="noStyleLink"><p className="cocktailName">{cocktail.name}</p></a></Link>
+          <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><span className="cocktailName">{cocktail.name}</span></a></Link>
           <div style={{ width: 140, position: 'relative' }}>
             {rating}
           </div>
