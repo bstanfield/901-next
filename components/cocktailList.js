@@ -1,8 +1,6 @@
-import Head from 'next/head'
-import Link from 'next/link'
 import Cocktail from './cocktail'
 
-export default function Cocktails({ cocktails, filters, displayMaximum }) {
+export default function CocktailList({ cocktails, filters, displayMaximum }) {
   if (cocktails == []) {
     return (null);
   }

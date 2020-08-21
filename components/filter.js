@@ -1,4 +1,4 @@
-export default function ListButton({ selected, setValues, setFilters, filters, values, label }) {
+export default function Filter({ selected, setValues, setFilters, filters, values, label }) {
   if (values.filter(value => value.label === label).length > 0) {
     return (null)
   }

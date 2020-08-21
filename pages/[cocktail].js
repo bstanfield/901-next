@@ -15,7 +15,7 @@ export default function CocktailPage({ cocktail }) {
         <div style={{ marginBottom: 24 }}>
           <Link href="/">&larr; Back</Link>
         </div>
-        <Cocktail cocktail={cocktail} />
+        <Cocktail details cocktail={cocktail} />
       </section>
     </Layout >
   )

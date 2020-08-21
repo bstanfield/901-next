@@ -3,14 +3,14 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
 import { watchScroll, getRelevantCocktails } from '../lib/helpers'
-import Cocktails from '../components/cocktails'
+import CocktailList from '../components/cocktailList'
 import { useState, useEffect } from 'react'
 import SearchBar from '../components/searchBar';
 import Suggestions from '../components/suggestions';
 
 export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
-  const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
+  const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.shuffled)
   const [filters, setFilters] = useState([]) // from search bar
   const [values, setValues] = useState([])
 
@@ -31,7 +31,7 @@ export default function Home({ data }) {
   }, [])
 
   useEffect(() => {
-    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, 'alphabetical')
+    const cocktailsToDisplay = getRelevantCocktails(data.shuffled, filters)
     setCocktailsToDisplay(cocktailsToDisplay)
   }, [filters])
 
@@ -52,7 +52,7 @@ export default function Home({ data }) {
           <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} />
           <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} />
         </div>
-        <Cocktails displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
+        <CocktailList displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
       </section>
     </Layout >
   )

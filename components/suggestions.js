@@ -1,4 +1,4 @@
-import ListButton from '../components/listButton'
+import ListButton from './filter'
 
 export default function Suggestions({ values, filters, setValues, setFilters }) {
   return (
