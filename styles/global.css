@@ -275,3 +275,10 @@ input {
   Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: 400;
 }
+
+.sadCat {
+  margin-top: 50px;
+  font-size: 60px;
+  text-align: center;
+  width: 100%;
+}
