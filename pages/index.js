@@ -10,7 +10,7 @@ import Suggestions from '../components/suggestions';
 
 export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
-  const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.shuffled)
+  const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [filters, setFilters] = useState([]) // from search bar
   const [values, setValues] = useState([])
 
@@ -31,7 +31,7 @@ export default function Home({ data }) {
   }, [])
 
   useEffect(() => {
-    const cocktailsToDisplay = getRelevantCocktails(data.shuffled, filters)
+    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters)
     setCocktailsToDisplay(cocktailsToDisplay)
   }, [filters])
 
