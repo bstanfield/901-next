@@ -26,10 +26,10 @@ export default function Cocktail({ cocktail, filters = [], details }) {
             {rating}
           </div>
           <ul style={{ margin: 0, paddingLeft: 32, paddingTop: 12 }}>
-            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: 16, fontWeight: 400 }}>{line}</li>)}
+            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: 18, fontWeight: 400 }}>{line}</li>)}
           </ul>
 
-          <i><p style={{ fontSize: 18, fontWeight: 400, fontFamily: 'Georgia, Sanserif' }}>"{cocktail.description}"</p></i>
+          <i><p className="description" style={{ fontSize: 18, fontWeight: 400 }}>"{cocktail.description}"</p></i>
           <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
         </strong>
       </div>

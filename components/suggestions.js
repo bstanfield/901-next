@@ -20,7 +20,6 @@ const suggestions = [
   'Southern',
   'Gentle',
   'San Francisco',
-  'Singapore',
   'Minty',
   'Dry',
   'Fruity',
@@ -33,17 +32,16 @@ const suggestions = [
   'The 16 Greatest Cocktails in Creation',
   'Five-star cocktails',
   'Beer',
-  'Red',
-  'Blue',
 ]
 
-const tenRandomSuggestions = suggestions.sort(() => Math.random() - 0.5).slice(0, 12)
+const randomSuggestions = suggestions.sort(() => Math.random() - 0.5).slice(0, 6)
 
 export default function Suggestions({ values, filters, setValues, setFilters }) {
   return (
     <div className="listOptions">
       <label className="topLabel">Suggestions</label>
-      {tenRandomSuggestions.map(
+      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+      {randomSuggestions.map(
         suggestion => <ListButton label={suggestion} values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
       )}
     </div>

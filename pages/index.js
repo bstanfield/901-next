@@ -5,7 +5,7 @@ import { getData } from '../lib/data'
 import { watchScroll, getRelevantCocktails } from '../lib/helpers'
 import CocktailList from '../components/results'
 import { useState, useEffect } from 'react'
-import SearchBar from '../components/searchBar';
+import SearchBar from '../components/search';
 import Suggestions from '../components/suggestions';
 
 export default function Home({ data }) {
@@ -40,18 +40,12 @@ export default function Home({ data }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className="headingMd intro">
-        <p>
-          Data from the book <a target="_blank" href="http://www.901cocktails.com">901 Cocktails</a>.
-        </p>
-        <p>App built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
-      </section>
       <section className="headingMd padding1px">
         <div style={{ marginBottom: 24 }}>
-          <h2 className="headingLg">({cocktailsToDisplay.length}) Cocktails</h2>
           <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} />
           <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} />
         </div>
+        <label style={{ paddingLeft: 6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'}</label>
         <CocktailList displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
       </section>
     </Layout >

@@ -1,7 +1,7 @@
 import Select from 'react-select';
 import { formatGroupLabel } from '../lib/search'
 
-export default function SearchBar({ data, values, setFilters, setValues }) {
+export default function Search({ data, values, setFilters, setValues }) {
 
   const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: ingredient, isFixed: true }))
   const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: cocktail.name, isFixed: true }))
@@ -42,12 +42,14 @@ export default function SearchBar({ data, values, setFilters, setValues }) {
         control: (styles) => ({
           ...styles,
           cursor: 'pointer',
-          border: '1px solid #333333',
+          border: '1px solid grey',
           fontSize: 18,
           fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
           fontWeight: 300,
           color: '#333333 !important',
           opacity: 1,
+          webkitBoxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
+          boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)'
         }),
         multiValue: (styles) => ({
           ...styles,

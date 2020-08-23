@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-const name = '🍸 901'
+const name = '🍸 901 Cocktails'
 export const siteTitle = '901 Cocktails'
 
 export default function Layout({ children, home }) {
@@ -21,9 +21,15 @@ export default function Layout({ children, home }) {
       </Head>
       <header className="header">
         {home ? (
-          <>
+          <div className="leader">
             <h1 className="heading2Xl">{name}</h1>
-          </>
+            <section className="headingMd intro">
+              <p>
+                Data from the book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>.
+              </p>
+              <p>App built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
+            </section>
+          </div>
         ) : (
             <>
               <h2 className="headingLg">

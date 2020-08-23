@@ -1,11 +1,30 @@
+// add moriston
+@font-face {
+  font-family: moriston;
+  src: url(../public/moriston.otf);
+}
+
+$serif: 'moriston', serif;
+$sans:  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+$weight-regular: 400;
+$weight-medium: 600;
+$weight-heavy: 800;
+
+$color-bg: #f5f5f5;
+
 html,
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $color-bg;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $sans;
   line-height: 1.6;
   font-size: 18px;
+  color: #333333;
 }
 
 * {
@@ -27,25 +46,20 @@ img {
 }
 
 .heading2Xl {
+  font-family: $serif;
+  font-weight: $weight-medium;
   font-size: 2.5rem;
   line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: -0.05rem;
-  margin: 1rem 0;
-}
-
-.headingXl {
-  font-size: 2rem;
-  line-height: 1.3;
-  font-weight: 800;
   letter-spacing: -0.05rem;
   margin: 1rem 0;
 }
 
 .headingLg {
+  font-family: $sans;
   font-size: 1.5rem;
   line-height: 1.4;
   margin: 1rem 0;
+  font-weight: $weight-medium;
 }
 
 .intro {
@@ -60,6 +74,8 @@ img {
 }
 
 .headingMd {
+  font-family: $sans;
+  font-weight: $weight-regular;
   font-size: 1.2rem;
   line-height: 1.5;
 }
@@ -131,13 +147,28 @@ img {
   background-color: #eee;
 }
 
+.leader {
+  margin-bottom: 18px;
+}
+
 label {
-  padding-left: 4px;
-  font-size: 16px;
+  color: #333333;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sortingButton {
+  -webkit-box-shadow: -1px 4px 14px -6px rgba(148,148,148,.5);
+  -moz-box-shadow: -1px 4px 14px -6px rgba(148,148,148,.5);
+  box-shadow: -1px 4px 14px -6px rgba(148,148,148,.5);
+  border: 1px solid grey;
 }
 
 .sortingButton:hover {
-  opacity: 0.7;
+  border: 1px solid #b4b4b4;
 }
 
 .scrollToTop {
@@ -145,16 +176,23 @@ label {
   right: 0;
   bottom: 0;
   padding: 12px 24px;
-  background-color: white;
+  background-color: $color-bg;
   color: #0070f3;
   cursor: pointer;
 }
 
 .cocktailName {
+  font-family: $serif;
+  font-weight: $weight-medium;
   margin: 0;
   padding: 0;
-  font-size: 28px;
+  font-size: 34px;
   line-height: 32px;
+}
+
+hr {
+  border: 1px solid black;
+  opacity: 0.1;
 }
 
 .star {
@@ -173,7 +211,7 @@ label {
 }
 
 .halfStar {
-  background-color: white;
+  background-color: $color-bg;
   opacity: 0.95;
   position: absolute;
   width: 15px;
@@ -199,24 +237,23 @@ label {
 }
 
 .listOptions {
-  margin-top: 32px;
+  margin-top: 12px;
   display: inline-block;
   position: relative;
+  margin-left: 6px;
 }
 
-.topLabel {
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 600;
-  display: block;
-  position: absolute;
-  top: -20px;
-  left: -2px;
+.description {
+  font-size: 18px !important;
+  font-family: georgia, serif;
+  font-style: italic;
+  font-weight: 400 !important;
+  color: #333333;
 }
 
 .listTags span {
   display: inline-block;
-  background-color: rgb(238, 238, 238);
+  background-color: rgb(231, 231, 231);
   color: #333;
   font-weight: 500;
   margin: 2px;
@@ -271,8 +308,7 @@ ul > li:before {
 }
 
 input {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-  Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: $sans;
   font-weight: 400;
 }
 
