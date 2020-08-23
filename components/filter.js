@@ -1,4 +1,4 @@
-export default function Filter({ selected, setValues, setFilters, filters, values, label }) {
+export default function Filter({ selected, setValues, setFilters, filters, values, label, cocktails }) {
   if (values.filter(value => value.label === label).length > 0) {
     return (null)
   }
@@ -8,10 +8,13 @@ export default function Filter({ selected, setValues, setFilters, filters, value
         // I'm feeling lucky...
         if (label.includes('🎲')) {
           // Get random
-          const valueToAdd = { value: 'Old Fashioned', label: 'Old Fashioned', color: '#00B8D9', isFixed: true }
+
+          const cocktail = cocktails[Math.floor(Math.random() * cocktails.length)];
+
+          const valueToAdd = { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
           setValues([valueToAdd])
-          setFilters(['Old Fashioned'])
-          localStorage.setItem('filters', JSON.stringify(['Old Fashioned']))
+          setFilters([cocktail.name])
+          localStorage.setItem('filters', JSON.stringify([cocktail.name]))
           return
         }
         const valueToAdd = { value: label, label, color: '#00B8D9', isFixed: true }

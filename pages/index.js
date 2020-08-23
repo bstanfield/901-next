@@ -43,7 +43,7 @@ export default function Home({ data }) {
       <section className="headingMd padding1px">
         <div style={{ marginBottom: 24 }}>
           <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} />
-          <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} />
+          <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} cocktails={data.cocktails} />
         </div>
         <label style={{ paddingLeft: 6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'}</label>
         <CocktailList displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />

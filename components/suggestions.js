@@ -36,11 +36,11 @@ const suggestions = [
 
 const randomSuggestions = suggestions.sort(() => Math.random() - 0.5).slice(0, 6)
 
-export default function Suggestions({ values, filters, setValues, setFilters }) {
+export default function Suggestions({ values, filters, setValues, setFilters, cocktails }) {
   return (
     <div className="listOptions">
       <label className="topLabel">Suggestions</label>
-      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;" values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;" values={values} setValues={setValues} filters={filters} setFilters={setFilters} cocktails={cocktails} />
       {randomSuggestions.map(
         suggestion => <ListButton label={suggestion} values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
       )}
