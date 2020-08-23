@@ -12,9 +12,9 @@ export default function CocktailPage({ cocktail }) {
         <title>{siteTitle}</title>
       </Head>
       <section className="headingMd padding1px">
-        <div style={{ marginBottom: 24 }}>
-          <Link href="/">&larr; Back</Link>
-        </div>
+        <label style={{ marginBottom: 24 }}>
+          <Link href="/">&larr; HOME</Link>
+        </label>
         <Cocktail details cocktail={cocktail} />
       </section>
     </Layout >
