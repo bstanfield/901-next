@@ -1,10 +1,4 @@
-// add moriston
-@font-face {
-  font-family: moriston;
-  src: url(../public/moriston.otf);
-}
-
-$serif: 'moriston', serif;
+$serif: 'Merriweather', serif;
 $sans:  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
 Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
@@ -47,11 +41,12 @@ img {
 
 .heading2Xl {
   font-family: $serif;
-  font-weight: $weight-medium;
-  font-size: 2.5rem;
+  font-weight: $weight-heavy;
+  font-size: 2.2rem;
   line-height: 1.2;
   letter-spacing: -0.05rem;
   margin: 1rem 0;
+  text-align: center;
 }
 
 .headingLg {

@@ -8,6 +8,7 @@ export default function Layout({ children, home }) {
   return (
     <div className="container">
       <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
         <meta
           name="description"
           content="Search for the very best cocktails you can make with ingredients on hand."
@@ -22,7 +23,7 @@ export default function Layout({ children, home }) {
       <header className="header">
         {home ? (
           <div className="leader">
-            <h1 className="heading2Xl">{name}</h1>
+            <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
             <section className="headingMd intro">
               <p>
                 Data from the book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>.
@@ -38,17 +39,20 @@ export default function Layout({ children, home }) {
                 </Link>
               </h2>
             </>
-          )}
-      </header>
+          )
+        }
+      </header >
       <main>{children}</main>
       <div className="scrollToTop" onClick={() => window.scrollTo(0, 0)}>▲ Scroll to top</div>
-      {!home && (
-        <div className="styles.backToHome">
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
-    </div>
+      {
+        !home && (
+          <div className="styles.backToHome">
+            <Link href="/">
+              <a>← Back to home</a>
+            </Link>
+          </div>
+        )
+      }
+    </div >
   )
 }
