@@ -32,27 +32,14 @@ export default function Layout({ children, home }) {
             </section>
           </div>
         ) : (
-            <>
-              <h2 className="headingLg">
-                <Link href="/">
-                  <a className="colorInherit">{name}</a>
-                </Link>
-              </h2>
-            </>
+            <div className="leader">
+              <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
+            </div>
           )
         }
       </header >
       <main>{children}</main>
       <div className="scrollToTop" onClick={() => window.scrollTo(0, 0)}>▲ Scroll to top</div>
-      {
-        !home && (
-          <div className="styles.backToHome">
-            <Link href="/">
-              <a>← Back to home</a>
-            </Link>
-          </div>
-        )
-      }
     </div >
   )
 }

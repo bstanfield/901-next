@@ -128,6 +128,26 @@ img {
   margin: 3rem 0 0;
 }
 
+.origin {
+  margin-top: 18px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: #333333;
+  opacity: 0.5;
+}
+
+.similarityScore {
+  font-size: 16px;
+  font-family: $sans;
+  padding-left: 12px;
+  font-weight: 400;
+  text-decoration: none !important;
+}
+
+.similarityScore:hover {
+  text-decoration: none !important;
+}
+
 .categoryButton {
   display: inline-block;
   font-size: 14px;
@@ -182,7 +202,7 @@ label {
   font-weight: $weight-medium;
   margin: 0;
   padding: 0;
-  font-size: 34px;
+  font-size: 28px;
   line-height: 32px;
 }
 
@@ -240,9 +260,9 @@ hr {
 }
 
 .description {
-  font-size: 18px !important;
+  font-size: 18px;
   font-family: georgia, serif;
-  font-style: italic;
+  // font-style: italic;
   font-weight: 400 !important;
   color: #333333;
 }
