@@ -1,8 +1,11 @@
 import Link from 'next/link'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useState } from 'react'
 
 export default function Cocktail({ cocktail, filters = [], details, parent }) {
   let rating
   const star = <span className="star">★</span>
+  const [copied, setCopied] = useState(false)
 
   switch (cocktail.rating) {
     case 4.0:
@@ -17,10 +20,6 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
 
   String.prototype.insert = function (index, value) {
     return this.substr(0, index) + value + this.substr(index);
-  }
-
-  function insert(str, index, value) {
-    return str.substr(0, index) + value + str.substr(index);
   }
 
   String.prototype.indexOfEnd = function (string) {
@@ -94,6 +93,12 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
           <i><p className="description" style={{ fontSize: details ? 20 : 18, fontWeight: 400 }} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p className="origin">Origin: {cocktail.origin}</p>}
           <div style={{ marginBottom: details ? 80 : 20 }} className="listTags">{cocktail.lists.map((list) => <span style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
+          {details && <div className="copyLink">
+            <CopyToClipboard text={`https://901.benstanfield.io/${cocktail.id}`}
+              onCopy={() => setCopied(true)}>
+              <button>{copied ? '✅ Copied' : '🔗 Copy link'}</button>
+            </CopyToClipboard>
+          </div>}
         </strong>
       </div>
       <hr />

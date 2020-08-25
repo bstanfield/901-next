@@ -187,6 +187,24 @@ label {
   border: 1px solid blue;
 }
 
+.copyLink {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.copyLink button {
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  background-color: #eeeeee;
+  padding: 5px 10px;
+}
+
+.copyLink button:hover {
+  background-color: #e0e0e0;
+}
+
 .scrollToTop {
   position: fixed;
   right: 0;
