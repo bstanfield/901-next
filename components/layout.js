@@ -1,7 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
 
-const name = '🍸 901 Cocktails'
 export const siteTitle = '901 Cocktails'
 
 export default function Layout({ children, home }) {
@@ -15,7 +13,7 @@ export default function Layout({ children, home }) {
         />
         <meta
           property="og:image"
-          content={`https://i.imgur.com/adqY6pe.png`}
+          content={`https://i.imgur.com/PA7puwU.png`}
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />

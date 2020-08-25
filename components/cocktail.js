@@ -83,7 +83,7 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
         <strong>
           {details
             ? <span style={{ fontSize: details ? 38 : 32 }} className="cocktailName">{cocktail.name}</span>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><span className="cocktailName">{cocktail.name}<span className="similarityScore">{cocktail.similarity && `${Math.round(cocktail.similarity / parent.similarity * 100)}% match`}</span></span></a></Link>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><span className="cocktailName">{cocktail.name}</span></a></Link>
           }
           <div style={{ width: 140, position: 'relative', marginTop: details ? 8 : 0 }}>
             {rating}
@@ -93,7 +93,7 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
           </ul>
           <i><p className="description" style={{ fontSize: details ? 20 : 18, fontWeight: 400 }} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p className="origin">Origin: {cocktail.origin}</p>}
-          <div className="listTags">{cocktail.lists.map((list) => <span style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
+          <div style={{ marginBottom: details ? 80 : 20 }} className="listTags">{cocktail.lists.map((list) => <span style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
         </strong>
       </div>
       <hr />

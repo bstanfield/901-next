@@ -9,14 +9,14 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
   return (
     <Layout>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{cocktail.name} ({cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | {siteTitle}</title>
       </Head>
       <section className="headingMd padding1px">
         <label style={{ marginBottom: 24 }}>
           <Link href="/">&larr; HOME</Link>
         </label>
         <Cocktail details cocktail={cocktail} />
-        <strong><p>Similar cocktails:</p></strong>
+        <p>Similar cocktails:</p>
         {similarCocktails.slice(1, 4).map(cocktail => {
           return (<Cocktail parent={similarCocktails[0]} cocktail={cocktail} />)
         })}

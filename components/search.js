@@ -49,7 +49,10 @@ export default function Search({ data, values, setFilters, setValues }) {
           color: '#333333 !important',
           opacity: 1,
           webkitBoxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
-          boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)'
+          boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
+          '&:hover': {
+            border: '1px solid blue !important'
+          },
         }),
         multiValue: (styles) => ({
           ...styles,
