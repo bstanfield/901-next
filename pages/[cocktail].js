@@ -9,7 +9,7 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
   return (
     <Layout>
       <Head>
-        <title>{cocktail.name} ({cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | {siteTitle}</title>
+        <title>{cocktail.name}&nbsp;({cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | {siteTitle}</title>
         <meta name="og:title" content={`${cocktail.name}(${cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | ${siteTitle}`} />
       </Head>
       <section className="headingMd padding1px">
