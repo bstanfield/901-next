@@ -10,6 +10,10 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
     <Layout>
       <Head>
         <title>{cocktail.name} ({cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | {siteTitle}</title>
+        <meta
+          name="description"
+          content={`&ldquo;${cocktail.description}&rdquo;| 901 Cocktails: Search for the very best cocktails`}
+        />
       </Head>
       <section className="headingMd padding1px">
         <label style={{ marginBottom: 24 }}>
