@@ -81,13 +81,13 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
       <div key={cocktail.name} className="cocktailContainer">
         <strong>
           {details
-            ? <span style={{ fontSize: details ? 38 : 32 }} className="cocktailName">{cocktail.name}</span>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><span className="cocktailName">{cocktail.name}</span></a></Link>
+            ? <div style={{ fontSize: details ? 34 : 32 }} className="cocktailName">{cocktail.name}</div>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><div className="cocktailName">{cocktail.name}</div></a></Link>
           }
           <div style={{ width: 140, position: 'relative', marginTop: details ? 8 : 0 }}>
             {rating}
           </div>
-          <ul style={{ margin: 0, paddingLeft: 32, paddingTop: 12 }}>
+          <ul style={{ margin: 0, paddingLeft: 32, paddingTop: details ? 18 : 12 }}>
             {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>)}
           </ul>
           <i><p className="description" style={{ fontSize: details ? 20 : 18, fontWeight: 400 }} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
@@ -96,7 +96,7 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
           {details && <div className="copyLink">
             <CopyToClipboard text={`https://901.benstanfield.io/${cocktail.id}`}
               onCopy={() => setCopied(true)}>
-              <button>{copied ? '✅ Copied' : '🔗 Copy link'}</button>
+              <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
             </CopyToClipboard>
           </div>}
         </strong>

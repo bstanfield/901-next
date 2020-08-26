@@ -19,7 +19,7 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className="header">
-        {home ? (
+        {home && (
           <div className="leader">
             <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
             <section className="headingMd intro">
@@ -29,15 +29,11 @@ export default function Layout({ children, home }) {
               <p>App built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
             </section>
           </div>
-        ) : (
-            <div className="leader">
-              <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
-            </div>
-          )
+        )
         }
       </header >
       <main>{children}</main>
-      <div className="scrollToTop" onClick={() => window.scrollTo(0, 0)}>▲ Scroll to top</div>
+      <div className="scrollToTop" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>▲ Scroll to top</div>
     </div >
   )
 }

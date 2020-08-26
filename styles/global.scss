@@ -51,11 +51,13 @@ img {
 }
 
 .headingLg {
-  font-family: $sans;
+  font-family: $serif;
   font-size: 1.5rem;
   line-height: 1.4;
   margin: 1rem 0;
   font-weight: $weight-medium;
+  margin-left: 20px;
+  margin-top: 0;
 }
 
 .intro {
@@ -100,6 +102,10 @@ img {
 
 .lightText {
   color: #999;
+}
+
+main {
+  position: relative;
 }
 
 .container {
@@ -189,8 +195,8 @@ label {
 
 .copyLink {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 0px;
+  top: -8px;
 }
 
 .copyLink button {
@@ -199,6 +205,11 @@ label {
   border: none;
   background-color: #eeeeee;
   padding: 5px 10px;
+  font-family: $sans;
+  -webkit-box-shadow: -1px 4px 14px -6px rgba(148,148,148,.5);
+  -moz-box-shadow: -1px 4px 14px -6px rgba(148,148,148,.5);
+  box-shadow: -1px 4px 14px -6px rgba(148,148,148,.5);
+  border: 1px solid grey;
 }
 
 .copyLink button:hover {
@@ -221,7 +232,7 @@ label {
   margin: 0;
   padding: 0;
   font-size: 28px;
-  line-height: 32px;
+  line-height: 38px;
 }
 
 hr {
@@ -323,7 +334,6 @@ ul > li:before {
   padding-top: 16px;
   padding-bottom: 8px;
   padding-right: 16px;
-  position: relative; 
   transition: border 0.2s ease;
 }
 
