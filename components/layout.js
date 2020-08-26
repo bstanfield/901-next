@@ -22,7 +22,7 @@ export default function Layout({ children, home }) {
         {home && (
           <div className="leader">
             <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
-            <section className="headingMd intro">
+            <section className="intro">
               <p>
                 Data from the book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>.
               </p>

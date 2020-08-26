@@ -1,18 +1,61 @@
+/** @jsx jsx */
+
 import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useState } from 'react'
+import { scale } from '../lib/helpers'
+import { fonts, colors } from '../styles/classes'
+import { jsx } from '@emotion/core';
 
-export default function Cocktail({ cocktail, filters = [], details, parent }) {
+// Page-specific styles
+const starsBox = (details) => scale({
+  width: 140,
+  position: 'relative',
+  marginTop: details ? 8 : 0
+})
+
+const cocktailName = (details) => scale({
+  fontFamily: fonts.serif,
+  fontWeight: 600,
+  margin: 0,
+  marginTop: details ? 16 : 0,
+  marginBottom: details ? [12, 18] : 4,
+  padding: 0,
+  fontSize: details ? [34, 40] : 28,
+  lineHeight: '38px',
+})
+
+const starStyles = (details) => scale({
+  fontSize: details ? 16 : 12,
+  color: 'white',
+  backgroundColor: '#50B27F',
+  padding: '2px 3px',
+  margin: details ? 2 : '1.5px',
+  borderRadius: '2px',
+  position: 'relative',
+})
+
+const halfStar = (details) => scale({
+  backgroundColor: colors.bgColor,
+  opacity: 0.95,
+  position: 'absolute',
+  width: details ? 17 : 15,
+  height: details ? 26 : 20,
+  right: '-5px',
+  bottom: 0,
+})
+
+export default function Cocktail({ cocktail, filters = [], details }) {
   let rating
-  const star = <span className="star">★</span>
+  const star = <span css={starStyles(details)}>★</span>
   const [copied, setCopied] = useState(false)
 
   switch (cocktail.rating) {
     case 4.0:
-      rating = <>{star}{star}{star}{star}<span className="star fadedStar">★</span></>
+      rating = <>{star}{star}{star}{star}<span css={starStyles(details)} className="star fadedStar">★</span></>
       break
     case 4.5:
-      rating = <>{star}{star}{star}{star}<span className="star">★<span className="halfStar"></span></span></>
+      rating = <>{star}{star}{star}{star}<span css={starStyles(details)}>★<span css={halfStar(details)}></span></span></>
       break
     default:
       rating = <>{star}{star}{star}{star}{star}</>
@@ -81,10 +124,10 @@ export default function Cocktail({ cocktail, filters = [], details, parent }) {
       <div key={cocktail.name} className="cocktailContainer">
         <strong>
           {details
-            ? <div style={{ fontSize: details ? 34 : 32 }} className="cocktailName">{cocktail.name}</div>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><div className="cocktailName">{cocktail.name}</div></a></Link>
+            ? <div css={cocktailName(details)}>{cocktail.name}</div>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><div css={cocktailName(details)}>{cocktail.name}</div></a></Link>
           }
-          <div style={{ width: 140, position: 'relative', marginTop: details ? 8 : 0 }}>
+          <div css={starsBox(details)}>
             {rating}
           </div>
           <ul style={{ margin: 0, paddingLeft: 32, paddingTop: details ? 18 : 12 }}>

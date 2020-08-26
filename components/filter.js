@@ -7,10 +7,7 @@ export default function Filter({ selected, setValues, setFilters, filters, value
       if (!values.filter(value => value.label === label).length > 0) {
         // I'm feeling lucky...
         if (label.includes('🎲')) {
-          // Get random
-
           const cocktail = cocktails[Math.floor(Math.random() * cocktails.length)];
-
           const valueToAdd = { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
           setValues([valueToAdd])
           setFilters([cocktail.name])

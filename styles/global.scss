@@ -71,13 +71,6 @@ img {
   padding: 0;
 }
 
-.headingMd {
-  font-family: $sans;
-  font-weight: $weight-regular;
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
 .borderCircle {
   border-radius: 9999px;
 }
@@ -240,29 +233,8 @@ hr {
   opacity: 0.1;
 }
 
-.star {
-  font-size: 12px;
-  color: white;
-  background-color: #50B27F;
-  opacity: 1;
-  padding: 2px 3px;
-  margin: 1.5px;
-  border-radius: 2px;
-  position: relative;
-}
-
 .fadedStar {
   opacity: .2;
-}
-
-.halfStar {
-  background-color: $color-bg;
-  opacity: 0.95;
-  position: absolute;
-  width: 15px;
-  height: 20px;
-  right: -5px;
-  bottom: 0px;
 }
 
 .divider {
