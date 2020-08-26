@@ -19,7 +19,7 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
         <Cocktail details cocktail={cocktail} />
         <p>Similar cocktails:</p>
         {similarCocktails.slice(1, 4).map(cocktail => {
-          return (<Cocktail parent={similarCocktails[0]} cocktail={cocktail} />)
+          return (<Cocktail key={cocktail.id} parent={similarCocktails[0]} cocktail={cocktail} />)
         })}
       </section>
     </Layout >

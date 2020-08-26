@@ -45,6 +45,62 @@ const halfStar = (details) => scale({
   bottom: 0,
 })
 
+const ingredients = (details) => scale({
+  margin: 0,
+  paddingLeft: 32,
+  paddingTop: details ? 18 : 12
+})
+
+const instructions = (details) => scale({
+  fontFamily: 'georgia, serif',
+  fontStyle: 'italic',
+  color: '#333333',
+  fontSize: details ? 20 : 18,
+  fontWeight: 400
+})
+
+const listTags = (details) => scale({
+  marginBottom: details ? 80 : 20,
+  span: {
+    display: 'inline-block',
+    backgroundColor: 'rgb(231, 231, 231)',
+    color: '#333',
+    fontWeight: 500,
+    margin: 2,
+    padding: '2px 10px',
+    borderRadius: 4,
+    fontSize: 14
+  }
+})
+
+const copyLink = () => scale({
+  "position": "absolute",
+  "right": "0px",
+  "top": "-8px",
+  button: {
+    "backgroundColor": "#eeeeee",
+    "border": "1px solid grey",
+    "borderRadius": "4px",
+    "boxShadow": "-1px 4px 14px -6px rgba(148,148,148,.5)",
+    "cursor": "pointer",
+    "fontFamily": fonts.sans,
+    "mozBoxShadow": "-1px 4px 14px -6px rgba(148,148,148,.5)",
+    "padding": "5px 10px",
+    "webkitBoxShadow": "-1px 4px 14px -6px rgba(148,148,148,.5)",
+    '&:hover': {
+      backgroundColor: '#e0e0e0',
+    }
+  }
+})
+
+const origin = scale({
+  "color": "#333333",
+  "fontSize": "16px",
+  "marginTop": "18px",
+  "opacity": "0.5",
+  "textTransform": "uppercase"
+})
+
 export default function Cocktail({ cocktail, filters = [], details }) {
   let rating
   const star = <span css={starStyles(details)}>★</span>
@@ -130,13 +186,13 @@ export default function Cocktail({ cocktail, filters = [], details }) {
           <div css={starsBox(details)}>
             {rating}
           </div>
-          <ul style={{ margin: 0, paddingLeft: 32, paddingTop: details ? 18 : 12 }}>
+          <ul css={ingredients(details)}>
             {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>)}
           </ul>
-          <i><p className="description" style={{ fontSize: details ? 20 : 18, fontWeight: 400 }} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
-          {(details && cocktail.origin) && <p className="origin">Origin: {cocktail.origin}</p>}
-          <div style={{ marginBottom: details ? 80 : 20 }} className="listTags">{cocktail.lists.map((list) => <span style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
-          {details && <div className="copyLink">
+          <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
+          {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
+          <div css={listTags(details)}>{cocktail.lists.map((list) => <span style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
+          {details && <div css={copyLink}>
             <CopyToClipboard text={`https://901.benstanfield.io/${cocktail.id}`}
               onCopy={() => setCopied(true)}>
               <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
