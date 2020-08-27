@@ -6,11 +6,18 @@ import Cocktail from '../components/cocktail'
 import Link from 'next/link'
 
 export default function CocktailPage({ cocktail, similarCocktails }) {
+  const adjective = {
+    4: 'Solid',
+    4.5: 'Very good',
+    5: 'Exceptional'
+  }
+
   return (
     <Layout>
       <Head>
         <title>{cocktail.name}&nbsp;({cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | {siteTitle}</title>
         <meta name="og:title" content={`${cocktail.name}(${cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | ${siteTitle}`} />
+        <meta name="og:description" content={`${adjective[cocktail.rating]} cocktail with ${cocktail.ingredients[0]}, ${cocktail.ingredients[1]}, and ${cocktail.ingredients.length - 2} other ingredients.`} />
       </Head>
       <section className="padding1px">
         <label style={{ marginBottom: 24 }}>

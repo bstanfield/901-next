@@ -48,7 +48,10 @@ const halfStar = (details) => scale({
 const ingredients = (details) => scale({
   margin: 0,
   paddingLeft: 32,
-  paddingTop: details ? 18 : 12
+  paddingTop: details ? 18 : 12,
+  'li:before': {
+    content: "'-' !important",
+  }
 })
 
 const instructions = (details) => scale({
@@ -187,7 +190,7 @@ export default function Cocktail({ cocktail, filters = [], details }) {
             {rating}
           </div>
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>)}
+            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{filters.map(filter => line.includes(filter)).includes(true) && '✔ '} {line}</li>)}
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
