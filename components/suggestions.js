@@ -42,7 +42,7 @@ export default function Suggestions({ values, filters, setValues, setFilters, co
       <label className="topLabel">Suggestions</label>
       <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;" values={values} setValues={setValues} filters={filters} setFilters={setFilters} cocktails={cocktails} />
       {randomSuggestions.map(
-        suggestion => <ListButton label={suggestion} values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+        suggestion => <ListButton key={suggestion} label={suggestion} values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
       )}
     </div>
   )

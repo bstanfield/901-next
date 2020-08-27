@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select, { createFilter } from 'react-select';
 import { formatGroupLabel } from '../lib/search'
 
 export default function Search({ data, values, setFilters, setValues }) {
@@ -22,9 +22,16 @@ export default function Search({ data, values, setFilters, setValues }) {
     }
   ];
 
+  const filterConfig = {
+    ignoreAccents: true,
+    ignoreCase: true,
+    trim: true,
+  }
+
   return (<Select
     isMulti
     autoFocus
+    filterOption={createFilter(filterConfig)}
     styles={
       {
         placeholder: (styles) => ({
