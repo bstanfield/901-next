@@ -5,8 +5,8 @@ import { getData } from '../lib/data'
 import { watchScroll, getRelevantCocktails, createSentence, scale } from '../lib/helpers'
 import CocktailList from '../components/results'
 import { useState, useEffect } from 'react'
-import SearchBar from '../components/search';
-import Suggestions from '../components/suggestions';
+import SearchBar from '../components/search'
+import Suggestions from '../components/suggestions'
 
 export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)

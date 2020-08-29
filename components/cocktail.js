@@ -1,108 +1,23 @@
 /** @jsx jsx */
 
 import Link from 'next/link'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useState } from 'react'
-import { scale } from '../lib/helpers'
-import { fonts, colors } from '../styles/classes'
-import { jsx } from '@emotion/core';
-
-// Page-specific styles
-const starsBox = (details) => scale({
-  width: 140,
-  position: 'relative',
-  marginTop: details ? 8 : 0
-})
-
-const cocktailName = (details) => scale({
-  fontFamily: fonts.serif,
-  fontWeight: 600,
-  margin: 0,
-  marginTop: details ? 16 : 0,
-  marginBottom: details ? [12, 18] : 4,
-  padding: 0,
-  fontSize: details ? [34, 40] : 28,
-  lineHeight: '38px',
-})
-
-const starStyles = (details) => scale({
-  fontSize: details ? 16 : 12,
-  color: 'white',
-  backgroundColor: '#50B27F',
-  padding: '2px 3px',
-  margin: details ? 2 : '1.5px',
-  borderRadius: '2px',
-  position: 'relative',
-})
-
-const halfStar = (details) => scale({
-  backgroundColor: colors.bgColor,
-  opacity: 0.95,
-  position: 'absolute',
-  width: details ? 17 : 15,
-  height: details ? 26 : 20,
-  right: '-5px',
-  bottom: 0,
-})
-
-const ingredients = (details) => scale({
-  margin: 0,
-  paddingLeft: 32,
-  paddingTop: details ? 18 : 12,
-  'li:before': {
-    content: "'-' !important",
-  }
-})
-
-const instructions = (details) => scale({
-  fontFamily: 'georgia, serif',
-  fontStyle: 'italic',
-  color: '#333333',
-  fontSize: details ? 20 : 18,
-  fontWeight: 400
-})
-
-const listTags = (details) => scale({
-  marginBottom: details ? 80 : 20,
-  span: {
-    display: 'inline-block',
-    backgroundColor: 'rgb(231, 231, 231)',
-    color: '#333',
-    fontWeight: 500,
-    margin: 2,
-    padding: '2px 10px',
-    borderRadius: 4,
-    fontSize: 14
-  }
-})
-
-const copyLink = () => scale({
-  "position": "absolute",
-  "right": "0px",
-  "top": "-8px",
-  button: {
-    "backgroundColor": "#eeeeee",
-    "border": "1px solid grey",
-    "borderRadius": "4px",
-    "boxShadow": "-1px 4px 14px -6px rgba(148,148,148,.5)",
-    "cursor": "pointer",
-    "fontFamily": fonts.sans,
-    "mozBoxShadow": "-1px 4px 14px -6px rgba(148,148,148,.5)",
-    "padding": "5px 10px",
-    "webkitBoxShadow": "-1px 4px 14px -6px rgba(148,148,148,.5)",
-    '&:hover': {
-      backgroundColor: '#e0e0e0',
-    }
-  }
-})
-
-const origin = scale({
-  "color": "#333333",
-  "fontSize": "16px",
-  "marginTop": "18px",
-  "opacity": "0.5",
-  "textTransform": "uppercase"
-})
+import {
+  starsBox,
+  cocktailName,
+  starStyles,
+  fadedStarStyles,
+  halfStar,
+  ingredients,
+  instructions,
+  listTags,
+  copyLink,
+  origin,
+  cocktailContainer,
+  noStyleLink,
+} from '../styles/classes'
+import { jsx } from '@emotion/core'
 
 export default function Cocktail({ cocktail, filters = [], details }) {
   let rating
@@ -111,7 +26,7 @@ export default function Cocktail({ cocktail, filters = [], details }) {
 
   switch (cocktail.rating) {
     case 4.0:
-      rating = <>{star}{star}{star}{star}<span css={starStyles(details)} className="star fadedStar">★</span></>
+      rating = <>{star}{star}{star}{star}<span css={starStyles(details)} css={[starStyles(details), fadedStarStyles]}>★</span></>
       break
     case 4.5:
       rating = <>{star}{star}{star}{star}<span css={starStyles(details)}>★<span css={halfStar(details)}></span></span></>
@@ -180,17 +95,17 @@ export default function Cocktail({ cocktail, filters = [], details }) {
 
   return (
     <>
-      <div key={cocktail.name} className="cocktailContainer">
+      <div key={cocktail.name} css={cocktailContainer}>
         <strong>
           {details
             ? <div css={cocktailName(details)}>{cocktail.name}</div>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} className="noStyleLink"><div css={cocktailName(details)}>{cocktail.name}</div></a></Link>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}><div css={cocktailName(details)}>{cocktail.name}</div></a></Link>
           }
           <div css={starsBox(details)}>
             {rating}
           </div>
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{filters.map(filter => line.includes(filter)).includes(true) && '✔ '} {line}</li>)}
+            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{filters.map(filter => line.toLowerCase().includes(filter.split(',')[0].toLowerCase())).includes(true) && '✔ '} {line}</li>)}
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}

@@ -7,7 +7,7 @@ export default function Results({ cocktails, filters, displayMaximum }) {
 
   let cocktailsToDisplay = cocktails.slice(0, displayMaximum || 901)
   return (
-    cocktailsToDisplay.map((cocktail) => (<Cocktail filters={filters} cocktail={cocktail} />))
+    cocktailsToDisplay.map((cocktail) => (<Cocktail key={cocktail.id} filters={filters} cocktail={cocktail} />))
   )
 }
 

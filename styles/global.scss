@@ -198,22 +198,9 @@ label {
   cursor: pointer;
 }
 
-.cocktailName {
-  font-family: $serif;
-  font-weight: $weight-medium;
-  margin: 0;
-  padding: 0;
-  font-size: 28px;
-  line-height: 38px;
-}
-
 hr {
   border: 1px solid black;
   opacity: 0.1;
-}
-
-.fadedStar {
-  opacity: .2;
 }
 
 .divider {
@@ -254,29 +241,6 @@ ul > li:before {
   content: "-" !important;
   opacity: 0.4;
   padding-right: 7px;
-}
-
-.cocktailContainer {
-  opacity: 0.9;
-  padding-left: 16px;
-  padding-top: 16px;
-  padding-bottom: 8px;
-  padding-right: 16px;
-  transition: border 0.2s ease;
-}
-
-.cocktailContainer:hover {
-  opacity: 1;
-  /* border: 2px solid #0071f33d; */
-  border-radius: 4px;
-}
-
-.noStyleLink {
-  color: inherit;
-}
-
-.noStyleLink:hover {
-  text-decoration: underline;
 }
 
 input {
