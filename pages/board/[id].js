@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
 import { useEffect, useState } from 'react';
+import fetch from 'isomorphic-unfetch'
 import { jsx } from '@emotion/core';
 import useSWR from 'swr'
 import { scale } from '../../styles/scale';
@@ -79,13 +80,14 @@ const buttonStyle = (showing) => scale({
   }
 });
 
-export default function Board({ data, id }) {
+export default function Board({ boardData, id }) {
   // STATE -----
   // Board state
   const [board, setBoard] = useState([]);
   const [localTurnCount, setLocalTurnCount] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [currentTurnGuesses, setCurrentTurnGuesses] = useState(0);
+  const [freshData, setFreshData] = useState({});
 
   // Card state
   const [selectedCards, setSelectedCards] = useState([]);
@@ -107,9 +109,9 @@ export default function Board({ data, id }) {
 
   // Loads board
   useEffect(() => {
-    if (data) {
+    if (boardData) {
       const loadDataIntoState = async () => {
-        const { words, red, blue, redGuesses, blueGuesses, turnCount } = data;
+        const { words, red, blue, redGuesses, blueGuesses, turnCount } = boardData;
         setBoard(words);
         setRedTeam(red);
         setBlueTeam(blue);
@@ -123,7 +125,7 @@ export default function Board({ data, id }) {
       }
       loadDataIntoState();
     }
-  }, [data]);
+  }, [boardData]);
 
   const hitAPIEndpoint = (method, endpoint, body) => {
     const response = fetch(`/api/${endpoint}`, {
@@ -137,12 +139,25 @@ export default function Board({ data, id }) {
   };
 
   const fetcher = async (url) => {
-    console.log('fetching! ', url)
+    console.log('fetching')
     const response = await hitAPIEndpoint('GET', url)
-    console.log('response: ', response)
+    return response.json()
   }
 
-  const { freshData, error } = useSWR('refresh', fetcher(`get-board/${id}`))
+  const { data, error } = useSWR(`get-board/${id}`, fetcher, { refreshInterval: 2000 })
+
+  useEffect(() => {
+    if (data) {
+      const { red, blue, redGuesses, blueGuesses, turnCount } = data
+      setRedGuesses(redGuesses || []);
+      setBlueGuesses(blueGuesses || []);
+      const allIncorrectGuesses = findIncorrectGuesses(red, blueGuesses || []).concat(findIncorrectGuesses(blue, redGuesses || []));
+      setIncorrectGuesses(allIncorrectGuesses);
+      setCorrectRedGuesses(findCorrectGuesses(blue, redGuesses || []));
+      setCorrectBlueGuesses(findCorrectGuesses(red, blueGuesses || []));
+      setLocalTurnCount(turnCount);
+    }
+  }, [data])
 
 
   // useEffect(() => {
@@ -176,98 +191,92 @@ export default function Board({ data, id }) {
 
   return (
     <div>
-      <h1>Hello!</h1>
-    </div>
-    // <div>
-    //   {showModal &&
-    //     <div css={pageFade}>
-    //       <div css={modal}>
-    //         <h1>{localTurnCount % 2 === 0 ? "🔷 Blue: Give a clue!" : "🔴 Red: Give a clue!"}</h1>
-    //       </div>
-    //     </div>
-    //   }
-    //   <div css={primaryContainer}>
-    //     <div css={topContainer}>
-    //       <h2 style={{ fontSize: 30, display: 'inline', marginRight: '20px' }}>{localTurnCount % 2 === 0 ? "🔷 Blue: Give a clue!" : "🔴 Red: Give a clue!"} </h2>
-    //       <strong><p style={{ position: 'absolute', top: 20, right: 160, opacity: 0.7 }}>Turn #{localTurnCount}</p></strong>
-    //       <button css={absolutePassTurn(currentTurnGuesses)} onClick={() => {
-    //         hitAPIEndpoint('post', `update-turn`, {
-    //           id,
-    //           turnCount: localTurnCount + 1,
-    //         });
-    //         setLocalTurnCount(localTurnCount + 1);
-    //         setCurrentTurnGuesses(0);
-    //       }}>End turn</button>
-    //     </div>
-    //     {/* <div css={genericFlex}>{board.map((item, index) => RenderCard(item, index))}</div> */}
-    //     <Cards
-    //       refreshCard={refreshCard}
-    //       state={{
-    //         board, localTurnCount, showModal, currentTurnGuesses, id,
-    //         selectedCards, showRemove, refreshCard, correctBlueGuesses, correctRedGuesses,
-    //         redTeam, blueTeam, blueGuesses, redGuesses, showCheatsheet, incorrectGuesses, guessingState
-    //       }}
-    //       modifiers={{
-    //         setCorrectBlueGuesses, setCorrectRedGuesses, setBlueGuesses,
-    //         setRedGuesses, setCurrentTurnGuesses, setBoard, triggerRefreshCard
-    //       }}
-    //     />
-    //     <button css={buttonStyle(showCheatsheet.red)} onClick={() => { showCheatsheet.red === false ? setCheatsheet({ blue: false, red: true }) : setCheatsheet({ blue: false, red: false }) }} >
-    //       <span role="img" aria-label="Red circle">🔴</span> Red cheatsheet
-    //     </button>
-    //     <button css={buttonStyle(showCheatsheet.blue)} onClick={() => { showCheatsheet.blue === false ? setCheatsheet({ blue: true, red: false }) : setCheatsheet({ blue: false, red: false }) }} >
-    //       <span role="img" aria-label="Blue diamond">🔷</span> Blue cheatsheet
-    //     </button>
-    //     <button css={buttonStyle(showRemove)} onClick={() => {
-    //       if (showRemove === false) {
-    //         setShowRemove(true)
-    //         setGuessingState(false)
-    //       } else {
-    //         setShowRemove(false)
-    //         setGuessingState(true)
-    //       }
-    //     }} >
-    //       Edit words
-    //     </button>
-    //     <button css={buttonStyle(showRemove)} onClick={() => {
-    //       // sets turn count to 1 and current turn guesses to none
-    //       hitAPIEndpoint('post', `update-turn`, {
-    //         id,
-    //         turnCount: 1,
-    //       });
-    //       setCurrentTurnGuesses(0);
+      {showModal &&
+        <div css={pageFade}>
+          <div css={modal}>
+            <h1>{localTurnCount % 2 === 0 ? "🔷 Blue: Give a clue!" : "🔴 Red: Give a clue!"}</h1>
+          </div>
+        </div>
+      }
+      <div css={primaryContainer}>
+        <div css={topContainer}>
+          <h2 style={{ fontSize: 30, display: 'inline', marginRight: '20px' }}>{localTurnCount % 2 === 0 ? "🔷 Blue: Give a clue!" : "🔴 Red: Give a clue!"} </h2>
+          <strong><p style={{ position: 'absolute', top: 20, right: 160, opacity: 0.7 }}>Turn #{localTurnCount}</p></strong>
+          <button css={absolutePassTurn(currentTurnGuesses)} onClick={() => {
+            const newTurnCount = Number(localTurnCount) + 1
+            fetch(`/api/update-turn/${id}/${newTurnCount}`)
+            setLocalTurnCount(newTurnCount);
+            setCurrentTurnGuesses(0);
+          }}>End turn</button>
+        </div>
+        {/* <div css={genericFlex}>{board.map((item, index) => RenderCard(item, index))}</div> */}
+        <Cards
+          refreshCard={refreshCard}
+          state={{
+            board, localTurnCount, showModal, currentTurnGuesses, id,
+            selectedCards, showRemove, refreshCard, correctBlueGuesses, correctRedGuesses,
+            redTeam, blueTeam, blueGuesses, redGuesses, showCheatsheet, incorrectGuesses, guessingState
+          }}
+          modifiers={{
+            setCorrectBlueGuesses, setCorrectRedGuesses, setBlueGuesses,
+            setRedGuesses, setCurrentTurnGuesses, setBoard, triggerRefreshCard
+          }}
+        />
+        <button css={buttonStyle(showCheatsheet.red)} onClick={() => { showCheatsheet.red === false ? setCheatsheet({ blue: false, red: true }) : setCheatsheet({ blue: false, red: false }) }} >
+          <span role="img" aria-label="Red circle">🔴</span> Red cheatsheet
+        </button>
+        <button css={buttonStyle(showCheatsheet.blue)} onClick={() => { showCheatsheet.blue === false ? setCheatsheet({ blue: true, red: false }) : setCheatsheet({ blue: false, red: false }) }} >
+          <span role="img" aria-label="Blue diamond">🔷</span> Blue cheatsheet
+        </button>
+        <button css={buttonStyle(showRemove)} onClick={() => {
+          if (showRemove === false) {
+            setShowRemove(true)
+            setGuessingState(false)
+          } else {
+            setShowRemove(false)
+            setGuessingState(true)
+          }
+        }} >
+          Edit words
+        </button>
+        <button css={buttonStyle(showRemove)} onClick={() => {
+          // sets turn count to 1 and current turn guesses to none
+          hitAPIEndpoint('post', `update-turn`, {
+            id,
+            turnCount: 1,
+          });
+          setCurrentTurnGuesses(0);
 
-    //       // resets player guesses
-    //       hitAPIEndpoint('post', `update-guesses`, {
-    //         id: id,
-    //         team: 'red',
-    //         guesses: []
-    //       });
-    //       hitAPIEndpoint('post', `update-guesses`, {
-    //         id: id,
-    //         team: 'blue',
-    //         guesses: []
-    //       });
-    //     }} >
-    //       Reset answers
-    //     </button>
-    //     <a href="/new"><button css={buttonStyle(showRemove)}>
-    //       New board
-    //     </button></a>
-    //   </div>
-    // </div>
+          // resets player guesses
+          hitAPIEndpoint('post', `update-guesses`, {
+            id: id,
+            team: 'red',
+            guesses: []
+          });
+          hitAPIEndpoint('post', `update-guesses`, {
+            id: id,
+            team: 'blue',
+            guesses: []
+          });
+        }} >
+          Reset answers
+        </button>
+        <a href="/new"><button css={buttonStyle(showRemove)}>
+          New board
+        </button></a>
+      </div>
+    </div>
   );
 };
 
 export async function getServerSideProps(context) {
   const id = context.params.id
-  const data = await getBoard(id)
-  console.log('data: ', data)
+  const boardData = await getBoard(id)
 
   return {
     props: {
       id,
-      data
+      boardData
     },
   }
 }
