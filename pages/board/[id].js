@@ -5,8 +5,9 @@ import fetch from 'isomorphic-unfetch'
 import { jsx } from '@emotion/core';
 import useSWR from 'swr'
 import { scale } from '../../styles/scale';
-import { getBoard } from '../../lib/helpers/getBoard'
-import { triggerModal, hitAPIEndpoint, findCorrectGuesses, findIncorrectGuesses } from '../../lib/util'
+import path from 'path';
+import fs from 'fs';
+import { triggerModal, findCorrectGuesses, findIncorrectGuesses } from '../../lib/util'
 import Cards from '../../components/Cards';
 import words from 'random-words';
 
@@ -80,6 +81,22 @@ const buttonStyle = (showing) => scale({
   }
 });
 
+const hitAPIEndpoint = (method, endpoint, body) => {
+  const response = fetch(`/api/${endpoint}`, {
+    method: method || 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response;
+};
+
+const fetcher = async (url) => {
+  const response = await hitAPIEndpoint('GET', url)
+  return response.json()
+}
+
 export default function Board({ boardData, id }) {
   // STATE -----
   // Board state
@@ -126,23 +143,6 @@ export default function Board({ boardData, id }) {
       loadDataIntoState();
     }
   }, [boardData]);
-
-  const hitAPIEndpoint = (method, endpoint, body) => {
-    const response = fetch(`/api/${endpoint}`, {
-      method: method || 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-    return response;
-  };
-
-  const fetcher = async (url) => {
-    console.log('fetching')
-    const response = await hitAPIEndpoint('GET', url)
-    return response.json()
-  }
 
   const { data, error } = useSWR(`get-board/${id}`, fetcher, { refreshInterval: 2000 })
 
@@ -271,12 +271,17 @@ export default function Board({ boardData, id }) {
 
 export async function getServerSideProps(context) {
   const id = context.params.id
-  const boardData = await getBoard(id)
+  // const { data, error } = useSWR(`get-board/${id}`, fetcher)
+  // const boardData = data
+  const postsDirectory = path.join(process.cwd(), 'public')
+  const filePath = path.join(postsDirectory, 'boards.json')
+  const fileContents = fs.readFileSync(filePath, 'utf8')
+  console.log('fileContents: ', fileContents[id])
 
   return {
     props: {
       id,
-      boardData
+      boardData: []
     },
   }
 }
