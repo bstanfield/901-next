@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { jsx } from '@emotion/core';
 import * as R from 'ramda';
-import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SetToast } from '../actions/toaster';
@@ -57,8 +56,8 @@ const StartGame = props => {
       role === 'team1'
         ? `/game-master-1/${boardCodeToUse}`
         : role === 'team2'
-        ? `/game-master-2/${boardCodeToUse}`
-        : `/player-board/${boardCodeToUse}`;
+          ? `/game-master-2/${boardCodeToUse}`
+          : `/player-board/${boardCodeToUse}`;
     setRedirectLink(link);
   };
 

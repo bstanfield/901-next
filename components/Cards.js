@@ -1,12 +1,16 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { scale } from '../style/scale';
-import {
-  genericFlex,
-} from '../style/flex';
-import { attemptGuess, replaceWord } from '../helpers/util'
+import { scale } from '../styles/scale';
+import { attemptGuess, replaceWord } from '../lib/util'
 import Card from './Card';
+
+const genericFlex = scale({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  alignContent: 'flex-start',
+});
 
 const RenderCard = (cardName, index, state, modifiers) => {
   let color = 'white';
@@ -62,7 +66,7 @@ const RenderCard = (cardName, index, state, modifiers) => {
 
 const Cards = props => {
   const { state, modifiers } = props;
-  return(
+  return (
     <div css={genericFlex}>{state.board.map((item, index) => RenderCard(item, index, state, modifiers))}</div>
   )
 }

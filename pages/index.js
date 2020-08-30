@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { hitAPIEndpoint } from '../helpers/util'
+import Link from 'next/link';
+import { getNewBoard } from '../lib/helpers/get-new-board'
 
-export default function NewBoard({ url }) {
+export default function NewBoard({ id }) {
   return (
     <div>
       <h1>Creating board...</h1>
-      {url ? <Redirect to={`/board/${url}`} /> : null}
+      {id ? <Link href="/board/[id]" as={`/board/${id}`}>Go to board</Link> : null}
     </div>
   );
 };
 
 export async function getServerSideProps(context) {
-  const board = await hitAPIEndpoint('get', 'get-new-board');
-  console.log('board: ', board);
-  setUrl(board.id);
-  const id = board.id;
-
+  const data = await getNewBoard();
+  const id = data.id;
 
   return {
     props: {

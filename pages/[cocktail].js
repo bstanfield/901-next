@@ -42,7 +42,7 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
   )
 }
 
-// export async function getServerSideProps(context) {
+`// export async function getServerSideProps(context) {
 //   const data = getData()
 //   const id = context.params.cocktail
 //   const cocktail = getCocktailById(data.cocktails, id)
@@ -55,7 +55,7 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
 //       similarCocktails,
 //     },
 //   }
-// }
+// }`
 
 export async function getStaticPaths() {
   const data = getData()
