@@ -11,10 +11,10 @@ export default function Layout({ children, home }) {
           name="description"
           content="Search for the very best cocktails you can make with ingredients on hand."
         />
-        <meta
+        {/* <meta
           property="og:image"
           content={`https://i.imgur.com/PA7puwU.png`}
-        />
+        /> */}
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
@@ -24,9 +24,9 @@ export default function Layout({ children, home }) {
             <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
             <section className="intro">
               <p>
-                Data from the book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>.
+                Recipes from Stew Ellington's book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>.
               </p>
-              <p>App built by <a href="https://benstanfield.io">Ben Stanfield.</a></p>
+              <p>Website built by <a href="https://benstanfield.io">Ben Stanfield</a>.</p>
             </section>
           </div>
         )
