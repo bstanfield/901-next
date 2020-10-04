@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   starsBox,
   cocktailName,
@@ -23,6 +23,11 @@ export default function Cocktail({ cocktail, filters = [], details }) {
   let rating
   const star = <span css={starStyles(details)}>★</span>
   const [copied, setCopied] = useState(false)
+  const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, [])
 
   switch (cocktail.rating) {
     case 4.0:
@@ -161,7 +166,7 @@ export default function Cocktail({ cocktail, filters = [], details }) {
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
           <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
           {details && <div css={copyLink}>
-            <CopyToClipboard text={window.location.href}
+            <CopyToClipboard text={url || ''}
               onCopy={() => setCopied(true)}>
               <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
             </CopyToClipboard>
