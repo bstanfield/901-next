@@ -41,11 +41,6 @@ export default function Home({ data }) {
     setCocktailsToDisplay(cocktailsToDisplay)
   }, [filters])
 
-  //TEMP USEEFFECT
-  useEffect(() => {
-    console.log('new set of keywords: ', keywords)
-  }, [keywords])
-
   return (
     <Layout home>
       <Head>
