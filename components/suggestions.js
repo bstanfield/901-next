@@ -36,6 +36,7 @@ const suggestions = [
 
 const randomSuggestions = suggestions.sort(() => Math.random() - 0.5).slice(0, 6)
 
+// TODO: Fix broken "I'm feeling lucky"
 export default function Suggestions({ values, filters, setValues, setFilters, cocktails, keywords, setKeywords, negativeMode }) {
   return (
     <div className="listOptions">

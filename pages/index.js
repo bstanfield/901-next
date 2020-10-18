@@ -54,9 +54,9 @@ export default function Home({ data }) {
       <div style={{ marginBottom: 24 }}>
         <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
   
-        <input checked={negativeMode} type="checkbox" id="negative" name="negative" value="negative" onClick={() => setNegativeMode(negativeMode ? false : true)} />
+        {/* <input checked={negativeMode} type="checkbox" id="negative" name="negative" value="negative" onClick={() => setNegativeMode(negativeMode ? false : true)} />
         <label style={{ display: 'inline', paddingLeft: 6 }} for="male">Inverse Search</label>
-        <br />
+        <br /> */}
 
         <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       </div>
