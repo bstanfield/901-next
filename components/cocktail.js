@@ -98,55 +98,55 @@ export default function Cocktail({ cocktail, filters = [], details }) {
     description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
   }
 
-  // const checkIfLineItemIsPicked = (line, filters) => {
-  //   const specialMappings = {
-  //     whiskey: ['bourbon', 'whisky', 'scotch', 'rye'],
-  //     whisky: ['bourbon', 'whiskey', 'scotch', 'rye'],
-  //     bourbon: ['whiskey', 'whisky', 'scotch'],
-  //     scotch: ['whiskey', 'whisky', 'bourbon'],
-  //   }
-
-  //   let listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-  //   let matches = 0
-  //   let total
-  //   for (const filter of filters) {
-  //     const lowerCaseLine = line.toLowerCase()
-  //     const filterFragments = filter.split(',').map(filterFragment => filterFragment.toLowerCase().replace(/ *\([^)]*\) */g, ""))
-
-  //     total = filterFragments.length
-
-  //     for (const fragment of filterFragments) {
-  //       if (lowerCaseLine.includes(fragment)) {
-  //         matches++
-  //       } else if (specialMappings[fragment]) {
-  //         specialMappings[fragment].map(mapping => {
-  //           if (lowerCaseLine.includes(mapping)) {
-  //             matches++
-  //           }
-  //         })
-  //       }
-  //       if (matches === total) {
-  //         listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}><span>✔️ </span>{line}</li>
-  //         return listElement
-  //       }
-  //     }
-  //   }
-  //   return listElement
-  // }
-
   const checkIfLineItemIsPicked = (line, filters) => {
-    let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-    for (const filter of filters) {
-      if (line.includes(filter)) {
-        console.log('line: ', line)
-        console.log('filter: ', filter)
-        console.log('index: ', line.indexOf(filter))
-        console.log('ends: ', line.lastIndexOf(filter))
-      }
-      lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+    const specialMappings = {
+      whiskey: ['bourbon', 'whisky', 'scotch', 'rye'],
+      whisky: ['bourbon', 'whiskey', 'scotch', 'rye'],
+      bourbon: ['whiskey', 'whisky', 'scotch'],
+      scotch: ['whiskey', 'whisky', 'bourbon'],
     }
-    return lineItem;
+
+    let listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+    let matches = 0
+    let total
+    for (const filter of filters) {
+      const lowerCaseLine = line.toLowerCase()
+      const filterFragments = filter.split(',').map(filterFragment => filterFragment.toLowerCase().replace(/ *\([^)]*\) */g, ""))
+
+      total = filterFragments.length
+
+      for (const fragment of filterFragments) {
+        if (lowerCaseLine.includes(fragment)) {
+          matches++
+        } else if (specialMappings[fragment]) {
+          specialMappings[fragment].map(mapping => {
+            if (lowerCaseLine.includes(mapping)) {
+              matches++
+            }
+          })
+        }
+        if (matches === total) {
+          listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}><span>✔️ </span>{line}</li>
+          return listElement
+        }
+      }
+    }
+    return listElement
   }
+
+  // const checkIfLineItemIsPicked = (line, filters) => {
+  //   let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+  //   for (const filter of filters) {
+  //     if (line.includes(filter)) {
+  //       console.log('line: ', line)
+  //       console.log('filter: ', filter)
+  //       console.log('index: ', line.indexOf(filter))
+  //       console.log('ends: ', line.lastIndexOf(filter))
+  //     }
+  //     lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+  //   }
+  //   return lineItem;
+  // }
 
   return (
     <>

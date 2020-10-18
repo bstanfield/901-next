@@ -13,27 +13,38 @@ export default function Home({ data }) {
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [filters, setFilters] = useState([]) // from search bar
   const [values, setValues] = useState([])
+  const [negativeFilters, setNegativeFilters] = useState([]);
 
   // "infinite scroll"
   useEffect(() => {
     watchScroll(document, setDisplayMaximum)
   }, [])
 
+  // Retrieves values from localstorage
   useEffect(() => {
     if (filters.length === 0) {
       const localStorageFilters = JSON.parse(localStorage.getItem('filters'))
+      const localStorageNegativeFilters = JSON.parse(localStorage.getItem('negativeFilters'))
+      
+      let allValues
       if (localStorageFilters) {
-        const values = localStorageFilters.map(item => ({ value: item, label: item, color: '#00B8D9', isFixed: true }))
+        const values = localStorageFilters.map(item => ({ value: item, label: item, isFixed: true }))
         setFilters(localStorageFilters)
-        setValues(values)
+        allValues = values
       }
+      if (localStorageNegativeFilters) {
+        const negativeValues = localStorageNegativeFilters.map(item => ({ value: item, label: `-${item}`, isFixed: true, color: '#ff000045' }))
+        setNegativeFilters(localStorageNegativeFilters)
+        allValues = allValues.concat(negativeValues)
+      }
+      setValues(allValues)
     }
   }, [])
 
   useEffect(() => {
-    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters)
+    const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, negativeFilters)
     setCocktailsToDisplay(cocktailsToDisplay)
-  }, [filters])
+  }, [filters, negativeFilters])
 
   return (
     <Layout home>
@@ -41,10 +52,10 @@ export default function Home({ data }) {
         <title>{siteTitle}</title>
       </Head>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} />
+        <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} negativeFilters={negativeFilters} setNegativeFilters={setNegativeFilters} />
         <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} cocktails={data.cocktails} />
       </div>
-      <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(filters) }}></span></label>
+      <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(filters, negativeFilters) }}></span></label>
       <CocktailList displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
     </Layout >
   )

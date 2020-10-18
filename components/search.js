@@ -1,7 +1,10 @@
 import Select, { createFilter } from 'react-select';
-import { formatGroupLabel } from '../lib/search'
+import { formatGroupLabel } from '../lib/search';
+import { useState } from 'react';
 
-export default function Search({ data, values, setFilters, setValues }) {
+export default function Search({ data, values, setFilters, setValues, negativeFilters, setNegativeFilters }) {
+  const [input, setInput] = useState('');
+  const [negativeMode, setNegativeMode] = useState(false);
 
   const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: ingredient, isFixed: true }))
   const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: cocktail.name, isFixed: true }))
@@ -61,10 +64,10 @@ export default function Search({ data, values, setFilters, setValues }) {
             border: '1px solid blue !important'
           },
         }),
-        multiValue: (styles) => ({
+        multiValue: (styles, { data }) => ({
           ...styles,
           fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-          backgroundColor: 'rgb(221, 237, 255)',
+          backgroundColor: data.color || 'rgb(221, 237, 255)',
           border: '1px solid rgb(0, 93, 214)',
           fontWeight: 400
         })
@@ -77,17 +80,48 @@ export default function Search({ data, values, setFilters, setValues }) {
     value={values}
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
+    inputValue={input}
+    onInputChange={input => {
+      setInput(input);
+      if (input === '-') {
+        // if you input a minus sign before searching that will substract from your query
+        setInput('');
+        setNegativeMode(true);
+      }
+    }}
     onChange={vals => {
+      console.log('vals: ', vals)
+      // wipes localstorage and currently displayed filters
       if (vals === null) {
         setFilters([])
-        localStorage.setItem('filters', JSON.stringify([]));
+        setNegativeFilters([])
+        localStorage.setItem('filters', JSON.stringify([]))
+        localStorage.setItem('negativeFilters', JSON.stringify([]))
         setValues([])
         return
       }
-      const filters = vals.map(val => val.value)
+
+      // hard coded rn
+      // create object in state w/ all negative values
+      if (negativeMode) {
+        const negativeFilters = vals.slice(-1)[0].value
+        const positiveValues = vals.slice(0, -1)
+        // hardcoded
+        const negativeValues = [{value: negativeFilters, label: `-${negativeFilters}`, isFixed: true, color: '#ff000045' }];
+        setNegativeFilters([negativeFilters])
+        setNegativeMode(false)
+        // still need to set negativeMode filters as values, but with diff color!
+        setValues(positiveValues.concat(negativeValues))
+        localStorage.setItem('negativeFilters', JSON.stringify([negativeFilters]))
+        return
+      }
+    
+      // even outside of negative mode, deleting a negative filter needs to trigger search function
+      const filters = vals.map(val => val.value);
       setFilters(filters)
-      localStorage.setItem('filters', JSON.stringify(filters));
+      localStorage.setItem('filters', JSON.stringify(filters))
       setValues(vals)
+      setNegativeMode(false)
     }}
   />)
 }
