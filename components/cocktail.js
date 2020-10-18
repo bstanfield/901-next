@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   starsBox,
   cocktailName,
@@ -23,6 +23,11 @@ export default function Cocktail({ cocktail, filters = [], details }) {
   let rating
   const star = <span css={starStyles(details)}>★</span>
   const [copied, setCopied] = useState(false)
+  const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, [])
 
   switch (cocktail.rating) {
     case 4.0:
@@ -93,6 +98,56 @@ export default function Cocktail({ cocktail, filters = [], details }) {
     description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
   }
 
+  // const checkIfLineItemIsPicked = (line, filters) => {
+  //   const specialMappings = {
+  //     whiskey: ['bourbon', 'whisky', 'scotch', 'rye'],
+  //     whisky: ['bourbon', 'whiskey', 'scotch', 'rye'],
+  //     bourbon: ['whiskey', 'whisky', 'scotch'],
+  //     scotch: ['whiskey', 'whisky', 'bourbon'],
+  //   }
+
+  //   let listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+  //   let matches = 0
+  //   let total
+  //   for (const filter of filters) {
+  //     const lowerCaseLine = line.toLowerCase()
+  //     const filterFragments = filter.split(',').map(filterFragment => filterFragment.toLowerCase().replace(/ *\([^)]*\) */g, ""))
+
+  //     total = filterFragments.length
+
+  //     for (const fragment of filterFragments) {
+  //       if (lowerCaseLine.includes(fragment)) {
+  //         matches++
+  //       } else if (specialMappings[fragment]) {
+  //         specialMappings[fragment].map(mapping => {
+  //           if (lowerCaseLine.includes(mapping)) {
+  //             matches++
+  //           }
+  //         })
+  //       }
+  //       if (matches === total) {
+  //         listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}><span>✔️ </span>{line}</li>
+  //         return listElement
+  //       }
+  //     }
+  //   }
+  //   return listElement
+  // }
+
+  const checkIfLineItemIsPicked = (line, filters) => {
+    let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+    for (const filter of filters) {
+      if (line.includes(filter)) {
+        console.log('line: ', line)
+        console.log('filter: ', filter)
+        console.log('index: ', line.indexOf(filter))
+        console.log('ends: ', line.lastIndexOf(filter))
+      }
+      lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+    }
+    return lineItem;
+  }
+
   return (
     <>
       <div key={cocktail.name} css={cocktailContainer}>
@@ -105,13 +160,13 @@ export default function Cocktail({ cocktail, filters = [], details }) {
             {rating}
           </div>
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{filters.map(filter => line.toLowerCase().includes(filter.split(',')[0].toLowerCase())).includes(true) && '✔ '} {line}</li>)}
+            {cocktail.lines.map((line) => checkIfLineItemIsPicked(line, filters))}
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
           <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
           {details && <div css={copyLink}>
-            <CopyToClipboard text={`https://901.benstanfield.io/${cocktail.id}`}
+            <CopyToClipboard text={url || ''}
               onCopy={() => setCopied(true)}>
               <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
             </CopyToClipboard>
