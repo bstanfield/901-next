@@ -98,41 +98,41 @@ export default function Cocktail({ cocktail, filters = [], details }) {
     description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
   }
 
-  const checkIfLineItemIsPicked = (line, filters) => {
-    const specialMappings = {
-      whiskey: ['bourbon', 'whisky', 'scotch', 'rye'],
-      whisky: ['bourbon', 'whiskey', 'scotch', 'rye'],
-      bourbon: ['whiskey', 'whisky', 'scotch'],
-      scotch: ['whiskey', 'whisky', 'bourbon'],
-    }
+  // const checkIfLineItemIsPicked = (line, filters) => {
+  //   const specialMappings = {
+  //     whiskey: ['bourbon', 'whisky', 'scotch', 'rye'],
+  //     whisky: ['bourbon', 'whiskey', 'scotch', 'rye'],
+  //     bourbon: ['whiskey', 'whisky', 'scotch'],
+  //     scotch: ['whiskey', 'whisky', 'bourbon'],
+  //   }
 
-    let listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-    let matches = 0
-    let total
-    for (const filter of filters) {
-      const lowerCaseLine = line.toLowerCase()
-      const filterFragments = filter.split(',').map(filterFragment => filterFragment.toLowerCase().replace(/ *\([^)]*\) */g, ""))
+  //   let listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+  //   let matches = 0
+  //   let total
+  //   for (const filter of filters) {
+  //     const lowerCaseLine = line.toLowerCase()
+  //     const filterFragments = filter.split(',').map(filterFragment => filterFragment.toLowerCase().replace(/ *\([^)]*\) */g, ""))
 
-      total = filterFragments.length
+  //     total = filterFragments.length
 
-      for (const fragment of filterFragments) {
-        if (lowerCaseLine.includes(fragment)) {
-          matches++
-        } else if (specialMappings[fragment]) {
-          specialMappings[fragment].map(mapping => {
-            if (lowerCaseLine.includes(mapping)) {
-              matches++
-            }
-          })
-        }
-        if (matches === total) {
-          listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}><span>✔️ </span>{line}</li>
-          return listElement
-        }
-      }
-    }
-    return listElement
-  }
+  //     for (const fragment of filterFragments) {
+  //       if (lowerCaseLine.includes(fragment)) {
+  //         matches++
+  //       } else if (specialMappings[fragment]) {
+  //         specialMappings[fragment].map(mapping => {
+  //           if (lowerCaseLine.includes(mapping)) {
+  //             matches++
+  //           }
+  //         })
+  //       }
+  //       if (matches === total) {
+  //         listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}><span>✔️ </span>{line}</li>
+  //         return listElement
+  //       }
+  //     }
+  //   }
+  //   return listElement
+  // }
 
   // const checkIfLineItemIsPicked = (line, filters) => {
   //   let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
@@ -160,7 +160,7 @@ export default function Cocktail({ cocktail, filters = [], details }) {
             {rating}
           </div>
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => checkIfLineItemIsPicked(line, filters))}
+            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>)}
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}

@@ -42,6 +42,7 @@ export default function Home({ data }) {
   }, [])
 
   useEffect(() => {
+    console.log('getting relevant cocktails...')
     const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters, negativeFilters)
     setCocktailsToDisplay(cocktailsToDisplay)
   }, [filters, negativeFilters])

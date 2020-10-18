@@ -8,13 +8,13 @@ export default function Filter({ selected, setValues, setFilters, filters, value
         // I'm feeling lucky...
         if (label.includes('🎲')) {
           const cocktail = cocktails[Math.floor(Math.random() * cocktails.length)];
-          const valueToAdd = { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
+          const valueToAdd = { value: cocktail.name, label: cocktail.name, isFixed: true }
           setValues([valueToAdd])
           setFilters([cocktail.name])
           localStorage.setItem('filters', JSON.stringify([cocktail.name]))
           return
         }
-        const valueToAdd = { value: label, label, color: '#00B8D9', isFixed: true }
+        const valueToAdd = { value: label, label, isFixed: true }
         values.push(valueToAdd)
         setValues([values].flat())
         filters.push(label)

@@ -104,19 +104,21 @@ export default function Search({ data, values, setFilters, setValues, negativeFi
       // hard coded rn
       // create object in state w/ all negative values
       if (negativeMode) {
-        const negativeFilters = vals.slice(-1)[0].value
-        const positiveValues = vals.slice(0, -1)
-        // hardcoded
-        const negativeValues = [{value: negativeFilters, label: `-${negativeFilters}`, isFixed: true, color: '#ff000045' }];
-        setNegativeFilters([negativeFilters])
+        const newNegativeFilter = vals.slice(-1)[0].value
+        const allNegativeFilters = negativeFilters.concat(newNegativeFilter)
+        const positiveValues = vals.filter(val => !allNegativeFilters.includes(val.value))
+
+        const negativeValues = negativeFilters.concat({value: newNegativeFilter, label: `-${newNegativeFilter}`, isFixed: true, color: '#ff000045' })
+        console.log('negative values: ', negativeValues)
+        setNegativeFilters(allNegativeFilters)
         setNegativeMode(false)
-        // still need to set negativeMode filters as values, but with diff color!
+
         setValues(positiveValues.concat(negativeValues))
-        localStorage.setItem('negativeFilters', JSON.stringify([negativeFilters]))
+        localStorage.setItem('negativeFilters', JSON.stringify(allNegativeFilters))
         return
       }
     
-      // even outside of negative mode, deleting a negative filter needs to trigger search function
+      // TODO: even outside of negative mode, deleting a negative filter needs to trigger search function
       const filters = vals.map(val => val.value);
       setFilters(filters)
       localStorage.setItem('filters', JSON.stringify(filters))
