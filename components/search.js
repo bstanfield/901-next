@@ -3,9 +3,9 @@ import { formatGroupLabel } from '../lib/search'
 import { useState, useEffect } from 'react'
 
 const loadData = (data, negativeMode) => {
-  const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: negativeMode ? `-${ingredient}` : ingredient, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }))
-  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }))
-  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }))
+  const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: negativeMode ? `-${ingredient}` : ingredient, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
   return {
     ingredients: ingredientsInSearchFormat,
     cocktails: cocktailNamesInSearchFormat,
@@ -92,6 +92,14 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     value={values}
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
+    onInputChange={input => {
+      if (input === '') {
+        setNegativeMode(false)
+      }
+      if (input === '-') {
+        setNegativeMode(true)
+      }
+    }}
     onChange={vals => {
       // TODO: Add new 'keywords' param to this section.
       if (vals === null) {
