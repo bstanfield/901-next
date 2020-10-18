@@ -39,7 +39,7 @@ export default function Home({ data }) {
     // const cocktailsToDisplay = getRelevantCocktails(data.cocktails, filters)
     const cocktailsToDisplay = improvedGetRelevantCocktails(data.cocktails, keywords)
     setCocktailsToDisplay(cocktailsToDisplay)
-  }, [filters])
+  }, [keywords])
 
   return (
     <Layout home>
@@ -47,16 +47,16 @@ export default function Home({ data }) {
         <title>{siteTitle}</title>
       </Head>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar data={data} values={values} setFilters={setFilters} setValues={setValues} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
+        <SearchBar data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
   
         {/* <input checked={negativeMode} type="checkbox" id="negative" name="negative" value="negative" onClick={() => setNegativeMode(negativeMode ? false : true)} />
         <label style={{ display: 'inline', paddingLeft: 6 }} for="male">Inverse Search</label>
         <br /> */}
 
-        <Suggestions values={values} filters={filters} setValues={setValues} setFilters={setFilters} cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
+        <Suggestions cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       </div>
       <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
-      <CocktailList displayMaximum={displayMaximum} filters={filters} cocktails={cocktailsToDisplay} />
+      <CocktailList displayMaximum={displayMaximum} cocktails={cocktailsToDisplay} />
     </Layout >
   )
 }

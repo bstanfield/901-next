@@ -41,9 +41,9 @@ export default function Suggestions({ values, filters, setValues, setFilters, co
   return (
     <div className="listOptions">
       <label className="topLabel">Suggestions</label>
-      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;&nbsp;" values={values} setValues={setValues} filters={filters} setFilters={setFilters} cocktails={cocktails} />
+      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;&nbsp;" keywords={keywords} setKeywords={setKeywords} cocktails={cocktails} />
       {randomSuggestions.map(
-        suggestion => <ListButton key={suggestion} label={suggestion} values={values} setValues={setValues} filters={filters} setFilters={setFilters} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
+        suggestion => <ListButton key={suggestion} label={suggestion} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       )}
     </div>
   )

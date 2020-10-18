@@ -104,16 +104,11 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
       // TODO: Add new 'keywords' param to this section.
       if (vals === null) {
         setKeywords([])
-        setFilters([])
-        localStorage.setItem('filters', JSON.stringify([]));
-        setValues([])
+        // localStorage.setItem('filters', JSON.stringify([]));
         return
       }
       setKeywords(vals)
-      const filters = vals.map(val => val.value)
-      setFilters(filters)
-      localStorage.setItem('filters', JSON.stringify(filters));
-      setValues(vals)
+      // localStorage.setItem('filters', JSON.stringify(filters));
     }}
   />)
 }

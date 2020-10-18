@@ -134,19 +134,19 @@ export default function Cocktail({ cocktail, filters = [], details }) {
   //   return listElement
   // }
 
-  // const checkIfLineItemIsPicked = (line, filters) => {
-  //   let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-  //   for (const filter of filters) {
-  //     if (line.includes(filter)) {
-  //       console.log('line: ', line)
-  //       console.log('filter: ', filter)
-  //       console.log('index: ', line.indexOf(filter))
-  //       console.log('ends: ', line.lastIndexOf(filter))
-  //     }
-  //     lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-  //   }
-  //   return lineItem;
-  // }
+  const checkIfLineItemIsPicked = (line, filters) => {
+    let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+    for (const filter of filters) {
+      if (line.includes(filter)) {
+        console.log('line: ', line)
+        console.log('filter: ', filter)
+        console.log('index: ', line.indexOf(filter))
+        console.log('ends: ', line.lastIndexOf(filter))
+      }
+      lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
+    }
+    return lineItem;
+  }
 
   return (
     <>
