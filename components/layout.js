@@ -11,10 +11,10 @@ export default function Layout({ children, home }) {
           name="description"
           content="Search for the very best cocktails you can make with ingredients on hand."
         />
-        {/* <meta
+        <meta
           property="og:image"
-          content={`https://i.imgur.com/PA7puwU.png`}
-        /> */}
+          content="https://i.imgur.com/PA7puwU.png"
+        />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
