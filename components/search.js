@@ -89,9 +89,10 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     options={groupedOptions}
     className="basic-multi-select"
     classNamePrefix="select"
-    value={values}
+    value={keywords}
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
+    // Checks for someone entering or exiting negative mode
     onInputChange={input => {
       if (input === '') {
         setNegativeMode(false)
@@ -101,7 +102,6 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
       }
     }}
     onChange={vals => {
-      // TODO: Add new 'keywords' param to this section.
       if (vals === null) {
         setKeywords([])
         // localStorage.setItem('filters', JSON.stringify([]));
