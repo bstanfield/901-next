@@ -1,4 +1,4 @@
-export default function Filter({ selected, setValues, setFilters, filters, values, label, cocktails }) {
+export default function Filter({ selected, setValues, setFilters, filters, values, label, cocktails, keywords, setKeywords, negativeMode }) {
   if (values.filter(value => value.label === label).length > 0) {
     return (null)
   }
@@ -8,17 +8,19 @@ export default function Filter({ selected, setValues, setFilters, filters, value
         // I'm feeling lucky...
         if (label.includes('🎲')) {
           const cocktail = cocktails[Math.floor(Math.random() * cocktails.length)];
-          const valueToAdd = { value: cocktail.name, label: cocktail.name, color: '#00B8D9', isFixed: true }
+          const valueToAdd = { value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }
           setValues([valueToAdd])
           setFilters([cocktail.name])
+          setKeywords([valueToAdd])
           localStorage.setItem('filters', JSON.stringify([cocktail.name]))
           return
         }
-        const valueToAdd = { value: label, label, color: '#00B8D9', isFixed: true }
+        const valueToAdd = { value: label, label: negativeMode ? `-${label}` : label, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }
         values.push(valueToAdd)
         setValues([values].flat())
         filters.push(label)
         setFilters([filters].flat())
+        setKeywords(keywords.concat([valueToAdd]))
         localStorage.setItem('filters', JSON.stringify([filters].flat()));
       }
     }}>

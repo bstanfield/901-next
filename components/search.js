@@ -69,6 +69,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
           fontWeight: 300,
           color: '#333333 !important',
           opacity: 1,
+          backgroundColor: negativeMode ? '#ef404017' : 'white',
           webkitBoxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
           boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
           '&:hover': {
@@ -101,7 +102,6 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
         return
       }
       setKeywords(vals)
-      console.log('keywords: ', keywords)
       const filters = vals.map(val => val.value)
       setFilters(filters)
       localStorage.setItem('filters', JSON.stringify(filters));
