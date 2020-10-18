@@ -14,12 +14,12 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
     5: 'Exceptional'
   }
 
-  useEffect(() => {
-    const localStorageFilters = JSON.parse(localStorage.getItem('filters'))
-    if (localStorageFilters) {
-      setFilters(localStorageFilters)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const localStorageFilters = JSON.parse(localStorage.getItem('filters'))
+  //   if (localStorageFilters) {
+  //     setFilters(localStorageFilters)
+  //   }
+  // }, [])
 
   return (
     <Layout>

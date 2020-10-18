@@ -1,24 +1,38 @@
 import Select, { createFilter } from 'react-select';
 import { formatGroupLabel } from '../lib/search'
+import { useState, useEffect } from 'react'
 
-export default function Search({ data, values, setFilters, setValues }) {
+const loadData = (data, negativeMode) => {
+  const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: negativeMode ? `-${ingredient}` : ingredient, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }))
+  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }))
+  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }))
+  return {
+    ingredients: ingredientsInSearchFormat,
+    cocktails: cocktailNamesInSearchFormat,
+    lists: listsInSearchFormat,
+  }
+}
 
-  const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: ingredient, isFixed: true }))
-  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: cocktail.name, isFixed: true }))
-  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: list, isFixed: true }))
+export default function Search({ data, values, keywords, negativeMode, setFilters, setValues, setKeywords, setNegativeMode }) {
+  const [loadedData, setLoadedData] = useState({}) 
+  
+  // Reloads data with negative or positive param
+  useEffect(() => {
+    setLoadedData(loadData(data, negativeMode))
+  }, [negativeMode])
 
   const groupedOptions = [
     {
       label: 'Ingredients',
-      options: ingredientsInSearchFormat,
+      options: loadedData.ingredients,
     },
     {
       label: 'Categories',
-      options: listsInSearchFormat,
+      options: loadedData.lists,
     },
     {
       label: 'Cocktails',
-      options: cocktailNamesInSearchFormat,
+      options: loadedData.cocktails,
     }
   ];
 
@@ -49,7 +63,7 @@ export default function Search({ data, values, setFilters, setValues }) {
         control: (styles) => ({
           ...styles,
           cursor: 'pointer',
-          border: '1px solid grey',
+          border: negativeMode ? '1px solid red' : '1px solid grey',
           fontSize: 18,
           fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
           fontWeight: 300,
@@ -58,13 +72,13 @@ export default function Search({ data, values, setFilters, setValues }) {
           webkitBoxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
           boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
           '&:hover': {
-            border: '1px solid blue !important'
+            border: negativeMode ? '1px solid red !important' : '1px solid blue !important'
           },
         }),
-        multiValue: (styles) => ({
+        multiValue: (styles, { data }) => ({
           ...styles,
           fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-          backgroundColor: 'rgb(221, 237, 255)',
+          backgroundColor: data.bgColor || 'rgb(221, 237, 255)',
           border: '1px solid rgb(0, 93, 214)',
           fontWeight: 400
         })
@@ -78,12 +92,16 @@ export default function Search({ data, values, setFilters, setValues }) {
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
     onChange={vals => {
+      // TODO: Add new 'keywords' param to this section.
       if (vals === null) {
+        setKeywords([])
         setFilters([])
         localStorage.setItem('filters', JSON.stringify([]));
         setValues([])
         return
       }
+      setKeywords(vals)
+      console.log('keywords: ', keywords)
       const filters = vals.map(val => val.value)
       setFilters(filters)
       localStorage.setItem('filters', JSON.stringify(filters));
