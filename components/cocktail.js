@@ -19,7 +19,7 @@ import {
 } from '../styles/classes'
 import { jsx } from '@emotion/core'
 
-export default function Cocktail({ cocktail, filters = [], details }) {
+export default function Cocktail({ cocktail, keywords, details }) {
   let rating
   const star = <span css={starStyles(details)}>★</span>
   const [copied, setCopied] = useState(false)
@@ -134,20 +134,24 @@ export default function Cocktail({ cocktail, filters = [], details }) {
   //   return listElement
   // }
 
-  const checkIfLineItemIsPicked = (line, filters) => {
-    let lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-    for (const filter of filters) {
-      if (line.includes(filter)) {
-        console.log('line: ', line)
-        console.log('filter: ', filter)
-        console.log('index: ', line.indexOf(filter))
-        console.log('ends: ', line.lastIndexOf(filter))
+  // Simple but doesn't cover the complex cases with commas
+  const checkIfLineItemIsPicked = (line, keywords) => {
+    let picked = false
+    const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
+    // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
+    const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
+    console.log('positiveKeywordsArray: ', positiveKeywordsArray)
+
+    for (const keyword of positiveKeywords) {
+      if (line.toLowerCase().includes(keyword.value.toLowerCase())) {
+        picked = true
+        break
       }
-      lineItem = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
     }
-    return lineItem;
+    return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{picked ? <span style={{ fontWeight: 800 }}>{line}</span> : line}</li>;
   }
 
+  const keywordValues = keywords.map(kw => kw.value)
   return (
     <>
       <div key={cocktail.name} css={cocktailContainer}>
@@ -160,11 +164,11 @@ export default function Cocktail({ cocktail, filters = [], details }) {
             {rating}
           </div>
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => checkIfLineItemIsPicked(line, filters))}
+            {cocktail.lines.map((line) => checkIfLineItemIsPicked(line, keywords))}
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
-          <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: filters.includes(list) ? 600 : 400 }}>{filters.includes(list) && '✔ '}{list}</span>)}</div>
+          <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 600 : 400 }}>{keywordValues.includes(list) && '✔ '}{list}</span>)}</div>
           {details && <div css={copyLink}>
             <CopyToClipboard text={url || ''}
               onCopy={() => setCopied(true)}>
