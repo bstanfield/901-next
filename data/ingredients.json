@@ -1,243 +1,966 @@
 [
-  "Absinthe",
-  "Agave nectar",
-  "Amaretto",
-  "Amer Picon",
-  "Anisette",
-  "Aperol",
-  "Apple cider",
-  "Apple cider, sparkling",
-  "Apple juice",
-  "Applejack",
-  "Apples",
-  "Apricot liqueur",
-  "Armagnac",
-  "Averna",
-  "Bacon syrup",
-  "Baileys",
-  "Bananas",
-  "Basil",
-  "Beer",
-  "Berries",
-  "Bitters, Angostura",
-  "Bitters, Aztec Chocolate",
-  "Bitters, Old Fashion",
-  "Bitters, Peychaud's",
-  "Bitters, Swedish",
-  "Bitters, Whiskey Barrel Aged",
-  "Bitters, Xocolatl Mole",
-  "Bitters, blood orange",
-  "Bitters, celery",
-  "Bitters, cherry",
-  "Bitters, grapefruit",
-  "Bitters, lemon",
-  "Bitters, orange",
-  "Bitters, peach",
-  "Bitters, rhubarb",
-  "Blackberries",
-  "Blueberries",
-  "Brandy",
-  "Brandy, Cognac",
-  "Brandy, Jacquin\u2019s ginger",
-  "Brandy, Spanish",
-  "Brandy, peach",
-  "Brandy, pear",
-  "Butter",
-  "B\u00e9n\u00e9dictine",
-  "Cacha\u00e7a",
-  "Calvados",
-  "Campari",
-  "Candy corn",
-  "Cantaloupes",
-  "Cayenne pepper",
-  "Chambord",
-  "Champagne",
-  "Chartreuse, green",
-  "Chartreuse, yellow",
-  "Cherries",
-  "Cherries, brandied",
-  "Cherry Heering",
-  "Chocolate extract",
-  "Chocolate syrup",
-  "Cinnamon",
-  "CioCiaro",
-  "Cloves",
-  "Cocoa powder",
-  "Coconut cream",
-  "Coconut milk",
-  "Coffee",
-  "Cointreau",
-  "Cola",
-  "Cranberry juice",
-  "Cream",
-  "Cr\u00e8me de banane",
-  "Cr\u00e8me de cacao, brown",
-  "Cr\u00e8me de cacao, white",
-  "Cr\u00e8me de cassis",
-  "Cr\u00e8me de fraise",
-  "Cr\u00e8me de framboise",
-  "Cr\u00e8me de menthe, green",
-  "Cr\u00e8me de menthe, white",
-  "Cr\u00e8me de mure",
-  "Cr\u00e8me de violette",
-  "Cucumbers",
-  "Cura\u00e7ao, blue",
-  "Cura\u00e7ao, orange",
-  "Cynar",
-  "Dill",
-  "Domaine de Canton",
-  "Drambuie",
-  "Dubonnet Rouge",
-  "Earl Grey Tea",
-  "Egg",
-  "Espresso",
-  "Falernum",
-  "Fernet-Branca",
-  "Fizz water",
-  "Frangelico",
-  "Galliano",
-  "Gin",
-  "Gin, Old Tom",
-  "Ginger",
-  "Ginger ale",
-  "Ginger beer",
-  "Ginger syrup",
-  "Goldschl\u00e4ger",
-  "Graham crackers",
-  "Grand Marnier",
-  "Grapefruit juice",
-  "Grapefruit soda",
-  "Grapes",
-  "Grenadine",
-  "Habanero hot sauce",
-  "Herbsaint",
-  "Honey",
-  "Honey syrup",
-  "Horseradish",
-  "Ice cream, coffee",
-  "Ice cream, vanilla",
-  "Irish Mist",
-  "J\u00e4germeister",
-  "Kahl\u00faa",
-  "Kirschwasser",
-  "Kiwis",
-  "Lemon juice",
-  "Lemon soda",
-  "Lemon sorbet",
-  "Lemon syrup",
-  "Lemon-lime soda",
-  "Lemonade",
-  "Lemons",
-  "Lillet blanc",
-  "Lime cordial",
-  "Lime juice",
-  "Limes",
-  "Limoncello",
-  "Macadamia nut liqueur",
-  "Mangos",
-  "Maple syrup",
-  "Maraschino",
-  "Mezcal",
-  "Midori",
-  "Milk",
-  "Milk, condensed",
-  "Mint",
-  "Nutella",
-  "Nutmeg",
-  "Olive brine",
-  "Orange flower water",
-  "Orange juice",
-  "Orange juice, blood",
-  "Orange marmalade",
-  "Oranges",
-  "Oregano",
-  "Orgeat",
-  "Papayas",
-  "Parfait amour",
-  "Passion fruit syrup",
-  "Pears",
-  "Pepper",
-  "Pimm's No.1",
-  "Pineapple juice",
-  "Pineapples",
-  "Pisco",
-  "Port",
-  "Port, ruby",
-  "Port, tawny",
-  "Prosecco",
-  "Punt e Mes",
-  "Raspberries",
-  "Raspberry syrup",
-  "Red bell pepper",
-  "Rhum agricole",
-  "Rose water",
-  "Rosemary",
-  "Rum",
-  "Rum, 151",
-  "Rum, Cruzan Black Strap",
-  "Rum, Jamaican",
-  "Rum, a\u00f1ejo",
-  "Rum, coconut",
-  "Rum, dark",
-  "Rum, gold",
-  "Rum, light",
-  "Rum, navy strength",
-  "Rum, spiced",
-  "Rumple Minze",
-  "Saffron",
-  "Sage",
-  "Sake",
-  "Salt",
-  "Schnapps, peach",
-  "Sherry",
-  "Sherry, amontillado",
-  "Sherry, fino (dry)",
-  "Sherry, manzanilla",
-  "Sherry, oloroso",
-  "Simple syrup",
-  "Sloe gin",
-  "Sour Apple Pucker",
-  "Southern Comfort",
-  "St-Germain",
-  "Star anise",
-  "Strawberries",
-  "Sugar",
-  "Sugar cubes",
-  "Sugar, brown",
-  "Tabasco sauce",
-  "Tequila",
-  "Tequila, a\u00f1ejo",
-  "Tequila, gold",
-  "Tequila, reposado",
-  "Tequila, silver",
-  "Tomato juice",
-  "Tomatoes, cherry",
-  "Tonic water",
-  "Torani Amer",
-  "Triple sec",
-  "Vermouth, bianco",
-  "Vermouth, dry",
-  "Vermouth, sweet",
-  "Vodka",
-  "Vodka, citrus",
-  "Vodka, orange",
-  "Vodka, pepper",
-  "Vodka, vanilla",
-  "Watermelon",
-  "Whiskey",
-  "Whiskey, Irish",
-  "Whiskey, Jack Daniel\u2019s",
-  "Whiskey, bourbon",
-  "Whiskey, rye",
-  "Whisky, Canadian",
-  "Whisky, Scotch (Ardbeg)",
-  "Whisky, Scotch (Highland)",
-  "Whisky, Scotch (Islay)",
-  "Whisky, Scotch (Laphroaig)",
-  "Whisky, Scotch (Peat Monster)",
-  "Whisky, Scotch (blended)",
-  "Whisky, Scotch (single malt)",
-  "Wine, red",
-  "Wine, white",
-  "Worcestershire sauce"
+  {
+    "ingredient": "Lemon juice",
+    "weight": 224
+  },
+  {
+    "ingredient": "Lime juice",
+    "weight": 199
+  },
+  {
+    "ingredient": "Gin",
+    "weight": 180
+  },
+  {
+    "ingredient": "Simple syrup",
+    "weight": 170
+  },
+  {
+    "ingredient": "Bitters, Angostura",
+    "weight": 106
+  },
+  {
+    "ingredient": "Orange juice",
+    "weight": 102
+  },
+  {
+    "ingredient": "Vermouth, sweet",
+    "weight": 92
+  },
+  {
+    "ingredient": "Whiskey, bourbon",
+    "weight": 89
+  },
+  {
+    "ingredient": "Maraschino",
+    "weight": 84
+  },
+  {
+    "ingredient": "Bitters, orange",
+    "weight": 82
+  },
+  {
+    "ingredient": "Vermouth, dry",
+    "weight": 78
+  },
+  {
+    "ingredient": "Whiskey, rye",
+    "weight": 77
+  },
+  {
+    "ingredient": "Cointreau",
+    "weight": 71
+  },
+  {
+    "ingredient": "Pineapple juice",
+    "weight": 67
+  },
+  {
+    "ingredient": "Absinthe",
+    "weight": 56
+  },
+  {
+    "ingredient": "Rum, light",
+    "weight": 55
+  },
+  {
+    "ingredient": "Vodka",
+    "weight": 55
+  },
+  {
+    "ingredient": "St-Germain",
+    "weight": 54
+  },
+  {
+    "ingredient": "Campari",
+    "weight": 48
+  },
+  {
+    "ingredient": "Fizz water",
+    "weight": 47
+  },
+  {
+    "ingredient": "Grenadine",
+    "weight": 47
+  },
+  {
+    "ingredient": "Egg",
+    "weight": 43
+  },
+  {
+    "ingredient": "Cream",
+    "weight": 42
+  },
+  {
+    "ingredient": "Rum, dark",
+    "weight": 42
+  },
+  {
+    "ingredient": "Apricot liqueur",
+    "weight": 40
+  },
+  {
+    "ingredient": "Brandy",
+    "weight": 40
+  },
+  {
+    "ingredient": "Chartreuse, green",
+    "weight": 40
+  },
+  {
+    "ingredient": "Bénédictine",
+    "weight": 38
+  },
+  {
+    "ingredient": "Triple sec",
+    "weight": 36
+  },
+  {
+    "ingredient": "Applejack",
+    "weight": 35
+  },
+  {
+    "ingredient": "Bitters, Peychaud's",
+    "weight": 34
+  },
+  {
+    "ingredient": "Brandy, Cognac",
+    "weight": 34
+  },
+  {
+    "ingredient": "Grapefruit juice",
+    "weight": 34
+  },
+  {
+    "ingredient": "Fernet-Branca",
+    "weight": 32
+  },
+  {
+    "ingredient": "Grand Marnier",
+    "weight": 32
+  },
+  {
+    "ingredient": "Mint",
+    "weight": 31
+  },
+  {
+    "ingredient": "Falernum",
+    "weight": 29
+  },
+  {
+    "ingredient": "Champagne",
+    "weight": 27
+  },
+  {
+    "ingredient": "Cherry Heering",
+    "weight": 27
+  },
+  {
+    "ingredient": "Curaçao, orange",
+    "weight": 27
+  },
+  {
+    "ingredient": "Cynar",
+    "weight": 27
+  },
+  {
+    "ingredient": "Kahlúa",
+    "weight": 27
+  },
+  {
+    "ingredient": "Tequila",
+    "weight": 26
+  },
+  {
+    "ingredient": "Chartreuse, yellow",
+    "weight": 25
+  },
+  {
+    "ingredient": "Punt e Mes",
+    "weight": 25
+  },
+  {
+    "ingredient": "Cranberry juice",
+    "weight": 21
+  },
+  {
+    "ingredient": "Domaine de Canton",
+    "weight": 21
+  },
+  {
+    "ingredient": "Mezcal",
+    "weight": 21
+  },
+  {
+    "ingredient": "Orgeat",
+    "weight": 21
+  },
+  {
+    "ingredient": "Aperol",
+    "weight": 19
+  },
+  {
+    "ingredient": "Crème de cacao, white",
+    "weight": 19
+  },
+  {
+    "ingredient": "Tequila, silver",
+    "weight": 19
+  },
+  {
+    "ingredient": "Ginger beer",
+    "weight": 18
+  },
+  {
+    "ingredient": "Lillet blanc",
+    "weight": 18
+  },
+  {
+    "ingredient": "Whiskey, Irish",
+    "weight": 18
+  },
+  {
+    "ingredient": "Whisky, Scotch (blended)",
+    "weight": 18
+  },
+  {
+    "ingredient": "Rum, añejo",
+    "weight": 17
+  },
+  {
+    "ingredient": "Amaretto",
+    "weight": 16
+  },
+  {
+    "ingredient": "Amer Picon",
+    "weight": 16
+  },
+  {
+    "ingredient": "Tequila, reposado",
+    "weight": 16
+  },
+  {
+    "ingredient": "Lemons",
+    "weight": 15
+  },
+  {
+    "ingredient": "Rum, gold",
+    "weight": 15
+  },
+  {
+    "ingredient": "Baileys",
+    "weight": 14
+  },
+  {
+    "ingredient": "Bitters, Xocolatl Mole",
+    "weight": 14
+  },
+  {
+    "ingredient": "Gin, Old Tom",
+    "weight": 14
+  },
+  {
+    "ingredient": "Ginger syrup",
+    "weight": 14
+  },
+  {
+    "ingredient": "Agave nectar",
+    "weight": 13
+  },
+  {
+    "ingredient": "Cachaça",
+    "weight": 13
+  },
+  {
+    "ingredient": "Crème de cassis",
+    "weight": 13
+  },
+  {
+    "ingredient": "Galliano",
+    "weight": 13
+  },
+  {
+    "ingredient": "Herbsaint",
+    "weight": 13
+  },
+  {
+    "ingredient": "Sloe gin",
+    "weight": 13
+  },
+  {
+    "ingredient": "Vermouth, bianco",
+    "weight": 13
+  },
+  {
+    "ingredient": "Averna",
+    "weight": 12
+  },
+  {
+    "ingredient": "Bitters, peach",
+    "weight": 12
+  },
+  {
+    "ingredient": "Brandy, pear",
+    "weight": 12
+  },
+  {
+    "ingredient": "Crème de cacao, brown",
+    "weight": 12
+  },
+  {
+    "ingredient": "Cucumbers",
+    "weight": 12
+  },
+  {
+    "ingredient": "Ginger ale",
+    "weight": 12
+  },
+  {
+    "ingredient": "Honey syrup",
+    "weight": 12
+  },
+  {
+    "ingredient": "Kirschwasser",
+    "weight": 12
+  },
+  {
+    "ingredient": "Port, ruby",
+    "weight": 12
+  },
+  {
+    "ingredient": "Coconut cream",
+    "weight": 11
+  },
+  {
+    "ingredient": "Coffee",
+    "weight": 11
+  },
+  {
+    "ingredient": "Drambuie",
+    "weight": 11
+  },
+  {
+    "ingredient": "Oranges",
+    "weight": 11
+  },
+  {
+    "ingredient": "Pisco",
+    "weight": 11
+  },
+  {
+    "ingredient": "Rum",
+    "weight": 11
+  },
+  {
+    "ingredient": "Rum, spiced",
+    "weight": 11
+  },
+  {
+    "ingredient": "Beer",
+    "weight": 10
+  },
+  {
+    "ingredient": "Calvados",
+    "weight": 10
+  },
+  {
+    "ingredient": "Crème de mure",
+    "weight": 10
+  },
+  {
+    "ingredient": "Dubonnet Rouge",
+    "weight": 10
+  },
+  {
+    "ingredient": "Limes",
+    "weight": 10
+  },
+  {
+    "ingredient": "Milk",
+    "weight": 10
+  },
+  {
+    "ingredient": "Tequila, añejo",
+    "weight": 10
+  },
+  {
+    "ingredient": "Crème de banane",
+    "weight": 9
+  },
+  {
+    "ingredient": "Curaçao, blue",
+    "weight": 9
+  },
+  {
+    "ingredient": "Frangelico",
+    "weight": 9
+  },
+  {
+    "ingredient": "Lime cordial",
+    "weight": 9
+  },
+  {
+    "ingredient": "Midori",
+    "weight": 9
+  },
+  {
+    "ingredient": "Pineapples",
+    "weight": 9
+  },
+  {
+    "ingredient": "Salt",
+    "weight": 9
+  },
+  {
+    "ingredient": "Sugar cubes",
+    "weight": 9
+  },
+  {
+    "ingredient": "Vodka, citrus",
+    "weight": 9
+  },
+  {
+    "ingredient": "Whisky, Scotch (Laphroaig)",
+    "weight": 9
+  },
+  {
+    "ingredient": "Espresso",
+    "weight": 8
+  },
+  {
+    "ingredient": "Ice cream, vanilla",
+    "weight": 8
+  },
+  {
+    "ingredient": "Raspberry syrup",
+    "weight": 8
+  },
+  {
+    "ingredient": "Rum, 151",
+    "weight": 8
+  },
+  {
+    "ingredient": "Rum, coconut",
+    "weight": 8
+  },
+  {
+    "ingredient": "Sherry, fino (dry)",
+    "weight": 8
+  },
+  {
+    "ingredient": "Apple cider",
+    "weight": 7
+  },
+  {
+    "ingredient": "Bitters, Whiskey Barrel Aged",
+    "weight": 7
+  },
+  {
+    "ingredient": "Bitters, grapefruit",
+    "weight": 7
+  },
+  {
+    "ingredient": "Maple syrup",
+    "weight": 7
+  },
+  {
+    "ingredient": "Rose water",
+    "weight": 7
+  },
+  {
+    "ingredient": "Schnapps, peach",
+    "weight": 7
+  },
+  {
+    "ingredient": "Anisette",
+    "weight": 6
+  },
+  {
+    "ingredient": "Chambord",
+    "weight": 6
+  },
+  {
+    "ingredient": "Lemon-lime soda",
+    "weight": 6
+  },
+  {
+    "ingredient": "Southern Comfort",
+    "weight": 6
+  },
+  {
+    "ingredient": "Strawberries",
+    "weight": 6
+  },
+  {
+    "ingredient": "Sugar",
+    "weight": 6
+  },
+  {
+    "ingredient": "Bananas",
+    "weight": 5
+  },
+  {
+    "ingredient": "Basil",
+    "weight": 5
+  },
+  {
+    "ingredient": "Bitters, Aztec Chocolate",
+    "weight": 5
+  },
+  {
+    "ingredient": "Bitters, celery",
+    "weight": 5
+  },
+  {
+    "ingredient": "Cinnamon",
+    "weight": 5
+  },
+  {
+    "ingredient": "CioCiaro",
+    "weight": 5
+  },
+  {
+    "ingredient": "Cola",
+    "weight": 5
+  },
+  {
+    "ingredient": "Crème de menthe, green",
+    "weight": 5
+  },
+  {
+    "ingredient": "Jägermeister",
+    "weight": 5
+  },
+  {
+    "ingredient": "Pimm's No.1",
+    "weight": 5
+  },
+  {
+    "ingredient": "Sake",
+    "weight": 5
+  },
+  {
+    "ingredient": "Sherry, amontillado",
+    "weight": 5
+  },
+  {
+    "ingredient": "Sugar, brown",
+    "weight": 5
+  },
+  {
+    "ingredient": "Tonic water",
+    "weight": 5
+  },
+  {
+    "ingredient": "Whisky, Canadian",
+    "weight": 5
+  },
+  {
+    "ingredient": "Cherries",
+    "weight": 4
+  },
+  {
+    "ingredient": "Crème de fraise",
+    "weight": 4
+  },
+  {
+    "ingredient": "Honey",
+    "weight": 4
+  },
+  {
+    "ingredient": "Kiwis",
+    "weight": 4
+  },
+  {
+    "ingredient": "Parfait amour",
+    "weight": 4
+  },
+  {
+    "ingredient": "Passion fruit syrup",
+    "weight": 4
+  },
+  {
+    "ingredient": "Rum, Jamaican",
+    "weight": 4
+  },
+  {
+    "ingredient": "Rumple Minze",
+    "weight": 4
+  },
+  {
+    "ingredient": "Tabasco sauce",
+    "weight": 4
+  },
+  {
+    "ingredient": "Vodka, orange",
+    "weight": 4
+  },
+  {
+    "ingredient": "Whiskey",
+    "weight": 4
+  },
+  {
+    "ingredient": "Whiskey, Jack Daniel’s",
+    "weight": 4
+  },
+  {
+    "ingredient": "Wine, red",
+    "weight": 4
+  },
+  {
+    "ingredient": "Wine, white",
+    "weight": 4
+  },
+  {
+    "ingredient": "Brandy, Spanish",
+    "weight": 3
+  },
+  {
+    "ingredient": "Crème de menthe, white",
+    "weight": 3
+  },
+  {
+    "ingredient": "Goldschläger",
+    "weight": 3
+  },
+  {
+    "ingredient": "Limoncello",
+    "weight": 3
+  },
+  {
+    "ingredient": "Macadamia nut liqueur",
+    "weight": 3
+  },
+  {
+    "ingredient": "Mangos",
+    "weight": 3
+  },
+  {
+    "ingredient": "Nutmeg",
+    "weight": 3
+  },
+  {
+    "ingredient": "Orange flower water",
+    "weight": 3
+  },
+  {
+    "ingredient": "Orange juice, blood",
+    "weight": 3
+  },
+  {
+    "ingredient": "Pears",
+    "weight": 3
+  },
+  {
+    "ingredient": "Port",
+    "weight": 3
+  },
+  {
+    "ingredient": "Prosecco",
+    "weight": 3
+  },
+  {
+    "ingredient": "Rhum agricole",
+    "weight": 3
+  },
+  {
+    "ingredient": "Rum, Cruzan Black Strap",
+    "weight": 3
+  },
+  {
+    "ingredient": "Sage",
+    "weight": 3
+  },
+  {
+    "ingredient": "Torani Amer",
+    "weight": 3
+  },
+  {
+    "ingredient": "Vodka, vanilla",
+    "weight": 3
+  },
+  {
+    "ingredient": "Whisky, Scotch (Highland)",
+    "weight": 3
+  },
+  {
+    "ingredient": "Whisky, Scotch (Islay)",
+    "weight": 3
+  },
+  {
+    "ingredient": "Apples",
+    "weight": 2
+  },
+  {
+    "ingredient": "Bacon syrup",
+    "weight": 2
+  },
+  {
+    "ingredient": "Bitters, Old Fashion",
+    "weight": 2
+  },
+  {
+    "ingredient": "Bitters, cherry",
+    "weight": 2
+  },
+  {
+    "ingredient": "Bitters, lemon",
+    "weight": 2
+  },
+  {
+    "ingredient": "Brandy, Jacquin’s ginger",
+    "weight": 2
+  },
+  {
+    "ingredient": "Cantaloupes",
+    "weight": 2
+  },
+  {
+    "ingredient": "Chocolate extract",
+    "weight": 2
+  },
+  {
+    "ingredient": "Cocoa powder",
+    "weight": 2
+  },
+  {
+    "ingredient": "Crème de framboise",
+    "weight": 2
+  },
+  {
+    "ingredient": "Ginger",
+    "weight": 2
+  },
+  {
+    "ingredient": "Grapefruit soda",
+    "weight": 2
+  },
+  {
+    "ingredient": "Grapes",
+    "weight": 2
+  },
+  {
+    "ingredient": "Irish Mist",
+    "weight": 2
+  },
+  {
+    "ingredient": "Lemon sorbet",
+    "weight": 2
+  },
+  {
+    "ingredient": "Lemon syrup",
+    "weight": 2
+  },
+  {
+    "ingredient": "Rosemary",
+    "weight": 2
+  },
+  {
+    "ingredient": "Sherry",
+    "weight": 2
+  },
+  {
+    "ingredient": "Sour Apple Pucker",
+    "weight": 2
+  },
+  {
+    "ingredient": "Tequila, gold",
+    "weight": 2
+  },
+  {
+    "ingredient": "Whisky, Scotch (Peat Monster)",
+    "weight": 2
+  },
+  {
+    "ingredient": "Apple cider, sparkling",
+    "weight": 1
+  },
+  {
+    "ingredient": "Apple juice",
+    "weight": 1
+  },
+  {
+    "ingredient": "Armagnac",
+    "weight": 1
+  },
+  {
+    "ingredient": "Berries",
+    "weight": 1
+  },
+  {
+    "ingredient": "Bitters, Swedish",
+    "weight": 1
+  },
+  {
+    "ingredient": "Bitters, blood orange",
+    "weight": 1
+  },
+  {
+    "ingredient": "Bitters, rhubarb",
+    "weight": 1
+  },
+  {
+    "ingredient": "Blackberries",
+    "weight": 1
+  },
+  {
+    "ingredient": "Blueberries",
+    "weight": 1
+  },
+  {
+    "ingredient": "Brandy, peach",
+    "weight": 1
+  },
+  {
+    "ingredient": "Butter",
+    "weight": 1
+  },
+  {
+    "ingredient": "Candy corn",
+    "weight": 1
+  },
+  {
+    "ingredient": "Cayenne pepper",
+    "weight": 1
+  },
+  {
+    "ingredient": "Cherries, brandied",
+    "weight": 1
+  },
+  {
+    "ingredient": "Chocolate syrup",
+    "weight": 1
+  },
+  {
+    "ingredient": "Cloves",
+    "weight": 1
+  },
+  {
+    "ingredient": "Coconut milk",
+    "weight": 1
+  },
+  {
+    "ingredient": "Crème de violette",
+    "weight": 1
+  },
+  {
+    "ingredient": "Dill",
+    "weight": 1
+  },
+  {
+    "ingredient": "Earl Grey Tea",
+    "weight": 1
+  },
+  {
+    "ingredient": "Graham crackers",
+    "weight": 1
+  },
+  {
+    "ingredient": "Habanero hot sauce",
+    "weight": 1
+  },
+  {
+    "ingredient": "Horseradish",
+    "weight": 1
+  },
+  {
+    "ingredient": "Ice cream, coffee",
+    "weight": 1
+  },
+  {
+    "ingredient": "Lemon soda",
+    "weight": 1
+  },
+  {
+    "ingredient": "Lemonade",
+    "weight": 1
+  },
+  {
+    "ingredient": "Milk, condensed",
+    "weight": 1
+  },
+  {
+    "ingredient": "Nutella",
+    "weight": 1
+  },
+  {
+    "ingredient": "Olive brine",
+    "weight": 1
+  },
+  {
+    "ingredient": "Orange marmalade",
+    "weight": 1
+  },
+  {
+    "ingredient": "Oregano",
+    "weight": 1
+  },
+  {
+    "ingredient": "Papayas",
+    "weight": 1
+  },
+  {
+    "ingredient": "Pepper",
+    "weight": 1
+  },
+  {
+    "ingredient": "Port, tawny",
+    "weight": 1
+  },
+  {
+    "ingredient": "Raspberries",
+    "weight": 1
+  },
+  {
+    "ingredient": "Red bell pepper",
+    "weight": 1
+  },
+  {
+    "ingredient": "Rum, navy strength",
+    "weight": 1
+  },
+  {
+    "ingredient": "Saffron",
+    "weight": 1
+  },
+  {
+    "ingredient": "Sherry, manzanilla",
+    "weight": 1
+  },
+  {
+    "ingredient": "Sherry, oloroso",
+    "weight": 1
+  },
+  {
+    "ingredient": "Star anise",
+    "weight": 1
+  },
+  {
+    "ingredient": "Tomato juice",
+    "weight": 1
+  },
+  {
+    "ingredient": "Tomatoes, cherry",
+    "weight": 1
+  },
+  {
+    "ingredient": "Vodka, pepper",
+    "weight": 1
+  },
+  {
+    "ingredient": "Watermelon",
+    "weight": 1
+  },
+  {
+    "ingredient": "Whisky, Scotch (Ardbeg)",
+    "weight": 1
+  },
+  {
+    "ingredient": "Whisky, Scotch (single malt)",
+    "weight": 1
+  },
+  {
+    "ingredient": "Worcestershire sauce",
+    "weight": 1
+  }
 ]

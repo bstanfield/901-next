@@ -3,7 +3,7 @@ import { formatGroupLabel } from '../lib/search'
 import { useState, useEffect } from 'react'
 
 const loadData = (data, negativeMode) => {
-  const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: negativeMode ? `-${ingredient}` : ingredient, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const ingredientsInSearchFormat = data.ingredients.map(i => ({ weight: i.weight, value: i.ingredient, label: negativeMode ? `-${i.ingredient}` : `${i.ingredient}`, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
   const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
   const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
   return {
@@ -16,6 +16,7 @@ const loadData = (data, negativeMode) => {
 export default function Search({ data, values, keywords, negativeMode, setFilters, setValues, setKeywords, setNegativeMode }) {
   const [loadedData, setLoadedData] = useState({})
   const [inputValue, setInputValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [groupedOptions, setGroupedOptions] = useState([])
 
   // Reloads data with negative or positive param
@@ -26,7 +27,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
   useEffect(() => {
     setGroupedOptions([
       {
-        label: 'Ingredients',
+        label: 'Ingredients (Sorted by: Most common)',
         options: loadedData.ingredients,
       },
       {
@@ -84,7 +85,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
 
     return [
       {
-        label: 'Ingredients',
+        label: 'Ingredients (Sorted by: Closest match)',
         options: [...p1_ingredients, ...p2_ingredients],
       },
       {
@@ -113,6 +114,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
   return (<Select
     isMulti
     autoFocus
+    isLoading={isLoading}
     styles={
       {
         placeholder: (styles) => ({
@@ -161,7 +163,11 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
     // Checks for someone entering or exiting negative mode
-    onInputChange={input => {
+    onInputChange={(input, type) => {
+      // Prevents loading symbol from showing on basic click in/out of input box
+      if (type.action !== 'menu-close' && type.action !== 'input-blur') {
+        setIsLoading(true)
+      }
       if (input === '') {
         setNegativeMode(false)
       }
@@ -175,6 +181,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
         setInputValue(input)
       }
       setGroupedOptions(filterOptions(input))
+      setTimeout(() => setIsLoading(false), 1000)
     }}
     onChange={vals => {
       if (vals === null) {

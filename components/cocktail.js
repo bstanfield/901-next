@@ -147,7 +147,7 @@ export default function Cocktail({ cocktail, keywords, details }) {
         break
       }
     }
-    return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{picked ? <span style={{ fontWeight: 800 }}>{line}</span> : line}</li>;
+    return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{picked ? <span style={{ fontWeight: 700 }}>{line}</span> : line}</li>;
   }
 
   const keywordValues = keywords.map(kw => kw.value)
@@ -167,7 +167,7 @@ export default function Cocktail({ cocktail, keywords, details }) {
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
-          <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 600 : 400 }}>{keywordValues.includes(list) && '✔ '}{list}</span>)}</div>
+          <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 700 : 400 }}>{keywordValues.includes(list) && '✔ '}{list}</span>)}</div>
           {details && <div css={copyLink}>
             <CopyToClipboard text={url || ''}
               onCopy={() => setCopied(true)}>
