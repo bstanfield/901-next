@@ -140,7 +140,6 @@ export default function Cocktail({ cocktail, keywords, details }) {
     const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
     // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
     const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
-    console.log('positiveKeywordsArray: ', positiveKeywordsArray)
 
     for (const keyword of positiveKeywords) {
       if (line.toLowerCase().includes(keyword.value.toLowerCase())) {

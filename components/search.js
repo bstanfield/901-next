@@ -14,27 +14,31 @@ const loadData = (data, negativeMode) => {
 }
 
 export default function Search({ data, values, keywords, negativeMode, setFilters, setValues, setKeywords, setNegativeMode }) {
-  const [loadedData, setLoadedData] = useState({}) 
-  
+  const [loadedData, setLoadedData] = useState({})
+  const [inputValue, setInputValue] = useState('')
+  const [groupedOptions, setGroupedOptions] = useState([])
+
   // Reloads data with negative or positive param
   useEffect(() => {
     setLoadedData(loadData(data, negativeMode))
   }, [negativeMode])
 
-  const groupedOptions = [
-    {
-      label: 'Ingredients',
-      options: loadedData.ingredients,
-    },
-    {
-      label: 'Categories',
-      options: loadedData.lists,
-    },
-    {
-      label: 'Cocktails',
-      options: loadedData.cocktails,
-    }
-  ];
+  useEffect(() => {
+    setGroupedOptions([
+      {
+        label: 'Ingredients',
+        options: loadedData.ingredients,
+      },
+      {
+        label: 'Categories',
+        options: loadedData.lists,
+      },
+      {
+        label: 'Cocktails',
+        options: loadedData.cocktails,
+      }
+    ])
+  }, [loadedData])
 
   const filterConfig = {
     ignoreAccents: true,
@@ -42,10 +46,73 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     trim: true,
   }
 
+  const filterAndIgnoreExistingMatches = (input, items, existingMatches, filterType = 0) => {
+    const filterTypes = ['exact', 'partial-match']
+    // input = user input
+    // items = ingredients, lists, or cocktails
+    // existingMatches = [value1, value2]
+    const matches = items.filter(item => {
+      if (existingMatches.includes(item.value)) {
+        return false
+      } else {
+        if (filterTypes[filterType] === 'exact') {
+          return item.value.toLowerCase().slice(0, input.length) === input
+        } else if (filterTypes[filterType] === 'partial-match') {
+          return item.value.toLowerCase().includes(input)
+        }
+      }
+    })
+    matches.map(match => existingMatches.push(match.value))
+    return matches
+  }
+
+  const filterOptions = (rawInput) => {
+    const input = rawInput.toLowerCase().trim()
+
+    let { ingredients, lists, cocktails } = loadedData
+    let existingMatches = []
+
+    // Direct matches = priority #1
+    const p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
+    const p1_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches)
+    const p1_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches)
+
+    // Includes = priority #2
+    const p2_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
+    const p2_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 1)
+    const p2_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 1)
+
+    return [
+      {
+        label: 'Ingredients',
+        options: [...p1_ingredients, ...p2_ingredients],
+      },
+      {
+        label: 'Categories',
+        options: [...p1_lists, ...p2_lists],
+      },
+      {
+        label: 'Cocktails',
+        options: [...p1_cocktails, ...p2_cocktails],
+      }
+    ]
+
+    // option = cocktail obj
+    // rawInput = keywords, split on space
+
+    // TODO:
+    // Set order of operations for filtering (start w/ direct matches)
+    // const words = rawInput.split(' ');
+    // const results = words.reduce(
+    //   (acc, cur) => acc && option.label.toLowerCase().slice(0, cur.length).includes(cur.toLowerCase()),
+    //   true,
+    // );
+    // return results
+  };
+
   return (<Select
     isMulti
     autoFocus
-    filterOption={createFilter(filterConfig)}
     styles={
       {
         placeholder: (styles) => ({
@@ -90,6 +157,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     className="basic-multi-select"
     classNamePrefix="select"
     value={keywords}
+    inputValue={inputValue}
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
     // Checks for someone entering or exiting negative mode
@@ -97,9 +165,16 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
       if (input === '') {
         setNegativeMode(false)
       }
+      if (negativeMode) {
+        setInputValue(input)
+      }
       if (input === '-') {
         setNegativeMode(true)
+        setInputValue(' ')
+      } else {
+        setInputValue(input)
       }
+      setGroupedOptions(filterOptions(input))
     }}
     onChange={vals => {
       if (vals === null) {
