@@ -36,13 +36,14 @@ const suggestions = [
 
 const randomSuggestions = suggestions.sort(() => Math.random() - 0.5).slice(0, 6)
 
-export default function Suggestions({ values, filters, setValues, setFilters, cocktails }) {
+// TODO: Fix broken "I'm feeling lucky"
+export default function Suggestions({ values, filters, setValues, setFilters, cocktails, keywords, setKeywords, negativeMode }) {
   return (
     <div className="listOptions">
       <label className="topLabel">Suggestions</label>
-      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;" values={values} setValues={setValues} filters={filters} setFilters={setFilters} cocktails={cocktails} />
+      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;&nbsp;" keywords={keywords} setKeywords={setKeywords} cocktails={cocktails} />
       {randomSuggestions.map(
-        suggestion => <ListButton key={suggestion} label={suggestion} values={values} setValues={setValues} filters={filters} setFilters={setFilters} />
+        suggestion => <ListButton key={suggestion} label={suggestion} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       )}
     </div>
   )

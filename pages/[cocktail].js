@@ -7,19 +7,20 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 export default function CocktailPage({ cocktail, similarCocktails }) {
-  const [filters, setFilters] = useState([])
+  const [keywords, setKeywords] = useState([])
   const adjective = {
     4: 'Solid',
     4.5: 'Very good',
     5: 'Exceptional'
   }
 
-  useEffect(() => {
-    const localStorageFilters = JSON.parse(localStorage.getItem('filters'))
-    if (localStorageFilters) {
-      setFilters(localStorageFilters)
-    }
-  }, [])
+  // If we want keywords, need to use storage
+  // useEffect(() => {
+  //   const localStorageFilters = JSON.parse(localStorage.getItem('filters'))
+  //   if (localStorageFilters) {
+  //     setFilters(localStorageFilters)
+  //   }
+  // }, [])
 
   return (
     <Layout>
@@ -32,10 +33,10 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
         <label style={{ marginBottom: 24 }}>
           <Link href="/">&larr; HOME</Link>
         </label>
-        <Cocktail details filters={filters} cocktail={cocktail} />
+        <Cocktail details keywords={keywords} cocktail={cocktail} />
         <p>Similar cocktails:</p>
         {similarCocktails.slice(1, 4).map(cocktail => {
-          return (<Cocktail key={cocktail.id} filters={filters} parent={similarCocktails[0]} cocktail={cocktail} />)
+          return (<Cocktail key={cocktail.id} keywords={keywords} parent={similarCocktails[0]} cocktail={cocktail} />)
         })}
       </section>
     </Layout >

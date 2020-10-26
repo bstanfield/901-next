@@ -1,26 +1,45 @@
 import Select, { createFilter } from 'react-select';
 import { formatGroupLabel } from '../lib/search'
+import { useState, useEffect } from 'react'
 
-export default function Search({ data, values, setFilters, setValues }) {
+const loadData = (data, negativeMode) => {
+  const ingredientsInSearchFormat = data.ingredients.map(i => ({ weight: i.weight, value: i.ingredient, label: negativeMode ? `-${i.ingredient}` : `${i.ingredient}`, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  return {
+    ingredients: ingredientsInSearchFormat,
+    cocktails: cocktailNamesInSearchFormat,
+    lists: listsInSearchFormat,
+  }
+}
 
-  const ingredientsInSearchFormat = data.ingredients.map(ingredient => ({ value: ingredient, label: ingredient, isFixed: true }))
-  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: cocktail.name, isFixed: true }))
-  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: list, isFixed: true }))
+export default function Search({ data, values, keywords, negativeMode, setFilters, setValues, setKeywords, setNegativeMode }) {
+  const [loadedData, setLoadedData] = useState({})
+  const [inputValue, setInputValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [groupedOptions, setGroupedOptions] = useState([])
 
-  const groupedOptions = [
-    {
-      label: 'Ingredients',
-      options: ingredientsInSearchFormat,
-    },
-    {
-      label: 'Categories',
-      options: listsInSearchFormat,
-    },
-    {
-      label: 'Cocktails',
-      options: cocktailNamesInSearchFormat,
-    }
-  ];
+  // Reloads data with negative or positive param
+  useEffect(() => {
+    setLoadedData(loadData(data, negativeMode))
+  }, [negativeMode])
+
+  useEffect(() => {
+    setGroupedOptions([
+      {
+        label: 'Ingredients (Sorted by: Most common)',
+        options: loadedData.ingredients,
+      },
+      {
+        label: 'Categories',
+        options: loadedData.lists,
+      },
+      {
+        label: 'Cocktails',
+        options: loadedData.cocktails,
+      }
+    ])
+  }, [loadedData])
 
   const filterConfig = {
     ignoreAccents: true,
@@ -28,10 +47,74 @@ export default function Search({ data, values, setFilters, setValues }) {
     trim: true,
   }
 
+  const filterAndIgnoreExistingMatches = (input, items, existingMatches, filterType = 0) => {
+    const filterTypes = ['exact', 'partial-match']
+    // input = user input
+    // items = ingredients, lists, or cocktails
+    // existingMatches = [value1, value2]
+    const matches = items.filter(item => {
+      if (existingMatches.includes(item.value)) {
+        return false
+      } else {
+        if (filterTypes[filterType] === 'exact') {
+          return item.value.toLowerCase().slice(0, input.length) === input
+        } else if (filterTypes[filterType] === 'partial-match') {
+          return item.value.toLowerCase().includes(input)
+        }
+      }
+    })
+    matches.map(match => existingMatches.push(match.value))
+    return matches
+  }
+
+  const filterOptions = (rawInput) => {
+    const input = rawInput.toLowerCase().trim()
+
+    let { ingredients, lists, cocktails } = loadedData
+    let existingMatches = []
+
+    // Direct matches = priority #1
+    const p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
+    const p1_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches)
+    const p1_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches)
+
+    // Includes = priority #2
+    const p2_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
+    const p2_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 1)
+    const p2_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 1)
+
+    return [
+      {
+        label: 'Ingredients (Sorted by: Closest match)',
+        options: [...p1_ingredients, ...p2_ingredients],
+      },
+      {
+        label: 'Categories',
+        options: [...p1_lists, ...p2_lists],
+      },
+      {
+        label: 'Cocktails',
+        options: [...p1_cocktails, ...p2_cocktails],
+      }
+    ]
+
+    // option = cocktail obj
+    // rawInput = keywords, split on space
+
+    // TODO:
+    // Set order of operations for filtering (start w/ direct matches)
+    // const words = rawInput.split(' ');
+    // const results = words.reduce(
+    //   (acc, cur) => acc && option.label.toLowerCase().slice(0, cur.length).includes(cur.toLowerCase()),
+    //   true,
+    // );
+    // return results
+  };
+
   return (<Select
     isMulti
     autoFocus
-    filterOption={createFilter(filterConfig)}
+    isLoading={isLoading}
     styles={
       {
         placeholder: (styles) => ({
@@ -49,22 +132,23 @@ export default function Search({ data, values, setFilters, setValues }) {
         control: (styles) => ({
           ...styles,
           cursor: 'pointer',
-          border: '1px solid grey',
+          border: negativeMode ? '1px solid red' : '1px solid grey',
           fontSize: 18,
           fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
           fontWeight: 300,
           color: '#333333 !important',
           opacity: 1,
+          backgroundColor: negativeMode ? '#ef404017' : 'white',
           webkitBoxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
           boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
           '&:hover': {
-            border: '1px solid blue !important'
+            border: negativeMode ? '1px solid red !important' : '1px solid blue !important'
           },
         }),
-        multiValue: (styles) => ({
+        multiValue: (styles, { data }) => ({
           ...styles,
           fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-          backgroundColor: 'rgb(221, 237, 255)',
+          backgroundColor: data.bgColor || 'rgb(221, 237, 255)',
           border: '1px solid rgb(0, 93, 214)',
           fontWeight: 400
         })
@@ -74,20 +158,39 @@ export default function Search({ data, values, setFilters, setValues }) {
     options={groupedOptions}
     className="basic-multi-select"
     classNamePrefix="select"
-    value={values}
+    value={keywords}
+    inputValue={inputValue}
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'
+    // Checks for someone entering or exiting negative mode
+    onInputChange={(input, type) => {
+      // Prevents loading symbol from showing on basic click in/out of input box
+      if (type.action !== 'menu-close' && type.action !== 'input-blur') {
+        setIsLoading(true)
+      }
+      if (input === '') {
+        setNegativeMode(false)
+      }
+      if (negativeMode) {
+        setInputValue(input)
+      }
+      if (input === '-') {
+        setNegativeMode(true)
+        setInputValue(' ')
+      } else {
+        setInputValue(input)
+      }
+      setGroupedOptions(filterOptions(input))
+      setTimeout(() => setIsLoading(false), 1000)
+    }}
     onChange={vals => {
       if (vals === null) {
-        setFilters([])
-        localStorage.setItem('filters', JSON.stringify([]));
-        setValues([])
+        setKeywords([])
+        // localStorage.setItem('filters', JSON.stringify([]));
         return
       }
-      const filters = vals.map(val => val.value)
-      setFilters(filters)
-      localStorage.setItem('filters', JSON.stringify(filters));
-      setValues(vals)
+      setKeywords(vals)
+      // localStorage.setItem('filters', JSON.stringify(filters));
     }}
   />)
 }
