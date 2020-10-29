@@ -134,15 +134,15 @@ export default function Cocktail({ cocktail, keywords, details }) {
   //   return listElement
   // }
 
-  // Simple but doesn't cover the complex cases with commas
+  // Simple but doesn't cover special mappings like whiskey -> bourbon?
   const checkIfLineItemIsPicked = (line, keywords) => {
     let picked = false
     const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
     // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
-    const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
+    const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase())).flat()
 
-    for (const keyword of positiveKeywords) {
-      if (line.toLowerCase().includes(keyword.value.toLowerCase())) {
+    for (const keyword of positiveKeywordsArray) {
+      if (line.toLowerCase().includes(keyword)) {
         picked = true
         break
       }

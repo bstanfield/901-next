@@ -12,9 +12,9 @@ export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [negativeMode, setNegativeMode] = useState(false)
-  
+
   const [keywords, setKeywords] = useState([])
-    // TODO: every keyword will look like this: {value: 'foo', label: 'foo', type: 'positive'}
+  // TODO: every keyword will look like this: {value: 'foo', label: 'foo', type: 'positive'}
   const [filters, setFilters] = useState([]) // from search bar
   const [values, setValues] = useState([])
 
@@ -48,7 +48,7 @@ export default function Home({ data }) {
       </Head>
       <div style={{ marginBottom: 24 }}>
         <SearchBar data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
-  
+
         {/* <input checked={negativeMode} type="checkbox" id="negative" name="negative" value="negative" onClick={() => setNegativeMode(negativeMode ? false : true)} />
         <label style={{ display: 'inline', paddingLeft: 6 }} for="male">Inverse Search</label>
         <br /> */}
