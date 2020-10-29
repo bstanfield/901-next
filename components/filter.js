@@ -3,7 +3,7 @@ export default function Filter({ selected, label, cocktails, keywords, setKeywor
   if (keywordValues.includes(label)) {
     return null
   }
-  
+
   return (
     <div className="sortingButton" style={{ fontSize: 14, cursor: 'pointer', padding: 6, borderRadius: 6, marginRight: 6, marginBottom: 6, display: 'inline-block', backgroundColor: keywords.filter(keyword => keyword.value === label).length > 0 ? 'rgb(221 237 255)' : 'white', color: selected ? '#004eb1' : '#333333' }} onClick={() => {
       // I'm feeling lucky...

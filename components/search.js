@@ -159,6 +159,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     className="basic-multi-select"
     classNamePrefix="select"
     value={keywords}
+    instanceId={1}
     inputValue={inputValue}
     formatGroupLabel={formatGroupLabel}
     placeholder='Search for "sweet" or "bourbon"'

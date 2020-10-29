@@ -13,10 +13,8 @@ export default function Home({ data }) {
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [negativeMode, setNegativeMode] = useState(false)
 
+  // Keywords look like this: {value: 'foo', label: 'foo', type: 'positive', bgColor: 'red' }
   const [keywords, setKeywords] = useState([])
-  // TODO: every keyword will look like this: {value: 'foo', label: 'foo', type: 'positive'}
-  const [filters, setFilters] = useState([]) // from search bar
-  const [values, setValues] = useState([])
 
   // "infinite scroll"
   useEffect(() => {
