@@ -11,12 +11,12 @@ export default function Filter({ selected, label, cocktails, keywords, setKeywor
         const cocktail = cocktails[Math.floor(Math.random() * cocktails.length)];
         const valueToAdd = { value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }
         setKeywords([valueToAdd])
-        // localStorage.setItem('filters', JSON.stringify([cocktail.name]))
+        localStorage.setItem('keywords', JSON.stringify([valueToAdd]))
         return
       }
       const valueToAdd = { value: label, label: negativeMode ? `-${label}` : label, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }
       setKeywords(keywords.concat([valueToAdd]))
-      // localStorage.setItem('filters', JSON.stringify([filters].flat()));
+      localStorage.setItem('keywords', JSON.stringify(keywords.concat([valueToAdd])));
     }}>
       {label}
     </div>

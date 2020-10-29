@@ -134,15 +134,25 @@ export default function Cocktail({ cocktail, keywords, details }) {
   //   return listElement
   // }
 
-  // Simple but doesn't cover special mappings like whiskey -> bourbon?
+  // TODO: Only allow a single keyword to map to a single line
   const checkIfLineItemIsPicked = (line, keywords) => {
     let picked = false
     const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
     // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
-    const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase())).flat()
+    const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
 
     for (const keyword of positiveKeywordsArray) {
-      if (line.toLowerCase().includes(keyword)) {
+      // catches cases like [whiskey, rye]
+      if (Array.isArray(keyword)) {
+        let fragmentCount = keyword.length
+        let fragmentMatches = 0
+        for (const fragment of keyword) {
+          if (line.toLowerCase().includes(fragment)) {
+            fragmentMatches++
+          }
+        }
+        picked = fragmentCount === fragmentMatches
+      } else if (line.toLowerCase().includes(keyword)) {
         picked = true
         break
       }

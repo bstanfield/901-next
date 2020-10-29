@@ -187,11 +187,11 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     onChange={vals => {
       if (vals === null) {
         setKeywords([])
-        // localStorage.setItem('filters', JSON.stringify([]));
+        localStorage.setItem('keywords', JSON.stringify([]));
         return
       }
       setKeywords(vals)
-      // localStorage.setItem('filters', JSON.stringify(filters));
+      localStorage.setItem('keywords', JSON.stringify(vals));
     }}
   />)
 }
