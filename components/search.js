@@ -27,7 +27,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
   useEffect(() => {
     setGroupedOptions([
       {
-        label: 'Ingredients (Sorted by: Most common)',
+        label: 'Ingredients (Most common)',
         options: loadedData.ingredients,
       },
       {
@@ -85,7 +85,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
 
     return [
       {
-        label: 'Ingredients (Sorted by: Closest match)',
+        label: 'Ingredients (Closest match)',
         options: [...p1_ingredients, ...p2_ingredients],
       },
       {
