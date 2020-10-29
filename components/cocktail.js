@@ -134,16 +134,18 @@ export default function Cocktail({ cocktail, keywords, details }) {
   //   return listElement
   // }
 
-  // TODO: Only allow a single keyword to map to a single line
+  // TODO: Only allow a single keyword to map to a single line!!
   const checkIfLineItemIsPicked = (line, keywords) => {
     let picked = false
     const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
     // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
     const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
+    console.log('positive keywords arr: ', positiveKeywordsArray)
 
     for (const keyword of positiveKeywordsArray) {
+      // Compare keyword to line items in cocktail
       // catches cases like [whiskey, rye]
-      if (Array.isArray(keyword)) {
+      if (keyword.length > 1) {
         let fragmentCount = keyword.length
         let fragmentMatches = 0
         for (const fragment of keyword) {
@@ -151,13 +153,18 @@ export default function Cocktail({ cocktail, keywords, details }) {
             fragmentMatches++
           }
         }
-        picked = fragmentCount === fragmentMatches
-      } else if (line.toLowerCase().includes(keyword)) {
+        picked = fragmentMatches >= fragmentCount / 2
+      }
+
+      if (line.toLowerCase().includes(keyword)) {
         picked = true
-        break
+      }
+
+      if (picked) {
+        return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{picked ? <span style={{ fontWeight: 700 }}>{line}</span> : line}</li>;
       }
     }
-    return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{picked ? <span style={{ fontWeight: 700 }}>{line}</span> : line}</li>;
+    return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>;
   }
 
   const keywordValues = keywords.map(kw => kw.value)
