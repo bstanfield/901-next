@@ -135,12 +135,67 @@ export default function Cocktail({ cocktail, keywords, details }) {
   // }
 
   // TODO: Only allow a single keyword to map to a single line!!
+  // ^To accomplish this, might be better to not go line by line, but take in all lines and go keyword by keyword
+  const alternative = (lines, keyword) => {
+    let partialMatches = []
+    let perfectMatch = []
+
+    // Removes commas, parentheses, etc.
+    const fragments = keyword.replace(/[^\w\s]/gi, '').split(' ').map(str => str.trim().toLowerCase())
+
+    for (const line of lines) {
+      const lineFragments = line.split(' ')
+
+      // for keywords like [whiskey, rye]
+      if (fragments.length > 1) {
+        let fragmentCount = fragments.length
+        let fragmentMatches = 0
+        for (const fragment of fragments) {
+          if (line.toLowerCase().includes(fragment)) {
+            fragmentMatches++
+          }
+        }
+        if (fragmentMatches >= fragmentCount / 2) {
+          partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keyword })
+        }
+      } else {
+        if (line.toLowerCase().includes(keyword.toLowerCase())) {
+          perfectMatch.push(line)
+        }
+      }
+    }
+
+    // perfect match
+    if (perfectMatch.length > 0) return { line: perfectMatch[0], keyword }
+
+    // no matches
+    if (partialMatches.length === 0) {
+      return { keyword, line: '' }
+    }
+
+    // best partial match
+    const highestPartialMatch = partialMatches.reduce((acc, partialMatch) => {
+      if (!acc) {
+        return partialMatch
+      }
+      if (acc.matches > partialMatch.matches) {
+        return acc
+      }
+      if (acc.matches === partialMatch.matches) {
+        if (acc.matches - acc.potentialMatches > partialMatch.matches - partialMatch.potentialMatches) {
+          return acc
+        }
+      }
+      return partialMatch
+    })
+    return highestPartialMatch
+  }
+
   const checkIfLineItemIsPicked = (line, keywords) => {
     let picked = false
     const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
     // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
     const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
-    console.log('positive keywords arr: ', positiveKeywordsArray)
 
     for (const keyword of positiveKeywordsArray) {
       // Compare keyword to line items in cocktail
@@ -168,6 +223,11 @@ export default function Cocktail({ cocktail, keywords, details }) {
   }
 
   const keywordValues = keywords.map(kw => kw.value)
+  const alternativeOutput = keywords.map(kw => alternative(cocktail.lines, kw.value))
+  if (cocktail.name === 'Algorithm') {
+    console.log('alt output: ', alternativeOutput)
+  }
+
   return (
     <>
       <div key={cocktail.name} css={cocktailContainer}>
