@@ -98,49 +98,11 @@ export default function Cocktail({ cocktail, keywords, details }) {
     description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
   }
 
-  // const checkIfLineItemIsPicked = (line, filters) => {
-  //   const specialMappings = {
-  //     whiskey: ['bourbon', 'whisky', 'scotch', 'rye'],
-  //     whisky: ['bourbon', 'whiskey', 'scotch', 'rye'],
-  //     bourbon: ['whiskey', 'whisky', 'scotch'],
-  //     scotch: ['whiskey', 'whisky', 'bourbon'],
-  //   }
-
-  //   let listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>
-  //   let matches = 0
-  //   let total
-  //   for (const filter of filters) {
-  //     const lowerCaseLine = line.toLowerCase()
-  //     const filterFragments = filter.split(',').map(filterFragment => filterFragment.toLowerCase().replace(/ *\([^)]*\) */g, ""))
-
-  //     total = filterFragments.length
-
-  //     for (const fragment of filterFragments) {
-  //       if (lowerCaseLine.includes(fragment)) {
-  //         matches++
-  //       } else if (specialMappings[fragment]) {
-  //         specialMappings[fragment].map(mapping => {
-  //           if (lowerCaseLine.includes(mapping)) {
-  //             matches++
-  //           }
-  //         })
-  //       }
-  //       if (matches === total) {
-  //         listElement = <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}><span>✔️ </span>{line}</li>
-  //         return listElement
-  //       }
-  //     }
-  //   }
-  //   return listElement
-  // }
-
-  // TODO: Only allow a single keyword to map to a single line!!
-  // ^To accomplish this, might be better to not go line by line, but take in all lines and go keyword by keyword
-  const alternative = (lines, keyword) => {
+  const findSelectedLines = (lines, keyword) => {
     let partialMatches = []
     let perfectMatch = []
 
-    // Removes commas, parentheses, etc.
+    // Removes commas, parentheses, etc. from a keyword
     const fragments = keyword.replace(/[^\w\s]/gi, '').split(' ').map(str => str.trim().toLowerCase())
 
     for (const line of lines) {
@@ -150,15 +112,19 @@ export default function Cocktail({ cocktail, keywords, details }) {
       if (fragments.length > 1) {
         let fragmentCount = fragments.length
         let fragmentMatches = 0
+
         for (const fragment of fragments) {
           if (line.toLowerCase().includes(fragment)) {
             fragmentMatches++
           }
         }
+
+        // As long as there is a 50%+ match, consider that partial match
         if (fragmentMatches >= fragmentCount / 2) {
           partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keyword })
         }
       } else {
+        // This else block is for single-word keywords
         if (line.toLowerCase().includes(keyword.toLowerCase())) {
           perfectMatch.push(line)
         }
@@ -166,14 +132,14 @@ export default function Cocktail({ cocktail, keywords, details }) {
     }
 
     // perfect match
-    if (perfectMatch.length > 0) return { line: perfectMatch[0], keyword }
+    if (perfectMatch.length > 0) return perfectMatch[0].line
 
     // no matches
     if (partialMatches.length === 0) {
-      return { keyword, line: '' }
+      return null
     }
 
-    // best partial match
+    // search all partial matches for best match
     const highestPartialMatch = partialMatches.reduce((acc, partialMatch) => {
       if (!acc) {
         return partialMatch
@@ -188,45 +154,14 @@ export default function Cocktail({ cocktail, keywords, details }) {
       }
       return partialMatch
     })
-    return highestPartialMatch
+    return highestPartialMatch.line
   }
 
-  const checkIfLineItemIsPicked = (line, keywords) => {
-    let picked = false
-    const positiveKeywords = keywords.filter(kw => kw.type === 'positive')
-    // split on commas (i.e. "Whiskey, rye => [whiskey, rye]")
-    const positiveKeywordsArray = positiveKeywords.map(kw => kw.value).map(value => value.split(',').map(str => str.trim().toLowerCase()))
-
-    for (const keyword of positiveKeywordsArray) {
-      // Compare keyword to line items in cocktail
-      // catches cases like [whiskey, rye]
-      if (keyword.length > 1) {
-        let fragmentCount = keyword.length
-        let fragmentMatches = 0
-        for (const fragment of keyword) {
-          if (line.toLowerCase().includes(fragment)) {
-            fragmentMatches++
-          }
-        }
-        picked = fragmentMatches >= fragmentCount / 2
-      }
-
-      if (line.toLowerCase().includes(keyword)) {
-        picked = true
-      }
-
-      if (picked) {
-        return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{picked ? <span style={{ fontWeight: 700 }}>{line}</span> : line}</li>;
-      }
-    }
-    return <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{line}</li>;
-  }
-
+  // Used to bold tags
   const keywordValues = keywords.map(kw => kw.value)
-  const alternativeOutput = keywords.map(kw => alternative(cocktail.lines, kw.value))
-  if (cocktail.name === 'Algorithm') {
-    console.log('alt output: ', alternativeOutput)
-  }
+
+  // Used to bold line items
+  const selectedLines = keywords.map(kw => findSelectedLines(cocktail.lines, kw.value))
 
   return (
     <>
@@ -240,7 +175,7 @@ export default function Cocktail({ cocktail, keywords, details }) {
             {rating}
           </div>
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => checkIfLineItemIsPicked(line, keywords))}
+            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{selectedLines.includes(line) ? <span style={{ fontWeight: 700 }}>{line}</span> : line}</li>)}
           </ul>
           <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
           {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
