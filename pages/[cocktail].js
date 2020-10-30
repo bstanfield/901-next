@@ -43,40 +43,40 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  const data = getData()
-  const id = context.params.cocktail
-  const cocktail = getCocktailById(data.cocktails, id)
-
-  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients)
-
-  return {
-    props: {
-      cocktail,
-      similarCocktails,
-    },
-  }
-}
-
-// export async function getStaticPaths() {
+// export async function getServerSideProps(context) {
 //   const data = getData()
-//   const ids = data.cocktails.map(cocktail => ({ params: { cocktail: cocktail.id } }))
-//   return {
-//     paths: ids,
-//     fallback: false
-//   }
-// }
-
-// export async function getStaticProps({ params }) {
-//   const data = getData()
-//   const id = params.cocktail
+//   const id = context.params.cocktail
 //   const cocktail = getCocktailById(data.cocktails, id)
+
 //   const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients)
 
 //   return {
 //     props: {
 //       cocktail,
-//       similarCocktails
-//     }
+//       similarCocktails,
+//     },
 //   }
 // }
+
+export async function getStaticPaths() {
+  const data = getData()
+  const ids = data.cocktails.map(cocktail => ({ params: { cocktail: cocktail.id } }))
+  return {
+    paths: ids,
+    fallback: false
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const data = getData()
+  const id = params.cocktail
+  const cocktail = getCocktailById(data.cocktails, id)
+  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients)
+
+  return {
+    props: {
+      cocktail,
+      similarCocktails
+    }
+  }
+}
