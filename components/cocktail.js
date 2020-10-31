@@ -141,11 +141,9 @@ export default function Cocktail({ cocktail, keywords, details }) {
           partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keyword })
         }
       } else {
-        if (keyword.toLowerCase() === 'whiskey') {
-          const alternative = checkAlternatives(line, keyword)
-          if (alternative) {
-            perfectMatch.push(line)
-          }
+        const alternative = checkAlternatives(line, keyword)
+        if (alternative) {
+          perfectMatch.push(line)
         }
         // This else block is for single-word keywords
         if (line.toLowerCase().includes(keyword.toLowerCase())) {
