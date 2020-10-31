@@ -48,7 +48,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
   }
 
   const filterAndIgnoreExistingMatches = (input, items, existingMatches, filterType = 0) => {
-    const filterTypes = ['exact', 'partial-match']
+    const filterTypes = ['precise', 'exact', 'partial-match']
     // input = user input
     // items = ingredients, lists, or cocktails
     // existingMatches = [value1, value2]
@@ -56,15 +56,22 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
       if (existingMatches.includes(item.value)) {
         return false
       } else {
-        if (filterTypes[filterType] === 'exact') {
+        if (filterTypes[filterType] === 'precise') {
+          return item.value.toLowerCase() === input
+        }
+
+        else if (filterTypes[filterType] === 'exact') {
+          // looks for exact matches at same slice length, not whiskey = whiskey but whiskey = whiskey, bourbon (-bourbon)
           return item.value.toLowerCase().slice(0, input.length) === input
-        } else if (filterTypes[filterType] === 'partial-match') {
+        }
+
+        else if (filterTypes[filterType] === 'partial-match') {
           return item.value.toLowerCase().includes(input)
         }
       }
     })
     matches.map(match => existingMatches.push(match.value))
-    return matches
+    return matches.sort((a, b) => a.value.length - b.value.length)
   }
 
   const filterOptions = (rawInput) => {
@@ -73,20 +80,23 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     let { ingredients, lists, cocktails } = loadedData
     let existingMatches = []
 
+    // Precise matches = priority #0
+    const p0_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
+
     // Direct matches = priority #1
-    const p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
-    const p1_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches)
-    const p1_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches)
+    const p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
+    const p1_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 1)
+    const p1_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 1)
 
     // Includes = priority #2
-    const p2_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
-    const p2_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 1)
-    const p2_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 1)
+    const p2_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 2)
+    const p2_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 2)
+    const p2_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 2)
 
     return [
       {
         label: 'Ingredients (Closest match)',
-        options: [...p1_ingredients, ...p2_ingredients],
+        options: [...p0_ingredients, ...p1_ingredients, ...p2_ingredients],
       },
       {
         label: 'Categories',
