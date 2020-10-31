@@ -98,6 +98,23 @@ export default function Cocktail({ cocktail, keywords, details }) {
     description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
   }
 
+  const checkAlternatives = (line, keyword) => {
+    let alternativeMatch = false
+    const alternatives = {
+      whiskey: ['rye', 'scotch']
+    }
+
+    const selectedAlternatives = alternatives[keyword.toLowerCase()]
+    if (selectedAlternatives) {
+      for (const alternative of selectedAlternatives) {
+        if (line.toLowerCase().includes(alternative)) {
+          alternativeMatch = true
+        }
+      }
+    }
+    return alternativeMatch
+  }
+
   const findSelectedLines = (lines, keyword) => {
     let partialMatches = []
     let perfectMatch = []
@@ -124,6 +141,12 @@ export default function Cocktail({ cocktail, keywords, details }) {
           partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keyword })
         }
       } else {
+        if (keyword.toLowerCase() === 'whiskey') {
+          const alternative = checkAlternatives(line, keyword)
+          if (alternative) {
+            perfectMatch.push(line)
+          }
+        }
         // This else block is for single-word keywords
         if (line.toLowerCase().includes(keyword.toLowerCase())) {
           perfectMatch.push(line)
@@ -132,7 +155,7 @@ export default function Cocktail({ cocktail, keywords, details }) {
     }
 
     // perfect match
-    if (perfectMatch.length > 0) return perfectMatch[0].line
+    if (perfectMatch.length > 0) return perfectMatch[0]
 
     // no matches
     if (partialMatches.length === 0) {
