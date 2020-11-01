@@ -117,8 +117,8 @@ export default function Cocktail({ cocktail, keywords, details }) {
 
   const findSelectedLines = (lines, keyword) => {
     // Ignore keywords that are searches for categories (lists) or cocktail names
-    if (keyword.data === 'category' || keyword.data === 'cocktail') {
-      return null;
+    if (keyword.data === 'category' || keyword.data === 'cocktail' || keyword.type === 'negative') {
+      return null
     }
 
     const { value: keywordValue } = keyword
