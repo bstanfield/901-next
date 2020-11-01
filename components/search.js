@@ -1,5 +1,6 @@
 import Select, { createFilter } from 'react-select';
 import { formatGroupLabel } from '../lib/search'
+import { improvedGetRelevantCocktails } from '../lib/helpers'
 import { useState, useEffect } from 'react'
 
 const loadData = (data, negativeMode) => {
@@ -77,8 +78,27 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     // Precise matches = priority #0
     const p0_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
 
+    // Finds permutations ahead of time
+    let limit = 0
+    for (const i in p0_ingredients) {
+      if (limit >= 3) break
+      const keywordsPlusIngredient = keywords.concat([p0_ingredients[i]])
+      const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient)
+      p0_ingredients[i].label = `${p0_ingredients[i].value} [${relevantCocktails.length} results]`
+      limit++
+    }
+
     // Direct matches = priority #1
     const p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
+    // Finds permutations ahead of time
+    for (const i in p1_ingredients) {
+      if (limit >= 3) break
+      const keywordsPlusIngredient = keywords.concat([p1_ingredients[i]])
+      const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient)
+      p1_ingredients[i].label = `${p1_ingredients[i].value} [${relevantCocktails.length} results]`
+      limit++
+    }
+
     const p1_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 1)
     const p1_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 1)
 
@@ -169,23 +189,42 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     placeholder='Search for "sweet" or "bourbon"'
     // Checks for someone entering or exiting negative mode
     onInputChange={(input, type) => {
-      // Prevents loading symbol from showing on basic click in/out of input box
-      if (type.action !== 'menu-close' && type.action !== 'input-blur') {
-        setIsLoading(true)
-      }
+      // Determines if negative search is on/off
       if (input === '') {
         setNegativeMode(false)
       }
       if (negativeMode) {
         setInputValue(input)
       }
+      // Removes "-" sign and enables negative search
       if (input === '-') {
         setNegativeMode(true)
         setInputValue(' ')
       } else {
         setInputValue(input)
       }
-      setGroupedOptions(filterOptions(input))
+      // Prevents loading symbol from showing on basic click in/out of input box
+      if (type.action !== 'menu-close' && type.action !== 'input-blur') {
+        setIsLoading(true)
+        setGroupedOptions(filterOptions(input))
+      }
+      // On menu-close, set data back to original values
+      if (type.action === 'menu-close') {
+        setGroupedOptions([
+          {
+            label: 'Ingredients',
+            options: loadedData.ingredients,
+          },
+          {
+            label: 'Categories',
+            options: loadedData.lists,
+          },
+          {
+            label: 'Cocktails',
+            options: loadedData.cocktails,
+          }
+        ])
+      }
       setTimeout(() => setIsLoading(false), 1000)
     }}
     onChange={vals => {
@@ -194,7 +233,11 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
         localStorage.setItem('keywords', JSON.stringify([]));
         return
       }
-      setKeywords(vals)
+      // Removes [X results] part of label from keywords for visual pleasantry
+      setKeywords(() => {
+        vals.map(val => val.label = val.label.split('[')[0])
+        return vals
+      })
       localStorage.setItem('keywords', JSON.stringify(vals));
     }}
   />)
