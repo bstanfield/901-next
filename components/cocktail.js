@@ -116,16 +116,22 @@ export default function Cocktail({ cocktail, keywords, details }) {
   }
 
   const findSelectedLines = (lines, keyword) => {
+    // Ignore keywords that are searches for categories (lists) or cocktail names
+    if (keyword.data === 'category' || keyword.data === 'cocktail') {
+      return null;
+    }
+
+    const { value: keywordValue } = keyword
     let partialMatches = []
     let perfectMatch = []
 
-    // Removes commas, parentheses, etc. from a keyword
-    const fragments = keyword.replace(/[^\w\s]/gi, '').split(' ').map(str => str.trim().toLowerCase())
+    // Removes commas, parentheses, etc. from a keywordValue
+    const fragments = keywordValue.replace(/[^\w\s]/gi, '').split(' ').map(str => str.trim().toLowerCase())
 
     for (const line of lines) {
       const lineFragments = line.split(' ')
 
-      // for keywords like [whiskey, rye]
+      // for keywordValues like [whiskey, rye]
       if (fragments.length > 1) {
         let fragmentCount = fragments.length
         let fragmentMatches = 0
@@ -138,15 +144,15 @@ export default function Cocktail({ cocktail, keywords, details }) {
 
         // As long as there is a 50%+ match, consider that partial match
         if (fragmentMatches >= fragmentCount / 2) {
-          partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keyword })
+          partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keywordValue })
         }
       } else {
-        const alternative = checkAlternatives(line, keyword)
+        const alternative = checkAlternatives(line, keywordValue)
         if (alternative) {
           perfectMatch.push(line)
         }
         // This else block is for single-word keywords
-        if (line.toLowerCase().includes(keyword.toLowerCase())) {
+        if (line.toLowerCase().includes(keywordValue.toLowerCase())) {
           perfectMatch.push(line)
         }
       }
@@ -182,7 +188,7 @@ export default function Cocktail({ cocktail, keywords, details }) {
   const keywordValues = keywords.map(kw => kw.value)
 
   // Used to bold line items
-  const selectedLines = keywords.map(kw => findSelectedLines(cocktail.lines, kw.value))
+  const selectedLines = keywords.map(kw => findSelectedLines(cocktail.lines, kw))
 
   return (
     <>

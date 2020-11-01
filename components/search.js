@@ -3,9 +3,9 @@ import { formatGroupLabel } from '../lib/search'
 import { useState, useEffect } from 'react'
 
 const loadData = (data, negativeMode) => {
-  const ingredientsInSearchFormat = data.ingredients.map(i => ({ weight: i.weight, value: i.ingredient, label: negativeMode ? `-${i.ingredient}` : `${i.ingredient}`, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
-  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
-  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const ingredientsInSearchFormat = data.ingredients.map(i => ({ data: 'ingredient', weight: i.weight, value: i.ingredient, label: negativeMode ? `-${i.ingredient}` : `${i.ingredient}`, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ data: 'cocktail', value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ data: 'category', value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
   return {
     ingredients: ingredientsInSearchFormat,
     cocktails: cocktailNamesInSearchFormat,
@@ -27,7 +27,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
   useEffect(() => {
     setGroupedOptions([
       {
-        label: 'Ingredients (Most common)',
+        label: 'Ingredients',
         options: loadedData.ingredients,
       },
       {
@@ -40,12 +40,6 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
       }
     ])
   }, [loadedData])
-
-  const filterConfig = {
-    ignoreAccents: true,
-    ignoreCase: true,
-    trim: true,
-  }
 
   const filterAndIgnoreExistingMatches = (input, items, existingMatches, filterType = 0) => {
     const filterTypes = ['precise', 'exact', 'partial-match']
@@ -95,7 +89,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
 
     return [
       {
-        label: 'Ingredients (Closest match)',
+        label: 'Ingredients',
         options: [...p0_ingredients, ...p1_ingredients, ...p2_ingredients],
       },
       {
