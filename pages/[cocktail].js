@@ -35,7 +35,7 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
         </label>
         <Cocktail details keywords={keywords} cocktail={cocktail} />
         <p>Similar cocktails:</p>
-        {similarCocktails.slice(1, 4).map(cocktail => {
+        {similarCocktails.slice(0, 3).map(cocktail => {
           return (<Cocktail key={cocktail.id} keywords={keywords} parent={similarCocktails[0]} cocktail={cocktail} />)
         })}
       </section>
@@ -71,7 +71,7 @@ export async function getStaticProps({ params }) {
   const data = getData()
   const id = params.cocktail
   const cocktail = getCocktailById(data.cocktails, id)
-  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients)
+  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients, cocktail.id)
 
   return {
     props: {
