@@ -58,9 +58,6 @@ const ingredients = (details) => scale({
   margin: 0,
   paddingLeft: 32,
   paddingTop: details ? 18 : 12,
-  // 'li:before': {
-  //   content: '"' - ' !important"',
-  // }
 })
 
 const instructions = (details) => scale({
@@ -68,7 +65,8 @@ const instructions = (details) => scale({
   fontStyle: 'italic',
   color: '#333333',
   fontSize: details ? 20 : 18,
-  fontWeight: 400
+  fontWeight: 400,
+  margin: '24px 0px',
 })
 
 const listTags = (details) => scale({
@@ -133,8 +131,6 @@ const noStyleLink = scale({
   }
 })
 // -- End cocktail.js
-
-// 
 
 module.exports = {
   fonts,
