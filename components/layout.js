@@ -25,7 +25,7 @@ export default function Layout({ children, home }) {
         <header className="header">
           {home && (
             <div className="leader">
-              <h1 className="heading2Xl"><i>901 Cocktails</i></h1>
+              <a className="noStyle" href="/"><h1 className="heading2Xl"><i>901 Cocktails</i></h1></a>
               <section className="intro">
                 <p>
                   Recipes from the book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>

@@ -18,7 +18,7 @@ export default function tipsButton() {
         animation="fade"
         animateFill={false}
       >
-        <div className="questionMark">?</div>
+        <div className="questionMark"><a style={{ cursor: 'help', textDecoration: 'none' }} className='tooltipText' href='/tips'>?</a></div>
       </Tooltip >
     </div >
 

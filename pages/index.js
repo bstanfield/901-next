@@ -20,7 +20,7 @@ export default function Home({ data }) {
   // "infinite scroll"
   useEffect(() => {
     document.addEventListener('scroll', () => throttleCocktailsToDisplay(document, setDisplayMaximum));
-    return () => document.removeEventListener('scroll', throttleCocktailsToDisplay())
+    return () => document.removeEventListener('scroll', throttleCocktailsToDisplay(document, setDisplayMaximum))
   }, [])
 
   // localstorage
