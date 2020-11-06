@@ -19,7 +19,7 @@ import {
 } from '../styles/classes'
 import { jsx } from '@emotion/core'
 
-export default function Cocktail({ cocktail, keywords, details }) {
+export default function Cocktail({ cocktail, keywords, details, mapping }) {
   let rating
   const star = <span css={starStyles(details)}>★</span>
   const [copied, setCopied] = useState(false)
@@ -196,7 +196,7 @@ export default function Cocktail({ cocktail, keywords, details }) {
         <strong>
           {details
             ? <div css={cocktailName(details)}>{cocktail.name}</div>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}><div css={cocktailName(details)}>{cocktail.name}</div></a></Link>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}><div css={cocktailName(details)}>{cocktail.name} ({cocktail.ingredients.map(i => mapping[i]).reduce((a, b) => a + b) * cocktail.lines.length})</div></a></Link>
           }
           <div css={starsBox(details)}>
             {rating}
