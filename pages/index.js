@@ -7,6 +7,7 @@ import Results from '../components/results'
 import { useState, useEffect } from 'react'
 import SearchBar from '../components/search'
 import Suggestions from '../components/suggestions'
+import PopularIngredientsBox from '../components/popularIngredientsBox';
 
 export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
@@ -38,6 +39,9 @@ export default function Home({ data }) {
   useEffect(() => {
     const cocktailsToDisplay = improvedGetRelevantCocktails(data.cocktails, keywords)
     setCocktailsToDisplay(cocktailsToDisplay)
+    showPopularIngredients && setPopularIngredients(getPopularIngredients(cocktailsToDisplay, keywords))
+
+    // Bring this back if you want to use ingredient weights
     // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
     //   const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / a.lines.length
     //   const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / b.lines.length
@@ -49,7 +53,6 @@ export default function Home({ data }) {
     //   }
     //   return 0
     // }))
-    setPopularIngredients(getPopularIngredients(cocktailsToDisplay, keywords))
   }, [keywords])
 
   return (
@@ -62,12 +65,7 @@ export default function Home({ data }) {
         <Suggestions cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       </div>
       <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
-      <div className="callout" onClick={() => setShowPopularIngredients(showPopularIngredients ? false : true)}>
-        <p>ⓘ &nbsp; Show{showPopularIngredients && 'ing'} most common ingredient combinations{showPopularIngredients && ':'}</p>
-        {showPopularIngredients && <ul>
-          {popularIngredients.slice(0, 5).map(i => <li>{i.ingredient} <span style={{ opacity: 0.5 }}>({i.count})</span></li>)}
-        </ul>}
-      </div>
+      <PopularIngredientsBox popularIngredients={popularIngredients} setPopularIngredients={setPopularIngredients} cocktailsToDisplay={cocktailsToDisplay} keywords={keywords} showPopularIngredients={showPopularIngredients} setShowPopularIngredients={setShowPopularIngredients} getPopularIngredients={getPopularIngredients} />
       <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} />
     </Layout >
   )
