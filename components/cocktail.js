@@ -196,7 +196,7 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
         <strong>
           {details
             ? <div css={cocktailName(details)}>{cocktail.name}</div>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}><div css={cocktailName(details)}>{cocktail.name} ({cocktail.ingredients.map(i => mapping[i]).reduce((a, b) => a + b) * cocktail.lines.length})</div></a></Link>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}><div css={cocktailName(details)}>{cocktail.name} ({cocktail.ingredients.map(i => mapping[i]).reduce((a, b) => a + b) / (cocktail.lines.length * cocktail.lines.length)})</div></a></Link> // Don't love this logic... doesn't give enough props to 2 or 3 ingredient cocktails!
           }
           <div css={starsBox(details)}>
             {rating}

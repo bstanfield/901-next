@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { getData } from '../lib/data'
-import { throttleCocktailsToDisplay, improvedGetRelevantCocktails, createSentence } from '../lib/helpers'
+import { throttleCocktailsToDisplay, improvedGetRelevantCocktails, getPopularIngredients, createSentence } from '../lib/helpers'
 import Results from '../components/results'
 import { useState, useEffect } from 'react'
 import SearchBar from '../components/search'
@@ -36,16 +36,18 @@ export default function Home({ data }) {
   useEffect(() => {
     const cocktailsToDisplay = improvedGetRelevantCocktails(data.cocktails, keywords)
     setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
-      const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) * a.lines.length
-      const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) * b.lines.length
+      const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / a.lines.length
+      const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / b.lines.length
       if (aWeight > bWeight) {
-        return 1
+        return -1
       }
       if (bWeight > aWeight) {
-        return -1
+        return 1
       }
       return 0
     }))
+    const popularIngredients = getPopularIngredients(cocktailsToDisplay)
+    console.log('popular ing: ', popularIngredients)
   }, [keywords])
 
   return (
