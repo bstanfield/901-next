@@ -5,10 +5,6 @@ const suggestions = [
   'Sweet',
   'Simple',
   'Cheap (potentially)',
-  'Mad men',
-  'Negroni-inspired',
-  'Halloween',
-  'Tart',
 ]
 
 export default function Suggestions({ cocktails, keywords, setKeywords, negativeMode }) {

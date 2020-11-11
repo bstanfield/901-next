@@ -12,6 +12,8 @@ export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails)
   const [negativeMode, setNegativeMode] = useState(false)
+  const [popularIngredients, setPopularIngredients] = useState([])
+  const [showPopularIngredients, setShowPopularIngredients] = useState(false)
 
   // Keywords are inputs typed into the search bar or picked from the list of suggestions by the user
   // Keywords look like this: {value: 'foo', label: 'foo', type: 'positive', bgColor: 'red' }
@@ -35,19 +37,19 @@ export default function Home({ data }) {
 
   useEffect(() => {
     const cocktailsToDisplay = improvedGetRelevantCocktails(data.cocktails, keywords)
-    setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
-      const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / a.lines.length
-      const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / b.lines.length
-      if (aWeight > bWeight) {
-        return -1
-      }
-      if (bWeight > aWeight) {
-        return 1
-      }
-      return 0
-    }))
-    const popularIngredients = getPopularIngredients(cocktailsToDisplay)
-    console.log('popular ing: ', popularIngredients)
+    setCocktailsToDisplay(cocktailsToDisplay)
+    // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
+    //   const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / a.lines.length
+    //   const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / b.lines.length
+    //   if (aWeight > bWeight) {
+    //     return -1
+    //   }
+    //   if (bWeight > aWeight) {
+    //     return 1
+    //   }
+    //   return 0
+    // }))
+    setPopularIngredients(getPopularIngredients(cocktailsToDisplay, keywords))
   }, [keywords])
 
   return (
@@ -60,6 +62,12 @@ export default function Home({ data }) {
         <Suggestions cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       </div>
       <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
+      <div className="callout" onClick={() => setShowPopularIngredients(showPopularIngredients ? false : true)}>
+        <p>ⓘ &nbsp; Show{showPopularIngredients && 'ing'} most common ingredient combinations{showPopularIngredients && ':'}</p>
+        {showPopularIngredients && <ul>
+          {popularIngredients.slice(0, 5).map(i => <li>{i.ingredient} <span style={{ opacity: 0.5 }}>({i.count})</span></li>)}
+        </ul>}
+      </div>
       <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} />
     </Layout >
   )
