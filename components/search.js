@@ -197,7 +197,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
         setInputValue(input)
       }
       // Removes "-" sign and enables negative search
-      if (input === '-') {
+      if (input === '-' || input === '!') {
         setNegativeMode(true)
         setInputValue(' ')
       } else {

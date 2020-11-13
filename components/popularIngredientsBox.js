@@ -6,7 +6,7 @@ export default function PopularIngredientsBox({ popularIngredients, setPopularIn
       setShowPopularIngredients(showPopularIngredients ? false : true)
     }
     }>
-      <p>ⓘ &nbsp; Show{showPopularIngredients && 'ing'} most common ingredient combinations{showPopularIngredients && ':'}</p>
+      <p>ⓘ &nbsp; Best remaining ingredient combinations</p>
       {showPopularIngredients && <ul>
         {popularIngredients.slice(0, 5).map(i => <li>{i.ingredient} <span style={{ opacity: 0.5 }}>({i.count})</span></li>)}
       </ul>}
