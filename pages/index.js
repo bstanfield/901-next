@@ -66,7 +66,19 @@ export default function Home({ data }) {
         <Suggestions cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
       </div>
       <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
-      {keywords.length > 0 && <PopularIngredientsBox popularIngredients={popularIngredients} setPopularIngredients={setPopularIngredients} cocktailsToDisplay={cocktailsToDisplay} keywords={keywords} showPopularIngredients={showPopularIngredients} setShowPopularIngredients={setShowPopularIngredients} getPopularIngredients={getPopularIngredients} />}
+
+      {keywords.length > 0 &&
+        <PopularIngredientsBox
+          props={{
+            popularIngredients,
+            cocktailsToDisplay,
+            keywords,
+            showPopularIngredients,
+            setShowPopularIngredients,
+            setPopularIngredients,
+            getPopularIngredients,
+          }}
+        />}
       <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} />
     </Layout >
   )
