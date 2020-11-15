@@ -1,20 +1,21 @@
-import ListButton from './filter'
+import Suggestion from './suggestion'
 
-const suggestions = [
-  'Five-star cocktails',
-  'Sweet',
-  'Simple',
-  'Cheap (potentially)',
-]
-
-export default function Suggestions({ cocktails, keywords, setKeywords, negativeMode }) {
-  return (
-    <div className="listOptions">
-      <label className="topLabel">Suggestions</label>
-      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;&nbsp;" keywords={keywords} setKeywords={setKeywords} cocktails={cocktails} />
-      {suggestions.map(
-        suggestion => <ListButton key={suggestion} label={suggestion} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
-      )}
-    </div>
-  )
+export default function Suggestions({ props }) {
+  const {
+    popularIngredients,
+    keywords,
+    setKeywords,
+  } = props
+  if (popularIngredients.length > 0) {
+    return (
+      <div className="listOptions">
+        <label className="topLabel">Suggested pairings</label>
+        {popularIngredients.slice(0, 5).map(
+          i => <Suggestion key={i.ingredient} value={i.ingredient} label={`${i.ingredient} (${i.count})`} keywords={keywords} setKeywords={setKeywords} />
+        )}
+      </div>
+    )
+  } else {
+    return null
+  }
 }

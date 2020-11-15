@@ -36,11 +36,18 @@ export default function Home({ data }) {
   }, [])
 
   useEffect(() => {
-    setCocktailsToDisplay(
-      improvedGetRelevantCocktails(data.cocktails, keywords)
-    )
-    showPopularIngredients &&
-      setPopularIngredients(getPopularIngredients(cocktailsToDisplay, keywords))
+    // This is an important fn that gets cocktails based off of keywords entered by user.
+    const cocktails = improvedGetRelevantCocktails(data.cocktails, keywords)
+    setCocktailsToDisplay(cocktails)
+
+    // Only search for popular ingredients if there is already a keyword being searched for.
+    if (keywords.length > 0) {
+      const ingredients = getPopularIngredients(cocktails, keywords)
+      setPopularIngredients(ingredients)
+    } else {
+      setPopularIngredients([])
+    }
+
 
     // Bring this back if you want to use ingredient weights
     // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
@@ -63,22 +70,19 @@ export default function Home({ data }) {
       </Head>
       <div style={{ marginBottom: 24 }}>
         <SearchBar data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
-        <Suggestions cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
+        <Suggestions props={{
+          popularIngredients,
+          cocktailsToDisplay,
+          keywords,
+          showPopularIngredients,
+          setKeywords,
+          setShowPopularIngredients,
+          setPopularIngredients,
+          getPopularIngredients,
+        }} />
       </div>
-      <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
-
-      {keywords.length > 0 &&
-        <PopularIngredientsBox
-          props={{
-            popularIngredients,
-            cocktailsToDisplay,
-            keywords,
-            showPopularIngredients,
-            setShowPopularIngredients,
-            setPopularIngredients,
-            getPopularIngredients,
-          }}
-        />}
+      <label style={{ paddingLeft: 6, paddingBottom: 8, textTransform: 'none' }}> <span>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span></label>
+      <hr />
       <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} />
     </Layout >
   )
