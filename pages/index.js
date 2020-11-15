@@ -39,8 +39,9 @@ export default function Home({ data }) {
     setCocktailsToDisplay(
       improvedGetRelevantCocktails(data.cocktails, keywords)
     )
-    showPopularIngredients &&
-      setPopularIngredients(getPopularIngredients(cocktailsToDisplay, keywords))
+    setPopularIngredients(
+      getPopularIngredients(cocktailsToDisplay, keywords)
+    )
 
     // Bring this back if you want to use ingredient weights
     // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
@@ -63,7 +64,16 @@ export default function Home({ data }) {
       </Head>
       <div style={{ marginBottom: 24 }}>
         <SearchBar data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
-        <Suggestions cocktails={data.cocktails} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
+        <Suggestions props={{
+          popularIngredients,
+          cocktailsToDisplay,
+          keywords,
+          showPopularIngredients,
+          setKeywords,
+          setShowPopularIngredients,
+          setPopularIngredients,
+          getPopularIngredients,
+        }} />
       </div>
       <label style={{ paddingLeft: 6, paddingBottom: 12, textTransform: 'none' }}> <span style={{ opacity: 0.6 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
 

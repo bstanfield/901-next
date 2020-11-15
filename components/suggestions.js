@@ -7,14 +7,27 @@ const suggestions = [
   'Cheap (potentially)',
 ]
 
-export default function Suggestions({ cocktails, keywords, setKeywords, negativeMode }) {
-  return (
-    <div className="listOptions">
-      <label className="topLabel">Suggestions</label>
-      <ListButton label="&nbsp;I'm feeling lucky 🎲&nbsp;&nbsp;" keywords={keywords} setKeywords={setKeywords} cocktails={cocktails} />
-      {suggestions.map(
-        suggestion => <ListButton key={suggestion} label={suggestion} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} />
-      )}
-    </div>
-  )
+export default function Suggestions({ props }) {
+  const {
+    popularIngredients,
+    setPopularIngredients,
+    cocktailsToDisplay,
+    keywords,
+    setKeywords,
+    showPopularIngredients,
+    setShowPopularIngredients,
+    getPopularIngredients
+  } = props
+  if (popularIngredients) {
+    return (
+      <div className="listOptions">
+        <label className="topLabel">Suggestions</label>
+        {popularIngredients.slice(0, 5).map(
+          i => <ListButton key={i.ingredient} value={i.ingredient} label={`${i.ingredient} (${i.count})`} keywords={keywords} setKeywords={setKeywords} />
+        )}
+      </div>
+    )
+  } else {
+    return null
+  }
 }
