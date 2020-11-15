@@ -53,57 +53,6 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
       rating = <>{star}{star}{star}{star}{star}</>
   }
 
-  // Searches cocktail description for glass type. If found, insert into sentence.
-  let { description } = cocktail
-  let index = -1
-  let glass
-  let name
-  const glassIs = (text) => description.indexOfEnd(text)
-  if (glassIs('cocktail glass') > -1) {
-    name = 'cocktail glass'
-    glass = ' 🍸'
-    index = glassIs(name)
-  } else if (glassIs('rocks glass') > -1) {
-    name = 'rocks glass'
-    glass = ' 🥃'
-    index = glassIs(name)
-  } else if (glassIs('martini glass') > -1) {
-    name = 'martini glass'
-    glass = ' 🍸'
-    index = glassIs(name)
-  } else if (glassIs('wine glass') > -1) {
-    name = 'wine glass'
-    glass = ' 🍷'
-    index = glassIs(name)
-  } else if (glassIs('champagne') > -1) {
-    name = 'champagne'
-    glass = ' 🥂'
-    index = glassIs(name)
-  } else if (glassIs('pint glass') > -1) {
-    name = 'pint glass'
-    glass = ' 🍺'
-    index = glassIs(name)
-  } else if (glassIs('highball') > -1) {
-    name = 'highball'
-    glass = ' 🥛'
-    index = glassIs(name)
-  } else if (glassIs('tiki') > -1) {
-    name = 'tiki'
-    glass = ' 🗿'
-    index = glassIs(name)
-  } else if (glassIs('shot glass') > -1) {
-    name = 'shot glass'
-    glass = ' 🤘'
-    index = glassIs(name)
-  }
-
-  // If glass name was found...
-  if (index !== -1) {
-    description = description.insert(index, glass)
-    description = description.replace(name, '<span style="color: black;">' + name + '</span>');
-    description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
-  }
-
   // Might have more mappings in future. For now, rye = whiskey and scotch
   const checkAlternatives = (line, keyword) => {
     let alternativeMatch = false
@@ -216,7 +165,7 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
           </div>
 
           <ul css={ingredients(details)}>
-            {
+            {!details &&
               cocktail.lines.map(line =>
                 <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>
                   {selectedLines.includes(line)
@@ -227,10 +176,15 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
               )
             }
           </ul>
+          {details &&
+            cocktail.lines.map(line =>
+              <div className="checkableIngredients">
+                <label><input type="checkbox" name={line} value={line} key={line} />&nbsp;{line}</label>
+              </div>
+            )
+          }
 
-          <i>
-            <p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} />
-          </i>
+          <p css={instructions(details)}>{cocktail.description}</p>
 
           {(details && cocktail.origin) &&
             <p css={origin}>Origin: {cocktail.origin}</p>

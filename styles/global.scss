@@ -322,3 +322,20 @@ input {
     padding: 8px 8px 8px 46px;
   }
 }
+
+.checkableIngredients {
+  margin: 3px;
+}
+
+.checkableIngredients label {
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 400;
+  display: inline !important;
+}
+
+.checkableIngredients input {
+  cursor: pointer;
+  width: 18px;
+  height: 16px;
+}
