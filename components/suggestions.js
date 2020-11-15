@@ -10,15 +10,11 @@ const suggestions = [
 export default function Suggestions({ props }) {
   const {
     popularIngredients,
-    setPopularIngredients,
-    cocktailsToDisplay,
     keywords,
     setKeywords,
-    showPopularIngredients,
-    setShowPopularIngredients,
-    getPopularIngredients
   } = props
-  if (popularIngredients) {
+  console.log('pop ingredients: ', popularIngredients)
+  if (popularIngredients.length > 0) {
     return (
       <div className="listOptions">
         <label className="topLabel">Suggestions</label>

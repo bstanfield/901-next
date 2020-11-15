@@ -22,7 +22,7 @@ export default function PopularIngredientsBox({ props }) {
 
       {showPopularIngredients &&
         <ul>
-          {popularIngredients.slice(0, 5).map(i => <li>{i.ingredient} <span style={{ opacity: 0.5 }}>({i.count})</span></li>)}
+          {popularIngredients.map(i => <li>{i.ingredient} <span style={{ opacity: 0.5 }}>({i.count})</span></li>)}
         </ul>
       }
     </div>
