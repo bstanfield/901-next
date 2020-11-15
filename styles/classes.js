@@ -27,7 +27,7 @@ const cocktailName = (details) => scale({
   marginBottom: details ? [12, 18] : 4,
   padding: 0,
   fontSize: details ? [34, 40] : 28,
-  lineHeight: '38px',
+  lineHeight: '140%',
 })
 
 const starStyles = (details) => scale({
@@ -62,9 +62,8 @@ const ingredients = (details) => scale({
 
 const instructions = (details) => scale({
   fontFamily: 'georgia, serif',
-  fontStyle: 'italic',
   color: '#333333',
-  fontSize: details ? 20 : 18,
+  fontSize: details ? 22 : 18,
   fontWeight: 400,
   margin: '24px 0px',
 })
