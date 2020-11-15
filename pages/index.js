@@ -44,7 +44,10 @@ export default function Home({ data }) {
     if (keywords.length > 0) {
       const ingredients = getPopularIngredients(cocktails, keywords)
       setPopularIngredients(ingredients)
+    } else {
+      setPopularIngredients([])
     }
+
 
     // Bring this back if you want to use ingredient weights
     // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
@@ -78,7 +81,8 @@ export default function Home({ data }) {
           getPopularIngredients,
         }} />
       </div>
-      <label style={{ paddingLeft: 6, paddingBottom: 0, textTransform: 'none' }}> <span style={{ opacity: 0.8 }}>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span><span dangerouslySetInnerHTML={{ __html: createSentence(keywords) }}></span></label>
+      <label style={{ paddingLeft: 6, paddingBottom: 8, textTransform: 'none' }}> <span>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span></label>
+      <hr />
       <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} />
     </Layout >
   )

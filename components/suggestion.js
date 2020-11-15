@@ -1,4 +1,4 @@
-export default function Filter({ selected, value, label, keywords, setKeywords, negativeMode }) {
+export default function Suggestion({ selected, value, label, keywords, setKeywords, negativeMode }) {
   const keywordValues = keywords.map(keyword => keyword.value)
   if (keywordValues.includes(label)) {
     return null
