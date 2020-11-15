@@ -20,25 +20,13 @@ import {
 import { jsx } from '@emotion/core'
 
 export default function Cocktail({ cocktail, keywords, details, mapping }) {
-  let rating
-  const star = <span css={starStyles(details)}>★</span>
   const [copied, setCopied] = useState(false)
   const [url, setUrl] = useState('')
 
+  // Used for "copy link"
   useEffect(() => {
     setUrl(window.location.href);
   }, [])
-
-  switch (cocktail.rating) {
-    case 4.0:
-      rating = <>{star}{star}{star}{star}<span css={starStyles(details)} css={[starStyles(details), fadedStarStyles]}>★</span></>
-      break
-    case 4.5:
-      rating = <>{star}{star}{star}{star}<span css={starStyles(details)}>★<span css={halfStar(details)}></span></span></>
-      break
-    default:
-      rating = <>{star}{star}{star}{star}{star}</>
-  }
 
   String.prototype.insert = function (index, value) {
     return this.substr(0, index) + value + this.substr(index);
@@ -49,7 +37,24 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
     return io == -1 ? -1 : io + string.length;
   }
 
-  let description = cocktail.description
+  // Create star meter for 4, 4.5, or 5-star cocktail.
+  let rating
+  const star = <span css={starStyles(details)}>★</span>
+  const fadedStar = <span css={[starStyles(details), fadedStarStyles]}>★</span>
+  const partialStar = <span css={starStyles(details)}>★<span css={halfStar(details)}></span></span>
+  switch (cocktail.rating) {
+    case 4.0:
+      rating = <>{star}{star}{star}{star}{fadedStar}</>
+      break
+    case 4.5:
+      rating = <>{star}{star}{star}{star}{partialStar}</>
+      break
+    default:
+      rating = <>{star}{star}{star}{star}{star}</>
+  }
+
+  // Searches cocktail description for glass type. If found, insert into sentence.
+  let { description } = cocktail
   let index = -1
   let glass
   let name
@@ -92,12 +97,14 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
     index = glassIs(name)
   }
 
+  // If glass name was found...
   if (index !== -1) {
     description = description.insert(index, glass)
     description = description.replace(name, '<span style="color: black;">' + name + '</span>');
     description = description.replace(glass, '<span style="font-style: normal;">' + glass + '</span>');
   }
 
+  // Might have more mappings in future. For now, rye = whiskey and scotch
   const checkAlternatives = (line, keyword) => {
     let alternativeMatch = false
     const alternatives = {
@@ -190,29 +197,63 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
   // Used to bold line items
   const selectedLines = keywords.map(kw => findSelectedLines(cocktail.lines, kw))
 
+  // Details parameter is for the detailed cocktail pages (i.e. .../manhattan, .../last_word, etc.)
   return (
     <>
       <div key={cocktail.name} css={cocktailContainer}>
         <strong>
           {details
             ? <div css={cocktailName(details)}>{cocktail.name}</div>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}><a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}><div css={cocktailName(details)}>{cocktail.name}</div></a></Link>
+            : <Link href="/[cocktail]" as={`/${cocktail.id}`}>
+              <a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}>
+                <div css={cocktailName(details)}>{cocktail.name}</div>
+              </a>
+            </Link>
           }
+
           <div css={starsBox(details)}>
             {rating}
           </div>
+
           <ul css={ingredients(details)}>
-            {cocktail.lines.map((line) => <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>{selectedLines.includes(line) ? <span style={{ fontWeight: 700 }}>{line}</span> : line}</li>)}
+            {
+              cocktail.lines.map(line =>
+                <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>
+                  {selectedLines.includes(line)
+                    ? <span style={{ fontWeight: 700 }}>{line}</span>
+                    : line
+                  }
+                </li>
+              )
+            }
           </ul>
-          <i><p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} /></i>
-          {(details && cocktail.origin) && <p css={origin}>Origin: {cocktail.origin}</p>}
-          <div css={listTags(details)}>{cocktail.lists.map((list) => <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 700 : 400 }}>{keywordValues.includes(list) && '✔ '}{list}</span>)}</div>
-          {details && <div css={copyLink}>
-            <CopyToClipboard text={url || ''}
-              onCopy={() => setCopied(true)}>
-              <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
-            </CopyToClipboard>
-          </div>}
+
+          <i>
+            <p css={instructions(details)} dangerouslySetInnerHTML={{ __html: `&ldquo;${description}&rdquo;` }} />
+          </i>
+
+          {(details && cocktail.origin) &&
+            <p css={origin}>Origin: {cocktail.origin}</p>
+          }
+
+          <div css={listTags(details)}>
+            {
+              cocktail.lists.map(list =>
+                <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 700 : 400 }}>
+                  {keywordValues.includes(list) && '✔ '}{list}
+                </span>
+              )
+            }
+          </div>
+
+          {details &&
+            <div css={copyLink}>
+              <CopyToClipboard text={url || ''}
+                onCopy={() => setCopied(true)}>
+                <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
+              </CopyToClipboard>
+            </div>
+          }
         </strong>
       </div>
       <hr />
