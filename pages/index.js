@@ -47,20 +47,6 @@ export default function Home({ data }) {
     } else {
       setPopularIngredients([])
     }
-
-
-    // Bring this back if you want to use ingredient weights
-    // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
-    //   const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / a.lines.length
-    //   const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / b.lines.length
-    //   if (aWeight > bWeight) {
-    //     return -1
-    //   }
-    //   if (bWeight > aWeight) {
-    //     return 1
-    //   }
-    //   return 0
-    // }))
   }, [keywords])
 
   return (
