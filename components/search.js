@@ -14,7 +14,7 @@ const loadData = (data, negativeMode) => {
   }
 }
 
-export default function Search({ data, values, keywords, negativeMode, setFilters, setValues, setKeywords, setNegativeMode }) {
+export default function Search({ data, values, pantry, keywords, negativeMode, setFilters, setValues, setKeywords, setNegativeMode }) {
   const [loadedData, setLoadedData] = useState({})
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -69,7 +69,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     return matches.sort((a, b) => a.value.length - b.value.length)
   }
 
-  const filterOptions = (rawInput) => {
+  const filterOptions = (rawInput, pantry) => {
     const input = rawInput.toLowerCase().trim()
 
     let { ingredients, lists, cocktails } = loadedData
@@ -83,7 +83,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     for (const i in p0_ingredients) {
       if (limit >= 3) break
       const keywordsPlusIngredient = keywords.concat([p0_ingredients[i]])
-      const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient)
+      const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient, pantry)
       p0_ingredients[i].label = `${p0_ingredients[i].value} [${relevantCocktails.length} results]`
       limit++
     }
@@ -94,7 +94,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     for (const i in p1_ingredients) {
       if (limit >= 3) break
       const keywordsPlusIngredient = keywords.concat([p1_ingredients[i]])
-      const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient)
+      const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient, pantry)
       p1_ingredients[i].label = `${p1_ingredients[i].value} [${relevantCocktails.length} results]`
       limit++
     }
@@ -206,7 +206,7 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
       // Prevents loading symbol from showing on basic click in/out of input box
       if (type.action !== 'menu-close' && type.action !== 'input-blur') {
         setIsLoading(true)
-        setGroupedOptions(filterOptions(input))
+        setGroupedOptions(filterOptions(input, pantry))
       }
       // On menu-close, set data back to original values
       if (type.action === 'menu-close') {
@@ -230,7 +230,8 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
     onChange={vals => {
       if (vals === null) {
         setKeywords([])
-        localStorage.setItem('keywords', JSON.stringify([]));
+        { !pantry && localStorage.setItem('keywords', JSON.stringify([])) }
+        { pantry && localStorage.setItem('pantryKeywords', JSON.stringify([])) }
         return
       }
       // Removes [X results] part of label from keywords for visual pleasantry
@@ -238,7 +239,8 @@ export default function Search({ data, values, keywords, negativeMode, setFilter
         vals.map(val => val.label = val.label.split('[')[0])
         return vals
       })
-      localStorage.setItem('keywords', JSON.stringify(vals));
+      { !pantry && localStorage.setItem('keywords', JSON.stringify(vals)) }
+      { pantry && localStorage.setItem('pantryKeywords', JSON.stringify(vals)) }
     }}
   />)
 }

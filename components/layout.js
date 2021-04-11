@@ -4,7 +4,7 @@ import TipsButton from './tipsButton'
 
 export const siteTitle = '901 Cocktails'
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home, pantry, setPantry }) {
   return (
     <Fragment>
       <Head>
@@ -21,7 +21,15 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
-      {home && <TipsButton />}
+      {home && <div className="navItems">
+        <a
+          onClick={() => {
+            setPantry(!pantry)
+            localStorage.setItem('pantry', !pantry)
+          }}>
+          {pantry ? 'Exit' : 'Enter'} Pantry
+        </a>
+      </div>}
 
       <div className="container">
         <header className="header">
@@ -29,7 +37,7 @@ export default function Layout({ children, home }) {
             <div className="leader">
               <a className="noStyle" href="/">
                 <h1 className="heading2Xl">
-                  <i>901 Cocktails</i>
+                  <i>901 Cocktails {pantry && 'Pantry'}</i>
                 </h1>
               </a>
               <section className="intro">

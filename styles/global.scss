@@ -44,6 +44,7 @@ body {
 }
 
 a {
+  cursor: pointer;
   color: #0070f3;
   text-decoration: none;
 }
@@ -284,10 +285,19 @@ input {
   height: 30px;
 }
 
-.circle {
+.navItems {
   position: absolute;
   top: 24px;
   right: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navItems > div {
+  margin: 0px 5px;
+}
+
+.circle {
   cursor: help;
   text-align: center;
   width: 30px;
