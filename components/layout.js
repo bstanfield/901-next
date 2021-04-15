@@ -29,6 +29,8 @@ export default function Layout({ children, home, pantry, setPantry }) {
           }}>
           {pantry ? 'Exit' : 'Enter'} Pantry
         </a>
+        <span style={{ padding: '0px 10px', opacity: 0.5 }}>|</span>
+        <a href="/tips">Tips</a>
       </div>}
 
       <div className="container">

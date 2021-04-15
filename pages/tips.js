@@ -35,6 +35,10 @@ export default function Tips() {
       <h2>Preview keyword combinations</h2>
       <p>When you search for a new keyword, the top 3 results will display a number in brackets next to it. These numbers represent the number of <strong>possible combinations</strong> this keyword has with your existing keywords (if you have any). For example, there are 244 results for cocktails with "Gin", but only 12 with "Ginger Ale". If you are already searching for "Vodka" and you type in "Ginger Ale" the number of possible combinations will be [1], which is the cocktail "Back-Porch Lemonade". </p>
       <img src="./preview-combinations.gif" />
+
+      <h2>Pantry</h2>
+      <p>Switch into <strong>Pantry</strong> mode to search and save items you have in stock. These items will persist in your pantry until you delete them, and cocktail results will display for <strong>any combination of ingredients</strong> in your pantry. Pantry search results also include cocktails that you're one ingredient off from being able to make, in case you're able to substitute in an ingredient.</p>
+      <img src="./pantry.gif" />
     </Layout >
   )
 }
