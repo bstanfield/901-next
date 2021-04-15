@@ -283,7 +283,6 @@ export default function Search({ data, values, pantry, keywords, negativeMode, s
     }}
     onChange={vals => {
       if (vals === null) {
-        console.log('SETTING KEYWORDS TO NONE')
         setKeywords([])
         { !pantry && localStorage.setItem('keywords', JSON.stringify([])) }
         { pantry && localStorage.setItem('pantryKeywords', JSON.stringify([])) }
@@ -292,7 +291,6 @@ export default function Search({ data, values, pantry, keywords, negativeMode, s
       // Removes [X results] part of label from keywords for visual pleasantry
       setKeywords(() => {
         vals.map(val => val.label = val.label.split('[')[0])
-        console.log('keywords set to: ', vals)
         return vals
       })
       { !pantry && localStorage.setItem('keywords', JSON.stringify(vals)) }
