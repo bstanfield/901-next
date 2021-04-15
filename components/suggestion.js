@@ -1,4 +1,4 @@
-export default function Suggestion({ selected, value, label, keywords, setKeywords, negativeMode }) {
+export default function Suggestion({ selected, value, label, keywords, setKeywords, negativeMode, pantry }) {
   const keywordValues = keywords.map(keyword => keyword.value)
   if (keywordValues.includes(label)) {
     return null
@@ -9,7 +9,9 @@ export default function Suggestion({ selected, value, label, keywords, setKeywor
       // I'm feeling lucky...
       const valueToAdd = { value, label: negativeMode ? `-${label}` : value, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? 'red' : 'rgb(221, 237, 255)' }
       setKeywords(keywords.concat([valueToAdd]))
-      localStorage.setItem('keywords', JSON.stringify(keywords.concat([valueToAdd])));
+
+      { !pantry && localStorage.setItem('keywords', JSON.stringify(keywords.concat([valueToAdd]))) }
+      { pantry && localStorage.setItem('pantryKeywords', JSON.stringify(keywords.concat([valueToAdd]))) }
     }}>
       {label}
     </div>

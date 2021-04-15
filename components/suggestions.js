@@ -20,6 +20,7 @@ export default function Suggestions({ props }) {
     popularIngredients,
     keywords,
     setKeywords,
+    pantry,
   } = props
   if (popularIngredients.length > 0) {
     return (
@@ -27,7 +28,7 @@ export default function Suggestions({ props }) {
         <label className="topLabel">Suggested pairings</label>
         {popularIngredients.slice(0, 5).map(
           i => {
-            return (<Suggestion key={i.ingredient} value={i.ingredient} label={`${i.ingredient} (${i.count})`} keywords={keywords} setKeywords={setKeywords} />)
+            return (<Suggestion key={i.ingredient} value={i.ingredient} label={`${i.ingredient} (${i.count})`} keywords={keywords} setKeywords={setKeywords} pantry={pantry} />)
           }
         )}
       </div>
@@ -38,7 +39,7 @@ export default function Suggestions({ props }) {
         <label className="topLabel">Suggested ingredients</label>
         {defaultIngredients.slice(0, 5).map(
           i => {
-            return (<Suggestion key={i.ingredient} value={i.ingredient} label={`${i.ingredient} (${i.count})`} keywords={keywords} setKeywords={setKeywords} />)
+            return (<Suggestion key={i.ingredient} value={i.ingredient} label={`${i.ingredient} (${i.count})`} keywords={keywords} setKeywords={setKeywords} pantry={pantry} />)
           }
         )}
       </div>

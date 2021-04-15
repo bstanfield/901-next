@@ -85,6 +85,7 @@ export default function Home({ data }) {
           setKeywords,
           setShowPopularIngredients,
           setPopularIngredients,
+          pantry
         }} />
         {pantry &&
           <div className="listOptions">
