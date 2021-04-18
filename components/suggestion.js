@@ -1,4 +1,5 @@
 export default function Suggestion({ selected, value, label, keywords, setKeywords, negativeMode, pantry }) {
+  // The keywords currently being searched for, to provide suggestions to.
   const keywordValues = keywords.map(keyword => keyword.value)
   if (keywordValues.includes(label)) {
     return null
@@ -12,8 +13,7 @@ export default function Suggestion({ selected, value, label, keywords, setKeywor
 
       { !pantry && localStorage.setItem('keywords', JSON.stringify(keywords.concat([valueToAdd]))) }
       { pantry && localStorage.setItem('pantryKeywords', JSON.stringify(keywords.concat([valueToAdd]))) }
-    }}>
-      {label}
+    }} dangerouslySetInnerHTML={{ __html: label }}>
     </div>
   )
 }

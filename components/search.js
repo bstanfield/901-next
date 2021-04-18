@@ -36,9 +36,9 @@ const SortableSelect = SortableContainer(Select);
 // end react-select sort fns
 
 const loadData = (data, negativeMode) => {
-  const ingredientsInSearchFormat = data.ingredients.map(i => ({ data: 'ingredient', weight: i.weight, value: i.ingredient, label: negativeMode ? `-${i.ingredient}` : `${i.ingredient}`, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
-  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ data: 'cocktail', value: cocktail.name, label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
-  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ data: 'category', value: list, label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const ingredientsInSearchFormat = data.ingredients.map(i => ({ data: 'ingredient', weight: i.weight, value: i.ingredient, strippedValue: i.ingredient.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), label: negativeMode ? `-${i.ingredient}` : `${i.ingredient}`, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const cocktailNamesInSearchFormat = data.cocktails.map(cocktail => ({ data: 'cocktail', value: cocktail.name, strippedValue: cocktail.name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), label: negativeMode ? `-${cocktail.name}` : cocktail.name, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
+  const listsInSearchFormat = data.categories.map(category => category.lists).flat().map(list => ({ data: 'category', value: list, strippedValue: list.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), label: negativeMode ? `-${list}` : list, type: negativeMode ? 'negative' : 'positive', bgColor: negativeMode ? '#ffbdbd' : 'rgb(221, 237, 255)' }))
   return {
     ingredients: ingredientsInSearchFormat,
     cocktails: cocktailNamesInSearchFormat,
@@ -93,19 +93,20 @@ export default function Search({ data, values, pantry, keywords, negativeMode, s
         return false
       } else {
         if (filterTypes[filterType] === 'precise') {
-          return item.value.toLowerCase() === input
+          return item.strippedValue.toLowerCase() === input
         }
 
         else if (filterTypes[filterType] === 'exact') {
           // looks for exact matches at same slice length, not whiskey = whiskey but whiskey = whiskey, bourbon (-bourbon)
-          return item.value.toLowerCase().slice(0, input.length) === input
+          return item.strippedValue.toLowerCase().slice(0, input.length) === input
         }
 
         else if (filterTypes[filterType] === 'partial-match') {
-          return item.value.toLowerCase().includes(input)
+          return item.strippedValue.toLowerCase().includes(input)
         }
       }
     })
+
     matches.map(match => existingMatches.push(match.value))
     return matches.sort((a, b) => a.value.length - b.value.length)
   }
@@ -117,28 +118,34 @@ export default function Search({ data, values, pantry, keywords, negativeMode, s
     let existingMatches = []
 
     // Precise matches = priority #0
-    const p0_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
+    let p0_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches)
 
     // Finds permutations ahead of time
     let limit = 0
     for (const i in p0_ingredients) {
-      if (limit >= 3) break
+      if (limit >= 8) break
       const keywordsPlusIngredient = keywords.concat([p0_ingredients[i]])
       const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient, pantry)
-      p0_ingredients[i].label = `${p0_ingredients[i].value} [${relevantCocktails.length} results]`
+      p0_ingredients[i].label = `${p0_ingredients[i].value} <span style="position: absolute; right: 16px; opacity: 0.6">${relevantCocktails.length} pairings</span>`
+      p0_ingredients[i]['count'] = relevantCocktails.length
       limit++
     }
 
+    p0_ingredients = p0_ingredients.sort((a, b) => b.count - a.count)
+
     // Direct matches = priority #1
-    const p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
+    let p1_ingredients = filterAndIgnoreExistingMatches(input, ingredients, existingMatches, 1)
     // Finds permutations ahead of time
     for (const i in p1_ingredients) {
-      if (limit >= 3) break
+      if (limit >= 8) break
       const keywordsPlusIngredient = keywords.concat([p1_ingredients[i]])
       const relevantCocktails = improvedGetRelevantCocktails(data.cocktails, keywordsPlusIngredient, pantry)
-      p1_ingredients[i].label = `${p1_ingredients[i].value} [${relevantCocktails.length} results]`
+      p1_ingredients[i].label = `${p1_ingredients[i].value} <span style="position: absolute; right: 16px; opacity: 0.6">${relevantCocktails.length} pairings</span>`
+      p1_ingredients[i]['count'] = relevantCocktails.length
       limit++
     }
+
+    p1_ingredients = p1_ingredients.sort((a, b) => b.count - a.count)
 
     const p1_lists = filterAndIgnoreExistingMatches(input, lists, existingMatches, 1)
     const p1_cocktails = filterAndIgnoreExistingMatches(input, cocktails, existingMatches, 1)
@@ -237,6 +244,11 @@ export default function Search({ data, values, pantry, keywords, negativeMode, s
     className="basic-multi-select"
     classNamePrefix="select"
     value={keywords}
+    formatOptionLabel={function (data) {
+      return (
+        <span dangerouslySetInnerHTML={{ __html: data.label }} />
+      );
+    }}
     instanceId={1}
     inputValue={inputValue}
     formatGroupLabel={formatGroupLabel}
@@ -290,7 +302,7 @@ export default function Search({ data, values, pantry, keywords, negativeMode, s
       }
       // Removes [X results] part of label from keywords for visual pleasantry
       setKeywords(() => {
-        vals.map(val => val.label = val.label.split('[')[0])
+        vals.map(val => val.label = val.label.split('<')[0])
         return vals
       })
       { !pantry && localStorage.setItem('keywords', JSON.stringify(vals)) }
