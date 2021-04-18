@@ -18,6 +18,7 @@ export default function Home({ data }) {
   // Keywords are inputs typed into the search bar or picked from the list of suggestions by the user
   // Keywords look like this: {value: 'foo', label: 'foo', type: 'positive', bgColor: 'red' }
   const [keywords, setKeywords] = useState([])
+  const [pantry, setPantry] = useState(false)
 
   // "infinite scroll"
   useEffect(() => {
@@ -27,49 +28,55 @@ export default function Home({ data }) {
 
   // localstorage
   useEffect(() => {
-    if (keywords.length === 0) {
+    // Pantry
+    const localStoragePantry = JSON.parse(localStorage.getItem('pantry'))
+    if (localStoragePantry) {
+      setPantry(localStoragePantry)
+      const localStoragePantryKeywords = JSON.parse(localStorage.getItem('pantryKeywords'))
+      if (localStoragePantryKeywords) {
+        setKeywords(localStoragePantryKeywords)
+      }
+    }
+
+    // Default
+    if (keywords.length === 0 && !localStoragePantry) {
       const localStorageKeywords = JSON.parse(localStorage.getItem('keywords'))
       if (localStorageKeywords) {
         setKeywords(localStorageKeywords)
       }
     }
-  }, [])
+
+    if (!pantry) {
+      const localStorageKeywords = JSON.parse(localStorage.getItem('keywords'))
+      if (localStorageKeywords) {
+        setKeywords(localStorageKeywords)
+      } else {
+        setKeywords([])
+      }
+    }
+  }, [pantry])
 
   useEffect(() => {
     // This is an important fn that gets cocktails based off of keywords entered by user.
-    const cocktails = improvedGetRelevantCocktails(data.cocktails, keywords)
+    const cocktails = improvedGetRelevantCocktails(data.cocktails, keywords, pantry)
     setCocktailsToDisplay(cocktails)
 
     // Only search for popular ingredients if there is already a keyword being searched for.
     if (keywords.length > 0) {
-      const ingredients = getPopularIngredients(cocktails, keywords)
+      const ingredients = getPopularIngredients(data.cocktails, cocktails, keywords, pantry)
       setPopularIngredients(ingredients)
     } else {
       setPopularIngredients([])
     }
-
-
-    // Bring this back if you want to use ingredient weights
-    // setCocktailsToDisplay(cocktailsToDisplay.sort((a, b) => {
-    //   const aWeight = a.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / a.lines.length
-    //   const bWeight = b.ingredients.map(i => data.ingredients_mapping[i]).reduce((a, b) => a + b) / b.lines.length
-    //   if (aWeight > bWeight) {
-    //     return -1
-    //   }
-    //   if (bWeight > aWeight) {
-    //     return 1
-    //   }
-    //   return 0
-    // }))
   }, [keywords])
 
   return (
-    <Layout home>
+    <Layout home pantry={pantry} setPantry={setPantry}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
+        <SearchBar pantry={pantry} data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
         <Suggestions props={{
           popularIngredients,
           cocktailsToDisplay,
@@ -78,12 +85,18 @@ export default function Home({ data }) {
           setKeywords,
           setShowPopularIngredients,
           setPopularIngredients,
-          getPopularIngredients,
+          pantry
         }} />
+        {pantry &&
+          <div className="listOptions">
+            <p style={{ fontStyle: 'italic', marginTop: -4, fontSize: 15 }}>Search and save items to your pantry. Results are drinks that can be made with some or all of your pantry items.</p>
+          </div>
+        }
       </div>
       <label style={{ paddingLeft: 6, paddingBottom: 8, textTransform: 'none' }}> <span>({cocktailsToDisplay.length}) Result{cocktailsToDisplay.length === 1 ? '' : 's'} </span></label>
+
       <hr />
-      <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} />
+      <Results displayMaximum={displayMaximum} keywords={keywords} cocktails={cocktailsToDisplay} mapping={data.ingredients_mapping} pantry={pantry} />
     </Layout >
   )
 }

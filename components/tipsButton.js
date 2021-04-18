@@ -4,7 +4,6 @@ import {
 
 export default function tipsButton() {
   return (
-
     <div className="circle">
       <Tooltip
         // options
