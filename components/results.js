@@ -19,19 +19,57 @@ export default function Results({ cocktails, keywords, displayMaximum, mapping, 
     return 0
   })
 
-  if (pantry && keywords.length >= 1) {
-    const primaryKeyword = keywords[0]
-    const cocktailsSortedByPrimaryKeyword = cocktailsToDisplay.sort((a, b) => {
-      if (a.ingredients.includes(primaryKeyword.value) && !b.ingredients.includes(primaryKeyword.value)) {
-        return -1
+  if (pantry && keywords.length > 1) {
+    const cocktailsSortedByKeywordOrder = keywords.reverse().reduce((acc, keyword, index) => {
+      // If first iteration of reducer, use cocktailsToDisplay (all results) as default
+      let cocktailsToSort
+      if (!acc) {
+        console.log('start here: ', index)
+        console.log('keyword: ', keyword)
+        cocktailsToSort = cocktailsToDisplay
+      } else {
+        console.log('mostly here ', index)
+        console.log('keyword: ', keyword)
+        cocktailsToSort = acc
       }
-      if (!a.ingredients.includes(primaryKeyword.value) && b.ingredients.includes(primaryKeyword.value)) {
-        return 1
-      }
-      return 0
-    })
+
+      const cocktailsSortedByKeyword = cocktailsToSort.sort((a, b) => {
+        if (a.ingredients.includes(keyword.value) && !b.ingredients.includes(keyword.value)) {
+          return -1
+        }
+        if (!a.ingredients.includes(keyword.value) && b.ingredients.includes(keyword.value)) {
+          return 1
+        }
+        return 0
+      })
+      return cocktailsSortedByKeyword
+    }, undefined)
+
+    // const primaryKeyword = keywords[0]
+    // const secondaryKeyword = keywords[1]
+
+    // const cocktailsSortedByPrimaryKeyword = cocktailsToDisplay.sort((a, b) => {
+    //   if (a.ingredients.includes(primaryKeyword.value) && !b.ingredients.includes(primaryKeyword.value)) {
+    //     return -1
+    //   }
+    //   if (!a.ingredients.includes(primaryKeyword.value) && b.ingredients.includes(primaryKeyword.value)) {
+    //     return 1
+    //   }
+    //   return 0
+    // })
+
+    // const cocktailsSortedBySecondaryKeyword = cocktailsSortedByPrimaryKeyword.sort((a, b) => {
+    //   if ((a.ingredients.includes(primaryKeyword.value) && a.ingredients.includes(secondaryKeyword.value)) && !(b.ingredients.includes(primaryKeyword.value) && b.ingredients.includes(secondaryKeyword.value))) {
+    //     return -1
+    //   }
+
+    //   if (!(a.ingredients.includes(primaryKeyword.value) && a.ingredients.includes(secondaryKeyword.value)) && (b.ingredients.includes(primaryKeyword.value) && b.ingredients.includes(secondaryKeyword.value))) {
+    //     return 1
+    //   }
+    //   return 0
+    // })
     return (
-      cocktailsSortedByPrimaryKeyword.map((cocktail) => (<Cocktail mapping={mapping} key={cocktail.id} keywords={keywords} cocktail={cocktail} />))
+      cocktailsSortedByKeywordOrder.map((cocktail) => (<Cocktail mapping={mapping} key={cocktail.id} keywords={keywords} cocktail={cocktail} />))
     )
   } else {
     return (
