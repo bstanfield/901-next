@@ -48,7 +48,7 @@ export default function Layout({ children, home, pantry, setPantry }) {
               </a>
               <section className="intro">
                 <p>
-                  Recipes from the book <a target="_blank" rel="noopener" href="http://www.901cocktails.com">901 Cocktails</a>
+                  Recipes from the book <a target="_blank" rel="noopener" href="https://www.amazon.com/901-Very-Good-Cocktails-Practical/dp/0615708498">901 Cocktails</a>
                 </p>
                 <p>Website by <a rel="noopener" href="https://benstanfield.io">Ben Stanfield</a></p>
               </section>
