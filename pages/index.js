@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
+import Layout, { siteTitle, siteImage, siteDescription } from '../components/layout'
 import { getData } from '../lib/data'
 import { throttleCocktailsToDisplay, improvedGetRelevantCocktails, getPopularIngredients, createSentence } from '../lib/helpers'
 import Results from '../components/results'
@@ -74,6 +74,17 @@ export default function Home({ data }) {
     <Layout home pantry={pantry} setPantry={setPantry}>
       <Head>
         <title>{siteTitle}</title>
+        <meta name="title" content={siteTitle} />
+        <meta name="description" content={siteDescription} />
+        <meta name="og:description" content={siteDescription} />
+        <meta property="og:image" content={siteImage} />
+        <meta property="og:url" content='https://901.benstanfield.io' />
+        <meta property="og:type" content="article" />
+        {/* Twitter Card data */}
+        <meta name="twitter:card" value="summary_large_image" />
+        <meta name="twitter:description" content={siteDescription} />
+        <meta name="twitter:title" content={siteTitle} />
+        <meta name="twitter:image" content={siteImage} />
       </Head>
       <div style={{ marginBottom: 24 }}>
         <SearchBar pantry={pantry} data={data} keywords={keywords} setKeywords={setKeywords} negativeMode={negativeMode} setNegativeMode={setNegativeMode} />
