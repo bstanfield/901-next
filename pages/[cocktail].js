@@ -1,18 +1,18 @@
-import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
-import { getData } from '../lib/data'
-import { getCocktailById, getSimilarCocktails } from '../lib/helpers'
-import Cocktail from '../components/cocktail'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import Head from "next/head";
+import Layout, { siteTitle } from "../components/layout";
+import { getData } from "../lib/data";
+import { getCocktailById, getSimilarCocktails } from "../lib/helpers";
+import Cocktail from "../components/cocktail";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function CocktailPage({ cocktail, similarCocktails }) {
-  const [keywords, setKeywords] = useState([])
+  const [keywords, setKeywords] = useState([]);
   const adjective = {
-    4: 'Solid',
-    4.5: 'Very good',
-    5: 'Exceptional'
-  }
+    4: "Solid",
+    4.5: "Very good",
+    5: "Exceptional",
+  };
 
   // If we want keywords, need to use storage
   // useEffect(() => {
@@ -25,9 +25,24 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
   return (
     <Layout>
       <Head>
-        <title>{cocktail.name}&nbsp;({cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | {siteTitle}</title>
-        <meta name="og:title" content={`${cocktail.name}(${cocktail.rating === 4.5 ? '4½' : cocktail.rating}★) | ${siteTitle}`} />
-        <meta name="og:description" content={`${adjective[cocktail.rating]} cocktail with ${cocktail.ingredients[0]}, ${cocktail.ingredients[1]}, and ${cocktail.ingredients.length - 2} other ingredients.`} />
+        <title>
+          {cocktail.name}&nbsp;(
+          {cocktail.rating === 4.5 ? "4½" : cocktail.rating}★) | {siteTitle}
+        </title>
+        <meta
+          name="og:title"
+          content={`${cocktail.name}(${
+            cocktail.rating === 4.5 ? "4½" : cocktail.rating
+          }★) | ${siteTitle}`}
+        />
+        <meta
+          name="og:description"
+          content={`${adjective[cocktail.rating]} cocktail with ${
+            cocktail.ingredients[0]
+          }, ${cocktail.ingredients[1]}, and ${
+            cocktail.ingredients.length - 2
+          } other ingredients.`}
+        />
       </Head>
       <section className="padding1px">
         <label style={{ marginBottom: 24 }}>
@@ -35,12 +50,19 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
         </label>
         <Cocktail details keywords={keywords} cocktail={cocktail} />
         <p>Similar cocktails:</p>
-        {similarCocktails.slice(0, 3).map(cocktail => {
-          return (<Cocktail key={cocktail.id} keywords={keywords} parent={similarCocktails[0]} cocktail={cocktail} />)
+        {similarCocktails.slice(0, 3).map((cocktail) => {
+          return (
+            <Cocktail
+              key={cocktail.id}
+              keywords={keywords}
+              parent={similarCocktails[0]}
+              cocktail={cocktail}
+            />
+          );
         })}
       </section>
-    </Layout >
-  )
+    </Layout>
+  );
 }
 
 // export async function getServerSideProps(context) {
@@ -59,24 +81,30 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
 // }
 
 export async function getStaticPaths() {
-  const data = getData()
-  const ids = data.cocktails.map(cocktail => ({ params: { cocktail: cocktail.id } }))
+  const data = getData();
+  const ids = data.cocktails.map((cocktail) => ({
+    params: { cocktail: cocktail.id },
+  }));
   return {
     paths: ids,
-    fallback: false
-  }
+    fallback: false,
+  };
 }
 
 export async function getStaticProps({ params }) {
-  const data = getData()
-  const id = params.cocktail
-  const cocktail = getCocktailById(data.cocktails, id)
-  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients, cocktail.id)
+  const data = getData();
+  const id = params.cocktail;
+  const cocktail = getCocktailById(data.cocktails, id);
+  const similarCocktails = getSimilarCocktails(
+    data.cocktails,
+    cocktail.ingredients,
+    cocktail.id
+  );
 
   return {
     props: {
       cocktail,
-      similarCocktails
-    }
-  }
+      similarCocktails,
+    },
+  };
 }

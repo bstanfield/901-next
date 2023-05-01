@@ -14,18 +14,11 @@
   },
   {
     "name": "Era",
-    "lists": [
-      "Antique",
-      "Prohibition era and vintage",
-      "Mad men"
-    ]
+    "lists": ["Antique", "Prohibition era and vintage", "Mad men"]
   },
   {
     "name": "Classiness",
-    "lists": [
-      "Highbrow",
-      "Lowbrow"
-    ]
+    "lists": ["Highbrow", "Lowbrow"]
   },
   {
     "name": "Party Drinks",
@@ -37,10 +30,7 @@
   },
   {
     "name": "Weather",
-    "lists": [
-      "Cold outside",
-      "Hot outside"
-    ]
+    "lists": ["Cold outside", "Hot outside"]
   },
   {
     "name": "Flavor",
@@ -62,20 +52,11 @@
   },
   {
     "name": "Color",
-    "lists": [
-      "Blue",
-      "Red",
-      "Green"
-    ]
+    "lists": ["Blue", "Red", "Green"]
   },
   {
     "name": "Serving Style",
-    "lists": [
-      "Fizzy",
-      "Frozen",
-      "Rocks",
-      "Milkshakes"
-    ]
+    "lists": ["Fizzy", "Frozen", "Rocks", "Milkshakes"]
   },
   {
     "name": "Time of Day",
@@ -89,10 +70,7 @@
   },
   {
     "name": "Price",
-    "lists": [
-      "Cheap (potentially)",
-      "Expensive"
-    ]
+    "lists": ["Cheap (potentially)", "Expensive"]
   },
   {
     "name": "Classics",
@@ -105,26 +83,15 @@
   },
   {
     "name": "Difficulty",
-    "lists": [
-      "Simple",
-      "Complicated"
-    ]
+    "lists": ["Simple", "Complicated"]
   },
   {
     "name": "Wine-Based",
-    "lists": [
-      "Wine",
-      "Sherry",
-      "Port",
-      "Champagne"
-    ]
+    "lists": ["Wine", "Sherry", "Port", "Champagne"]
   },
   {
     "name": "Coffee-Based",
-    "lists": [
-      "Coffee",
-      "Espresso"
-    ]
+    "lists": ["Coffee", "Espresso"]
   },
   {
     "name": "Holiday",
@@ -141,25 +108,15 @@
   },
   {
     "name": "Locale",
-    "lists": [
-      "Urban",
-      "Southern"
-    ]
+    "lists": ["Urban", "Southern"]
   },
   {
     "name": "Intensity",
-    "lists": [
-      "Gentle",
-      "Potent"
-    ]
+    "lists": ["Gentle", "Potent"]
   },
   {
     "name": "Theme",
-    "lists": [
-      "Movies",
-      "Tiki time",
-      "Names"
-    ]
+    "lists": ["Movies", "Tiki time", "Names"]
   },
   {
     "name": "The drink to have when you're in...",

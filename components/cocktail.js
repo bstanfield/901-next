@@ -1,8 +1,9 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 
-import Link from 'next/link'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { useState, useEffect } from 'react'
+import Link from "next/link";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import React, { useState, useEffect } from "react";
 import {
   starsBox,
   cocktailName,
@@ -16,201 +17,258 @@ import {
   origin,
   cocktailContainer,
   noStyleLink,
-} from '../styles/classes'
-import { jsx } from '@emotion/core'
+} from "../styles/classes";
+import { jsx, css } from "@emotion/react";
 
 export default function Cocktail({ cocktail, keywords, details, mapping }) {
-  const [copied, setCopied] = useState(false)
-  const [url, setUrl] = useState('')
+  const [copied, setCopied] = useState(false);
+  const [url, setUrl] = useState("");
 
   // Used for "copy link"
   useEffect(() => {
     setUrl(window.location.href);
-  }, [])
+  }, []);
 
   String.prototype.insert = function (index, value) {
     return this.substr(0, index) + value + this.substr(index);
-  }
+  };
 
   String.prototype.indexOfEnd = function (string) {
     var io = this.indexOf(string);
     return io == -1 ? -1 : io + string.length;
-  }
+  };
 
   // Create star meter for 4, 4.5, or 5-star cocktail.
-  let rating
-  const star = <span css={starStyles(details)}>★</span>
-  const fadedStar = <span css={[starStyles(details), fadedStarStyles]}>★</span>
-  const partialStar = <span css={starStyles(details)}>★<span css={halfStar(details)}></span></span>
+  let rating;
+  const star = <span css={starStyles(details)}>★</span>;
+  const fadedStar = <span css={[starStyles(details), fadedStarStyles]}>★</span>;
+  const partialStar = (
+    <span css={starStyles(details)}>
+      ★<span css={halfStar(details)}></span>
+    </span>
+  );
   switch (cocktail.rating) {
     case 4.0:
-      rating = <>{star}{star}{star}{star}{fadedStar}</>
-      break
+      rating = (
+        <>
+          {star}
+          {star}
+          {star}
+          {star}
+          {fadedStar}
+        </>
+      );
+      break;
     case 4.5:
-      rating = <>{star}{star}{star}{star}{partialStar}</>
-      break
+      rating = (
+        <>
+          {star}
+          {star}
+          {star}
+          {star}
+          {partialStar}
+        </>
+      );
+      break;
     default:
-      rating = <>{star}{star}{star}{star}{star}</>
+      rating = (
+        <>
+          {star}
+          {star}
+          {star}
+          {star}
+          {star}
+        </>
+      );
   }
 
   // Might have more mappings in future. For now, rye = whiskey and scotch
   const checkAlternatives = (line, keyword) => {
-    let alternativeMatch = false
+    let alternativeMatch = false;
     const alternatives = {
-      whiskey: ['rye', 'scotch']
-    }
+      whiskey: ["rye", "scotch"],
+    };
 
-    const selectedAlternatives = alternatives[keyword.toLowerCase()]
+    const selectedAlternatives = alternatives[keyword.toLowerCase()];
     if (selectedAlternatives) {
       for (const alternative of selectedAlternatives) {
         if (line.toLowerCase().includes(alternative)) {
-          alternativeMatch = true
+          alternativeMatch = true;
         }
       }
     }
-    return alternativeMatch
-  }
+    return alternativeMatch;
+  };
 
   const findSelectedLines = (lines, keyword) => {
     // Ignore keywords that are searches for categories (lists) or cocktail names
-    if (keyword.data === 'category' || keyword.data === 'cocktail' || keyword.type === 'negative') {
-      return null
+    if (
+      keyword.data === "category" ||
+      keyword.data === "cocktail" ||
+      keyword.type === "negative"
+    ) {
+      return null;
     }
 
-    const { value: keywordValue } = keyword
-    let partialMatches = []
-    let perfectMatch = []
+    const { value: keywordValue } = keyword;
+    let partialMatches = [];
+    let perfectMatch = [];
 
     // Removes commas, parentheses, etc. from a keywordValue
-    const fragments = keywordValue.replace(/[^\w\s]/gi, '').split(' ').map(str => str.trim().toLowerCase())
+    const fragments = keywordValue
+      .replace(/[^\w\s]/gi, "")
+      .split(" ")
+      .map((str) => str.trim().toLowerCase());
 
     for (const line of lines) {
-      const lineFragments = line.split(' ')
+      const lineFragments = line.split(" ");
 
       // for keywordValues like [whiskey, rye]
       if (fragments.length > 1) {
-        let fragmentCount = fragments.length
-        let fragmentMatches = 0
+        let fragmentCount = fragments.length;
+        let fragmentMatches = 0;
 
         for (const fragment of fragments) {
           if (line.toLowerCase().includes(fragment)) {
-            fragmentMatches++
+            fragmentMatches++;
           }
         }
 
         // As long as there is a 50%+ match, consider that partial match
         if (fragmentMatches >= fragmentCount / 2) {
-          partialMatches.push({ line, matches: fragmentMatches, potentialMatches: lineFragments.length, keywordValue })
+          partialMatches.push({
+            line,
+            matches: fragmentMatches,
+            potentialMatches: lineFragments.length,
+            keywordValue,
+          });
         }
       } else {
-        const alternative = checkAlternatives(line, keywordValue)
+        const alternative = checkAlternatives(line, keywordValue);
         if (alternative) {
-          perfectMatch.push(line)
+          perfectMatch.push(line);
         }
         // This else block is for single-word keywords
         if (line.toLowerCase().includes(keywordValue.toLowerCase())) {
-          perfectMatch.push(line)
+          perfectMatch.push(line);
         }
       }
     }
 
     // perfect match
-    if (perfectMatch.length > 0) return perfectMatch[0]
+    if (perfectMatch.length > 0) return perfectMatch[0];
 
     // no matches
     if (partialMatches.length === 0) {
-      return null
+      return null;
     }
 
     // search all partial matches for best match
     const highestPartialMatch = partialMatches.reduce((acc, partialMatch) => {
       if (!acc) {
-        return partialMatch
+        return partialMatch;
       }
       if (acc.matches > partialMatch.matches) {
-        return acc
+        return acc;
       }
       if (acc.matches === partialMatch.matches) {
-        if (acc.matches - acc.potentialMatches > partialMatch.matches - partialMatch.potentialMatches) {
-          return acc
+        if (
+          acc.matches - acc.potentialMatches >
+          partialMatch.matches - partialMatch.potentialMatches
+        ) {
+          return acc;
         }
       }
-      return partialMatch
-    })
-    return highestPartialMatch.line
-  }
+      return partialMatch;
+    });
+    return highestPartialMatch.line;
+  };
 
   // Used to bold tags
-  const keywordValues = keywords.map(kw => kw.value)
+  const keywordValues = keywords.map((kw) => kw.value);
 
   // Used to bold line items
-  const selectedLines = keywords.map(kw => findSelectedLines(cocktail.lines, kw))
+  const selectedLines = keywords.map((kw) =>
+    findSelectedLines(cocktail.lines, kw)
+  );
 
   // Details parameter is for the detailed cocktail pages (i.e. .../manhattan, .../last_word, etc.)
   return (
     <>
       <div key={cocktail.name} css={cocktailContainer}>
         <strong>
-          {details
-            ? <div css={cocktailName(details)}>{cocktail.name}</div>
-            : <Link href="/[cocktail]" as={`/${cocktail.id}`}>
+          {details ? (
+            <div css={cocktailName(details)}>{cocktail.name}</div>
+          ) : (
+            <Link href="/[cocktail]" as={`/${cocktail.id}`}>
               <a rel="noopener" href={`/${cocktail.id}`} css={noStyleLink}>
                 <div css={cocktailName(details)}>{cocktail.name}</div>
               </a>
             </Link>
-          }
+          )}
 
-          <div css={starsBox(details)}>
-            {rating}
-          </div>
+          <div css={starsBox(details)}>{rating}</div>
 
           <ul css={ingredients(details)}>
             {!details &&
-              cocktail.lines.map(line =>
-                <li key={line} style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}>
-                  {selectedLines.includes(line)
-                    ? <span style={{ fontWeight: 700 }}>{line}</span>
-                    : line
-                  }
+              cocktail.lines.map((line, i) => (
+                <li
+                  key={line}
+                  style={{ fontSize: details ? 22 : 18, fontWeight: 400 }}
+                >
+                  {selectedLines.includes(line) ? (
+                    <span style={{ fontWeight: 700 }}>{line}</span>
+                  ) : (
+                    line
+                  )}{" "}
+                  ({cocktail.ingredients[i]})
                 </li>
-              )
-            }
+              ))}
           </ul>
           {details &&
-            cocktail.lines.map(line =>
+            cocktail.lines.map((line) => (
               <div className="checkableIngredients">
-                <label><input type="checkbox" name={line} value={line} key={line} />&nbsp;{line}</label>
+                <label>
+                  <input type="checkbox" name={line} value={line} key={line} />
+                  &nbsp;{line}
+                </label>
               </div>
-            )
-          }
+            ))}
 
           <p css={instructions(details)}>{cocktail.description}</p>
 
-          {(details && cocktail.origin) &&
+          {details && cocktail.origin && (
             <p css={origin}>Origin: {cocktail.origin}</p>
-          }
+          )}
 
           <div css={listTags(details)}>
-            {
-              cocktail.lists.map(list =>
-                <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 700 : 400 }}>
-                  {keywordValues.includes(list) && '✔ '}{list}
-                </span>
-              )
-            }
+            {cocktail.lists.map((list) => (
+              <span
+                key={list}
+                style={{
+                  fontSize: details ? 18 : 16,
+                  margin: details ? 3 : 2,
+                  fontWeight: keywordValues.includes(list) ? 700 : 400,
+                }}
+              >
+                {keywordValues.includes(list) && "✔ "}
+                {list}
+              </span>
+            ))}
           </div>
 
-          {details &&
+          {details && (
             <div css={copyLink}>
-              <CopyToClipboard text={url || ''}
-                onCopy={() => setCopied(true)}>
-                <button>{copied ? '✅ Copied to clipboard' : '🔗 Copy link'}</button>
+              <CopyToClipboard text={url || ""} onCopy={() => setCopied(true)}>
+                <button>
+                  {copied ? "✅ Copied to clipboard" : "🔗 Copy link"}
+                </button>
               </CopyToClipboard>
             </div>
-          }
+          )}
         </strong>
       </div>
       <hr />
     </>
-  )
+  );
 }
