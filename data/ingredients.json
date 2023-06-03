@@ -2,38 +2,22 @@
   {
     "ingredient": "Lemon juice",
     "weight": 224,
-    "replacements": [
-      "Lime juice",
-      "Grapefruit juice",
-      "Orange juice"
-    ]
+    "replacements": ["Lime juice", "Grapefruit juice", "Orange juice"]
   },
   {
     "ingredient": "Lime juice",
     "weight": 199,
-    "replacements": [
-      "Lemon juice",
-      "Grapefruit juice",
-      "Orange juice"
-    ]
+    "replacements": ["Lemon juice", "Grapefruit juice", "Orange juice"]
   },
   {
     "ingredient": "Gin",
     "weight": 180,
-    "replacements": [
-      "Vodka",
-      "Tequila",
-      "White rum"
-    ]
+    "replacements": ["Vodka", "Tequila", "White rum"]
   },
   {
     "ingredient": "Simple syrup",
     "weight": 170,
-    "replacements": [
-      "Agave nectar",
-      "Honey syrup",
-      "Maple syrup"
-    ]
+    "replacements": ["Agave nectar", "Honey syrup", "Maple syrup"]
   },
   {
     "ingredient": "Bitters, Angostura",
@@ -47,38 +31,22 @@
   {
     "ingredient": "Orange juice",
     "weight": 102,
-    "replacements": [
-      "Lemon juice",
-      "Lime juice",
-      "Grapefruit juice"
-    ]
+    "replacements": ["Lemon juice", "Lime juice", "Grapefruit juice"]
   },
   {
     "ingredient": "Vermouth, sweet",
     "weight": 92,
-    "replacements": [
-      "Vermouth, dry",
-      "Vermouth, bianco",
-      "Lillet blanc"
-    ]
+    "replacements": ["Vermouth, dry", "Vermouth, bianco", "Lillet blanc"]
   },
   {
     "ingredient": "Whiskey, bourbon",
     "weight": 89,
-    "replacements": [
-      "Whiskey, rye",
-      "Whiskey, Irish",
-      "Brandy, Cognac"
-    ]
+    "replacements": ["Whiskey, rye", "Whiskey, Irish", "Brandy, Cognac"]
   },
   {
     "ingredient": "Maraschino",
     "weight": 84,
-    "replacements": [
-      "Triple sec",
-      "Cointreau",
-      "Cherry Heering"
-    ]
+    "replacements": ["Triple sec", "Cointreau", "Cherry Heering"]
   },
   {
     "ingredient": "Bitters, orange",
@@ -92,65 +60,37 @@
   {
     "ingredient": "Vermouth, dry",
     "weight": 78,
-    "replacements": [
-      "Vermouth, sweet",
-      "Vermouth, bianco",
-      "Lillet blanc"
-    ]
+    "replacements": ["Vermouth, sweet", "Vermouth, bianco", "Lillet blanc"]
   },
   {
     "ingredient": "Whiskey, rye",
     "weight": 77,
-    "replacements": [
-      "Whiskey, bourbon",
-      "Whiskey, Irish",
-      "Brandy, Cognac"
-    ]
+    "replacements": ["Whiskey, bourbon", "Whiskey, Irish", "Brandy, Cognac"]
   },
   {
     "ingredient": "Cointreau",
     "weight": 71,
-    "replacements": [
-      "Triple sec",
-      "Grand Marnier",
-      "Curacao, orange"
-    ]
+    "replacements": ["Triple sec", "Grand Marnier", "Curacao, orange"]
   },
   {
     "ingredient": "Pineapple juice",
     "weight": 67,
-    "replacements": [
-      "Orange juice",
-      "Grapefruit juice",
-      "Lemon juice"
-    ]
+    "replacements": ["Orange juice", "Grapefruit juice", "Lemon juice"]
   },
   {
     "ingredient": "Absinthe",
     "weight": 56,
-    "replacements": [
-      "Herbsaint",
-      "Pernod",
-      "Ricard"
-    ]
+    "replacements": ["Herbsaint", "Pernod", "Ricard"]
   },
   {
     "ingredient": "Rum, light",
     "weight": 55,
-    "replacements": [
-      "Rum, gold",
-      "Rum, dark",
-      "Rum, spiced"
-    ]
+    "replacements": ["Rum, gold", "Rum, dark", "Rum, spiced"]
   },
   {
     "ingredient": "Vodka",
     "weight": 55,
-    "replacements": [
-      "Gin",
-      "White rum",
-      "Tequila"
-    ]
+    "replacements": ["Gin", "White rum", "Tequila"]
   },
   {
     "ingredient": "St-Germain",
@@ -164,110 +104,62 @@
   {
     "ingredient": "Campari",
     "weight": 48,
-    "replacements": [
-      "Aperol",
-      "Cynar",
-      "Gran Classico"
-    ]
+    "replacements": ["Aperol", "Cynar", "Gran Classico"]
   },
   {
     "ingredient": "Fizz water",
     "weight": 47,
-    "replacements": [
-      "Club soda",
-      "Seltzer water",
-      "Tonic water"
-    ]
+    "replacements": ["Club soda", "Seltzer water", "Tonic water"]
   },
   {
     "ingredient": "Grenadine",
     "weight": 47,
-    "replacements": [
-      "Pomegranate juice",
-      "Cherry syrup",
-      "Raspberry syrup"
-    ]
+    "replacements": ["Pomegranate juice", "Cherry syrup", "Raspberry syrup"]
   },
   {
     "ingredient": "Egg",
     "weight": 43,
-    "replacements": [
-      "Aquafaba",
-      "Egg white powder",
-      "Egg substitute"
-    ]
+    "replacements": ["Aquafaba", "Egg white powder", "Egg substitute"]
   },
   {
     "ingredient": "Cream",
     "weight": 42,
-    "replacements": [
-      "Half-and-half",
-      "Milk",
-      "Coconut cream"
-    ]
+    "replacements": ["Half-and-half", "Milk", "Coconut cream"]
   },
   {
     "ingredient": "Rum, dark",
     "weight": 42,
-    "replacements": [
-      "Rum, gold",
-      "Rum, spiced",
-      "Brandy"
-    ]
+    "replacements": ["Rum, gold", "Rum, spiced", "Brandy"]
   },
   {
     "ingredient": "Apricot liqueur",
     "weight": 40,
-    "replacements": [
-      "Peach liqueur",
-      "Grand Marnier",
-      "Triple sec"
-    ]
+    "replacements": ["Peach liqueur", "Grand Marnier", "Triple sec"]
   },
   {
     "ingredient": "Brandy",
     "weight": 40,
-    "replacements": [
-      "Cognac",
-      "Armagnac",
-      "Whiskey"
-    ]
+    "replacements": ["Cognac", "Armagnac", "Whiskey"]
   },
   {
     "ingredient": "Chartreuse, green",
     "weight": 40,
-    "replacements": [
-      "Chartreuse, yellow",
-      "Genepy des Alpes",
-      "Bénédictine"
-    ]
+    "replacements": ["Chartreuse, yellow", "Genepy des Alpes", "Bénédictine"]
   },
   {
     "ingredient": "Bénédictine",
     "weight": 38,
-    "replacements": [
-      "Chartreuse, green",
-      "Drambuie",
-      "Grand Marnier"
-    ]
+    "replacements": ["Chartreuse, green", "Drambuie", "Grand Marnier"]
   },
   {
     "ingredient": "Triple sec",
     "weight": 36,
-    "replacements": [
-      "Cointreau",
-      "Grand Marnier",
-      "Curacao, orange"
-    ]
+    "replacements": ["Cointreau", "Grand Marnier", "Curacao, orange"]
   },
   {
     "ingredient": "Applejack",
     "weight": 35,
-    "replacements": [
-      "Calvados",
-      "Brandy",
-      "Whiskey"
-    ]
+    "replacements": ["Calvados", "Brandy", "Whiskey"]
   },
   {
     "ingredient": "Bitters, Peychaud's",
@@ -281,173 +173,97 @@
   {
     "ingredient": "Brandy, Cognac",
     "weight": 34,
-    "replacements": [
-      "Brandy",
-      "Armagnac",
-      "Whiskey, bourbon"
-    ]
+    "replacements": ["Brandy", "Armagnac", "Whiskey, bourbon"]
   },
   {
     "ingredient": "Grapefruit juice",
     "weight": 34,
-    "replacements": [
-      "Orange juice",
-      "Lemon juice",
-      "Pineapple juice"
-    ]
+    "replacements": ["Orange juice", "Lemon juice", "Pineapple juice"]
   },
   {
     "ingredient": "Fernet-Branca",
     "weight": 32,
-    "replacements": [
-      "Amaro Averna",
-      "Amaro CioCiaro",
-      "Amaro Montenegro"
-    ]
+    "replacements": ["Amaro Averna", "Amaro CioCiaro", "Amaro Montenegro"]
   },
   {
     "ingredient": "Grand Marnier",
     "weight": 32,
-    "replacements": [
-      "Cointreau",
-      "Triple sec",
-      "Curacao, orange"
-    ]
+    "replacements": ["Cointreau", "Triple sec", "Curacao, orange"]
   },
   {
     "ingredient": "Mint",
     "weight": 31,
-    "replacements": [
-      "Basil",
-      "Rosemary",
-      "Mint extract"
-    ]
+    "replacements": ["Basil", "Rosemary", "Mint extract"]
   },
   {
     "ingredient": "Falernum",
     "weight": 29,
-    "replacements": [
-      "Orgeat",
-      "Ginger syrup",
-      "Almond syrup"
-    ]
+    "replacements": ["Orgeat", "Ginger syrup", "Almond syrup"]
   },
   {
     "ingredient": "Champagne",
     "weight": 27,
-    "replacements": [
-      "Prosecco",
-      "Cava",
-      "Sparkling wine"
-    ]
+    "replacements": ["Prosecco", "Cava", "Sparkling wine"]
   },
   {
     "ingredient": "Cherry Heering",
     "weight": 27,
-    "replacements": [
-      "Kirsch",
-      "Maraschino liqueur",
-      "Cherry brandy"
-    ]
+    "replacements": ["Kirsch", "Maraschino liqueur", "Cherry brandy"]
   },
   {
     "ingredient": "Curaçao, orange",
     "weight": 27,
-    "replacements": [
-      "Triple sec",
-      "Cointreau",
-      "Grand Marnier"
-    ]
+    "replacements": ["Triple sec", "Cointreau", "Grand Marnier"]
   },
   {
     "ingredient": "Cynar",
     "weight": 27,
-    "replacements": [
-      "Campari",
-      "Aperol",
-      "Fernet-Branca"
-    ]
+    "replacements": ["Campari", "Aperol", "Fernet-Branca"]
   },
   {
     "ingredient": "Kahlúa",
     "weight": 27,
-    "replacements": [
-      "Tia Maria",
-      "Crème de cacao, brown",
-      "Coffee liqueur"
-    ]
+    "replacements": ["Tia Maria", "Crème de cacao, brown", "Coffee liqueur"]
   },
   {
     "ingredient": "Tequila",
     "weight": 26,
-    "replacements": [
-      "Mezcal",
-      "White rum",
-      "Gin"
-    ]
+    "replacements": ["Mezcal", "White rum", "Gin"]
   },
   {
     "ingredient": "Chartreuse, yellow",
     "weight": 25,
-    "replacements": [
-      "Strega",
-      "Galliano",
-      "Green Chartreuse"
-    ]
+    "replacements": ["Strega", "Galliano", "Green Chartreuse"]
   },
   {
     "ingredient": "Punt e Mes",
     "weight": 25,
-    "replacements": [
-      "Sweet Vermouth",
-      "Campari",
-      "Carpano Antica Formula"
-    ]
+    "replacements": ["Sweet Vermouth", "Campari", "Carpano Antica Formula"]
   },
   {
     "ingredient": "Cranberry juice",
     "weight": 21,
-    "replacements": [
-      "Pomegranate juice",
-      "Cherry juice",
-      "Raspberry juice"
-    ]
+    "replacements": ["Pomegranate juice", "Cherry juice", "Raspberry juice"]
   },
   {
     "ingredient": "Domaine de Canton",
     "weight": 21,
-    "replacements": [
-      "Ginger liqueur",
-      "Ginger syrup",
-      "Ginger beer"
-    ]
+    "replacements": ["Ginger liqueur", "Ginger syrup", "Ginger beer"]
   },
   {
     "ingredient": "Mezcal",
     "weight": 21,
-    "replacements": [
-      "Tequila",
-      "Sotol",
-      "Raicilla"
-    ]
+    "replacements": ["Tequila", "Sotol", "Raicilla"]
   },
   {
     "ingredient": "Orgeat",
     "weight": 21,
-    "replacements": [
-      "Almond syrup",
-      "Almond milk",
-      "Amaretto"
-    ]
+    "replacements": ["Almond syrup", "Almond milk", "Amaretto"]
   },
   {
     "ingredient": "Aperol",
     "weight": 19,
-    "replacements": [
-      "Campari",
-      "Gran Classico",
-      "Cappelletti Aperitivo"
-    ]
+    "replacements": ["Campari", "Gran Classico", "Cappelletti Aperitivo"]
   },
   {
     "ingredient": "Crème de cacao, white",
@@ -461,29 +277,17 @@
   {
     "ingredient": "Tequila, silver",
     "weight": 19,
-    "replacements": [
-      "Tequila, reposado",
-      "Tequila, añejo",
-      "Mezcal"
-    ]
+    "replacements": ["Tequila, reposado", "Tequila, añejo", "Mezcal"]
   },
   {
     "ingredient": "Ginger beer",
     "weight": 18,
-    "replacements": [
-      "Ginger ale",
-      "Ginger syrup",
-      "Domaine de Canton"
-    ]
+    "replacements": ["Ginger ale", "Ginger syrup", "Domaine de Canton"]
   },
   {
     "ingredient": "Lillet blanc",
     "weight": 18,
-    "replacements": [
-      "Cocchi Americano",
-      "Kina L'Avion d'Or",
-      "Suze"
-    ]
+    "replacements": ["Cocchi Americano", "Kina L'Avion d'Or", "Suze"]
   },
   {
     "ingredient": "Whiskey, Irish",
@@ -497,74 +301,42 @@
   {
     "ingredient": "Whisky, Scotch (blended)",
     "weight": 18,
-    "replacements": [
-      "Whiskey, Irish",
-      "Whiskey, bourbon",
-      "Whiskey, Canadian"
-    ]
+    "replacements": ["Whiskey, Irish", "Whiskey, bourbon", "Whiskey, Canadian"]
   },
   {
     "ingredient": "Rum, añejo",
     "weight": 17,
-    "replacements": [
-      "Rum, gold",
-      "Rum, dark",
-      "Brandy"
-    ]
+    "replacements": ["Rum, gold", "Rum, dark", "Brandy"]
   },
   {
     "ingredient": "Amaretto",
     "weight": 16,
-    "replacements": [
-      "Disaronno",
-      "Orgeat",
-      "Almond liqueur"
-    ]
+    "replacements": ["Disaronno", "Orgeat", "Almond liqueur"]
   },
   {
     "ingredient": "Amer Picon",
     "weight": 16,
-    "replacements": [
-      "Torani Amer",
-      "CioCiaro",
-      "Amaro Ramazzotti"
-    ]
+    "replacements": ["Torani Amer", "CioCiaro", "Amaro Ramazzotti"]
   },
   {
     "ingredient": "Tequila, reposado",
     "weight": 16,
-    "replacements": [
-      "Tequila, silver",
-      "Tequila, añejo",
-      "Mezcal"
-    ]
+    "replacements": ["Tequila, silver", "Tequila, añejo", "Mezcal"]
   },
   {
     "ingredient": "Lemons",
     "weight": 15,
-    "replacements": [
-      "Limes",
-      "Lemon juice",
-      "Orange"
-    ]
+    "replacements": ["Limes", "Lemon juice", "Orange"]
   },
   {
     "ingredient": "Rum, gold",
     "weight": 15,
-    "replacements": [
-      "Rum, dark",
-      "Rum, añejo",
-      "Rum, spiced"
-    ]
+    "replacements": ["Rum, dark", "Rum, añejo", "Rum, spiced"]
   },
   {
     "ingredient": "Baileys",
     "weight": 14,
-    "replacements": [
-      "Irish Cream",
-      "Kahlúa",
-      "Amarula"
-    ]
+    "replacements": ["Irish Cream", "Kahlúa", "Amarula"]
   },
   {
     "ingredient": "Bitters, Xocolatl Mole",
@@ -578,92 +350,52 @@
   {
     "ingredient": "Gin, Old Tom",
     "weight": 14,
-    "replacements": [
-      "Gin, London Dry",
-      "Gin, Plymouth",
-      "Genever"
-    ]
+    "replacements": ["Gin, London Dry", "Gin, Plymouth", "Genever"]
   },
   {
     "ingredient": "Ginger syrup",
     "weight": 14,
-    "replacements": [
-      "Domaine de Canton",
-      "Ginger beer",
-      "Ginger ale"
-    ]
+    "replacements": ["Domaine de Canton", "Ginger beer", "Ginger ale"]
   },
   {
     "ingredient": "Agave nectar",
     "weight": 13,
-    "replacements": [
-      "Honey",
-      "Simple syrup",
-      "Maple syrup"
-    ]
+    "replacements": ["Honey", "Simple syrup", "Maple syrup"]
   },
   {
     "ingredient": "Cachaça",
     "weight": 13,
-    "replacements": [
-      "Rum, white",
-      "Rhum agricole",
-      "Rum, gold"
-    ]
+    "replacements": ["Rum, white", "Rhum agricole", "Rum, gold"]
   },
   {
     "ingredient": "Crème de cassis",
     "weight": 13,
-    "replacements": [
-      "Blackberry liqueur",
-      "Chambord",
-      "Crème de mure"
-    ]
+    "replacements": ["Blackberry liqueur", "Chambord", "Crème de mure"]
   },
   {
     "ingredient": "Galliano",
     "weight": 13,
-    "replacements": [
-      "Yellow Chartreuse",
-      "Strega",
-      "Licor 43"
-    ]
+    "replacements": ["Yellow Chartreuse", "Strega", "Licor 43"]
   },
   {
     "ingredient": "Herbsaint",
     "weight": 13,
-    "replacements": [
-      "Pernod",
-      "Absinthe",
-      "Ricard"
-    ]
+    "replacements": ["Pernod", "Absinthe", "Ricard"]
   },
   {
     "ingredient": "Sloe gin",
     "weight": 13,
-    "replacements": [
-      "Crème de cassis",
-      "Chambord",
-      "Damson gin"
-    ]
+    "replacements": ["Crème de cassis", "Chambord", "Damson gin"]
   },
   {
     "ingredient": "Vermouth, bianco",
     "weight": 13,
-    "replacements": [
-      "Vermouth, dry",
-      "Vermouth, sweet",
-      "Lillet blanc"
-    ]
+    "replacements": ["Vermouth, dry", "Vermouth, sweet", "Lillet blanc"]
   },
   {
     "ingredient": "Averna",
     "weight": 12,
-    "replacements": [
-      "Ramazzotti",
-      "Amaro Montenegro",
-      "Amaro Nonino"
-    ]
+    "replacements": ["Ramazzotti", "Amaro Montenegro", "Amaro Nonino"]
   },
   {
     "ingredient": "Bitters, peach",
@@ -677,11 +409,7 @@
   {
     "ingredient": "Brandy, pear",
     "weight": 12,
-    "replacements": [
-      "Brandy, apple",
-      "Brandy, peach",
-      "Poire Williams"
-    ]
+    "replacements": ["Brandy, apple", "Brandy, peach", "Poire Williams"]
   },
   {
     "ingredient": "Crème de cacao, brown",
@@ -695,254 +423,142 @@
   {
     "ingredient": "Cucumbers",
     "weight": 12,
-    "replacements": [
-      "Zucchini",
-      "Celery",
-      "Melon"
-    ]
+    "replacements": ["Zucchini", "Celery", "Melon"]
   },
   {
     "ingredient": "Ginger ale",
     "weight": 12,
-    "replacements": [
-      "Ginger beer",
-      "Ginger syrup",
-      "Domaine de Canton"
-    ]
+    "replacements": ["Ginger beer", "Ginger syrup", "Domaine de Canton"]
   },
   {
     "ingredient": "Honey syrup",
     "weight": 12,
-    "replacements": [
-      "Agave nectar",
-      "Simple syrup",
-      "Maple syrup"
-    ]
+    "replacements": ["Agave nectar", "Simple syrup", "Maple syrup"]
   },
   {
     "ingredient": "Kirschwasser",
     "weight": 12,
-    "replacements": [
-      "Cherry brandy",
-      "Cherry Heering",
-      "Maraschino liqueur"
-    ]
+    "replacements": ["Cherry brandy", "Cherry Heering", "Maraschino liqueur"]
   },
   {
     "ingredient": "Port, ruby",
     "weight": 12,
-    "replacements": [
-      "Port, tawny",
-      "Red wine",
-      "Brandy"
-    ]
+    "replacements": ["Port, tawny", "Red wine", "Brandy"]
   },
   {
     "ingredient": "Coconut cream",
     "weight": 11,
-    "replacements": [
-      "Coconut milk",
-      "Cream of coconut",
-      "Crème de coconut"
-    ]
+    "replacements": ["Coconut milk", "Cream of coconut", "Crème de coconut"]
   },
   {
     "ingredient": "Coffee",
     "weight": 11,
-    "replacements": [
-      "Espresso",
-      "Coffee liqueur",
-      "Cold brew coffee"
-    ]
+    "replacements": ["Espresso", "Coffee liqueur", "Cold brew coffee"]
   },
   {
     "ingredient": "Drambuie",
     "weight": 11,
-    "replacements": [
-      "Glayva",
-      "Bénédictine",
-      "Irish Mist"
-    ]
+    "replacements": ["Glayva", "Bénédictine", "Irish Mist"]
   },
   {
     "ingredient": "Oranges",
     "weight": 11,
-    "replacements": [
-      "Tangerines",
-      "Clementines",
-      "Grapefruit"
-    ]
+    "replacements": ["Tangerines", "Clementines", "Grapefruit"]
   },
   {
     "ingredient": "Pisco",
     "weight": 11,
-    "replacements": [
-      "Grappa",
-      "Cognac",
-      "Brandy"
-    ]
+    "replacements": ["Grappa", "Cognac", "Brandy"]
   },
   {
     "ingredient": "Rum",
     "weight": 11,
-    "replacements": [
-      "Cachaça",
-      "Rhum agricole",
-      "Brandy"
-    ]
+    "replacements": ["Cachaça", "Rhum agricole", "Brandy"]
   },
   {
     "ingredient": "Rum, spiced",
     "weight": 11,
-    "replacements": [
-      "Rum, dark",
-      "Rum, gold",
-      "Rum, navy strength"
-    ]
+    "replacements": ["Rum, dark", "Rum, gold", "Rum, navy strength"]
   },
   {
     "ingredient": "Beer",
     "weight": 10,
-    "replacements": [
-      "Ale",
-      "Lager",
-      "Cider"
-    ]
+    "replacements": ["Ale", "Lager", "Cider"]
   },
   {
     "ingredient": "Calvados",
     "weight": 10,
-    "replacements": [
-      "Apple brandy",
-      "Cognac",
-      "Armagnac"
-    ]
+    "replacements": ["Apple brandy", "Cognac", "Armagnac"]
   },
   {
     "ingredient": "Crème de mure",
     "weight": 10,
-    "replacements": [
-      "Blackberry liqueur",
-      "Crème de cassis",
-      "Chambord"
-    ]
+    "replacements": ["Blackberry liqueur", "Crème de cassis", "Chambord"]
   },
   {
     "ingredient": "Dubonnet Rouge",
     "weight": 10,
-    "replacements": [
-      "Sweet Vermouth",
-      "Punt e Mes",
-      "Lillet Rouge"
-    ]
+    "replacements": ["Sweet Vermouth", "Punt e Mes", "Lillet Rouge"]
   },
   {
     "ingredient": "Limes",
     "weight": 10,
-    "replacements": [
-      "Lemons",
-      "Lime juice",
-      "Yuzu"
-    ]
+    "replacements": ["Lemons", "Lime juice", "Yuzu"]
   },
   {
     "ingredient": "Milk",
     "weight": 10,
-    "replacements": [
-      "Half and half",
-      "Cream",
-      "Almond milk"
-    ]
+    "replacements": ["Half and half", "Cream", "Almond milk"]
   },
   {
     "ingredient": "Tequila, añejo",
     "weight": 10,
-    "replacements": [
-      "Tequila, reposado",
-      "Tequila, silver",
-      "Mezcal"
-    ]
+    "replacements": ["Tequila, reposado", "Tequila, silver", "Mezcal"]
   },
   {
     "ingredient": "Crème de banane",
     "weight": 9,
-    "replacements": [
-      "Banana liqueur",
-      "Banana puree",
-      "Banana syrup"
-    ]
+    "replacements": ["Banana liqueur", "Banana puree", "Banana syrup"]
   },
   {
     "ingredient": "Curaçao, blue",
     "weight": 9,
-    "replacements": [
-      "Triple sec",
-      "Cointreau",
-      "Orange liqueur"
-    ]
+    "replacements": ["Triple sec", "Cointreau", "Orange liqueur"]
   },
   {
     "ingredient": "Frangelico",
     "weight": 9,
-    "replacements": [
-      "Amaretto",
-      "Nocello",
-      "Hazelnut liqueur"
-    ]
+    "replacements": ["Amaretto", "Nocello", "Hazelnut liqueur"]
   },
   {
     "ingredient": "Lime cordial",
     "weight": 9,
-    "replacements": [
-      "Lime juice",
-      "Lemon cordial",
-      "Lemon juice"
-    ]
+    "replacements": ["Lime juice", "Lemon cordial", "Lemon juice"]
   },
   {
     "ingredient": "Midori",
     "weight": 9,
-    "replacements": [
-      "Green Chartreuse",
-      "Melon liqueur",
-      "Melon syrup"
-    ]
+    "replacements": ["Green Chartreuse", "Melon liqueur", "Melon syrup"]
   },
   {
     "ingredient": "Pineapples",
     "weight": 9,
-    "replacements": [
-      "Mango",
-      "Papaya",
-      "Coconut"
-    ]
+    "replacements": ["Mango", "Papaya", "Coconut"]
   },
   {
     "ingredient": "Salt",
     "weight": 9,
-    "replacements": [
-      "Sea salt",
-      "Kosher salt",
-      "Celery salt"
-    ]
+    "replacements": ["Sea salt", "Kosher salt", "Celery salt"]
   },
   {
     "ingredient": "Sugar cubes",
     "weight": 9,
-    "replacements": [
-      "Granulated sugar",
-      "Powdered sugar",
-      "Brown sugar"
-    ]
+    "replacements": ["Granulated sugar", "Powdered sugar", "Brown sugar"]
   },
   {
     "ingredient": "Vodka, citrus",
     "weight": 9,
-    "replacements": [
-      "Vodka, orange",
-      "Vodka, lemon",
-      "Vodka, lime"
-    ]
+    "replacements": ["Vodka, orange", "Vodka, lemon", "Vodka, lime"]
   },
   {
     "ingredient": "Whisky, Scotch (Laphroaig)",
@@ -956,11 +572,7 @@
   {
     "ingredient": "Espresso",
     "weight": 8,
-    "replacements": [
-      "Coffee",
-      "Cold brew coffee",
-      "Coffee liqueur"
-    ]
+    "replacements": ["Coffee", "Cold brew coffee", "Coffee liqueur"]
   },
   {
     "ingredient": "Ice cream, vanilla",
@@ -974,29 +586,17 @@
   {
     "ingredient": "Raspberry syrup",
     "weight": 8,
-    "replacements": [
-      "Raspberry liqueur",
-      "Chambord",
-      "Crème de framboise"
-    ]
+    "replacements": ["Raspberry liqueur", "Chambord", "Crème de framboise"]
   },
   {
     "ingredient": "Rum, 151",
     "weight": 8,
-    "replacements": [
-      "Rum, navy strength",
-      "Rum, dark",
-      "Rum, overproof"
-    ]
+    "replacements": ["Rum, navy strength", "Rum, dark", "Rum, overproof"]
   },
   {
     "ingredient": "Rum, coconut",
     "weight": 8,
-    "replacements": [
-      "Malibu",
-      "Crème de coconut",
-      "Coconut liqueur"
-    ]
+    "replacements": ["Malibu", "Crème de coconut", "Coconut liqueur"]
   },
   {
     "ingredient": "Sherry, fino (dry)",
@@ -1010,11 +610,7 @@
   {
     "ingredient": "Apple cider",
     "weight": 7,
-    "replacements": [
-      "Apple juice",
-      "Pear cider",
-      "Hard cider"
-    ]
+    "replacements": ["Apple juice", "Pear cider", "Hard cider"]
   },
   {
     "ingredient": "Bitters, Whiskey Barrel Aged",
@@ -1028,47 +624,27 @@
   {
     "ingredient": "Bitters, grapefruit",
     "weight": 7,
-    "replacements": [
-      "Bitters, orange",
-      "Bitters, lemon",
-      "Bitters, peach"
-    ]
+    "replacements": ["Bitters, orange", "Bitters, lemon", "Bitters, peach"]
   },
   {
     "ingredient": "Maple syrup",
     "weight": 7,
-    "replacements": [
-      "Honey",
-      "Agave nectar",
-      "Simple syrup"
-    ]
+    "replacements": ["Honey", "Agave nectar", "Simple syrup"]
   },
   {
     "ingredient": "Rose water",
     "weight": 7,
-    "replacements": [
-      "Orange flower water",
-      "Violet water",
-      "Jasmine water"
-    ]
+    "replacements": ["Orange flower water", "Violet water", "Jasmine water"]
   },
   {
     "ingredient": "Schnapps, peach",
     "weight": 7,
-    "replacements": [
-      "Peach liqueur",
-      "Peach brandy",
-      "Peach syrup"
-    ]
+    "replacements": ["Peach liqueur", "Peach brandy", "Peach syrup"]
   },
   {
     "ingredient": "Anisette",
     "weight": 6,
-    "replacements": [
-      "Sambuca",
-      "Pastis",
-      "Ouzo"
-    ]
+    "replacements": ["Sambuca", "Pastis", "Ouzo"]
   },
   {
     "ingredient": "Chambord",
@@ -1082,56 +658,32 @@
   {
     "ingredient": "Lemon-lime soda",
     "weight": 6,
-    "replacements": [
-      "Sprite",
-      "7-Up",
-      "Ginger ale"
-    ]
+    "replacements": ["Sprite", "7-Up", "Ginger ale"]
   },
   {
     "ingredient": "Southern Comfort",
     "weight": 6,
-    "replacements": [
-      "Peach liqueur",
-      "Apricot liqueur",
-      "Amaretto"
-    ]
+    "replacements": ["Peach liqueur", "Apricot liqueur", "Amaretto"]
   },
   {
     "ingredient": "Strawberries",
     "weight": 6,
-    "replacements": [
-      "Raspberries",
-      "Blueberries",
-      "Cherries"
-    ]
+    "replacements": ["Raspberries", "Blueberries", "Cherries"]
   },
   {
     "ingredient": "Sugar",
     "weight": 6,
-    "replacements": [
-      "Simple syrup",
-      "Agave nectar",
-      "Honey"
-    ]
+    "replacements": ["Simple syrup", "Agave nectar", "Honey"]
   },
   {
     "ingredient": "Bananas",
     "weight": 5,
-    "replacements": [
-      "Plantains",
-      "Mango",
-      "Papaya"
-    ]
+    "replacements": ["Plantains", "Mango", "Papaya"]
   },
   {
     "ingredient": "Basil",
     "weight": 5,
-    "replacements": [
-      "Mint",
-      "Cilantro",
-      "Parsley"
-    ]
+    "replacements": ["Mint", "Cilantro", "Parsley"]
   },
   {
     "ingredient": "Bitters, Aztec Chocolate",
@@ -1145,38 +697,22 @@
   {
     "ingredient": "Bitters, celery",
     "weight": 5,
-    "replacements": [
-      "Bitters, cucumber",
-      "Bitters, herbal",
-      "Bitters, lemon"
-    ]
+    "replacements": ["Bitters, cucumber", "Bitters, herbal", "Bitters, lemon"]
   },
   {
     "ingredient": "Cinnamon",
     "weight": 5,
-    "replacements": [
-      "Allspice",
-      "Nutmeg",
-      "Cloves"
-    ]
+    "replacements": ["Allspice", "Nutmeg", "Cloves"]
   },
   {
     "ingredient": "CioCiaro",
     "weight": 5,
-    "replacements": [
-      "Amaro Montenegro",
-      "Amaro Nonino",
-      "Amaro Averna"
-    ]
+    "replacements": ["Amaro Montenegro", "Amaro Nonino", "Amaro Averna"]
   },
   {
     "ingredient": "Cola",
     "weight": 5,
-    "replacements": [
-      "Pepsi",
-      "Dr. Pepper",
-      "Root beer"
-    ]
+    "replacements": ["Pepsi", "Dr. Pepper", "Root beer"]
   },
   {
     "ingredient": "Crème de menthe, green",
@@ -1190,74 +726,42 @@
   {
     "ingredient": "Jägermeister",
     "weight": 5,
-    "replacements": [
-      "Fernet-Branca",
-      "Amaro Ramazzotti",
-      "Kümmel"
-    ]
+    "replacements": ["Fernet-Branca", "Amaro Ramazzotti", "Kümmel"]
   },
   {
     "ingredient": "Pimm's No. 1",
     "weight": 5,
-    "replacements": [
-      "Pimm's No. 2",
-      "Pimm's No. 3",
-      "Campari"
-    ]
+    "replacements": ["Pimm's No. 2", "Pimm's No. 3", "Campari"]
   },
   {
     "ingredient": "Sake",
     "weight": 5,
-    "replacements": [
-      "Mirin",
-      "Soju",
-      "Rice wine"
-    ]
+    "replacements": ["Mirin", "Soju", "Rice wine"]
   },
   {
     "ingredient": "Sherry, amontillado",
     "weight": 5,
-    "replacements": [
-      "Sherry, oloroso",
-      "Sherry, fino",
-      "Sherry, manzanilla"
-    ]
+    "replacements": ["Sherry, oloroso", "Sherry, fino", "Sherry, manzanilla"]
   },
   {
     "ingredient": "Sugar, brown",
     "weight": 5,
-    "replacements": [
-      "Sugar, turbinado",
-      "Sugar, raw",
-      "Sugar, Demerara"
-    ]
+    "replacements": ["Sugar, turbinado", "Sugar, raw", "Sugar, Demerara"]
   },
   {
     "ingredient": "Tonic water",
     "weight": 5,
-    "replacements": [
-      "Soda water",
-      "Ginger ale",
-      "Club soda"
-    ]
+    "replacements": ["Soda water", "Ginger ale", "Club soda"]
   },
   {
     "ingredient": "Whisky, Canadian",
     "weight": 5,
-    "replacements": [
-      "Whisky, rye",
-      "Whisky, Irish",
-      "Whisky, Bourbon"
-    ]
+    "replacements": ["Whisky, rye", "Whisky, Irish", "Whisky, Bourbon"]
   },
   {
     "ingredient": "Cherries",
     "weight": 4,
-    "replacements": [
-      "Maraschino cherries",
-      "Raspberries",
-      "Blueberries"
-    ]
+    "replacements": ["Maraschino cherries", "Raspberries", "Blueberries"]
   },
   {
     "ingredient": "Crème de fraise",
@@ -1271,29 +775,17 @@
   {
     "ingredient": "Honey",
     "weight": 4,
-    "replacements": [
-      "Agave nectar",
-      "Maple syrup",
-      "Simple syrup"
-    ]
+    "replacements": ["Agave nectar", "Maple syrup", "Simple syrup"]
   },
   {
     "ingredient": "Kiwis",
     "weight": 4,
-    "replacements": [
-      "Strawberries",
-      "Mangoes",
-      "Pineapple"
-    ]
+    "replacements": ["Strawberries", "Mangoes", "Pineapple"]
   },
   {
     "ingredient": "Parfait amour",
     "weight": 4,
-    "replacements": [
-      "Crème de violette",
-      "Blue Curaçao",
-      "Orange liqueur"
-    ]
+    "replacements": ["Crème de violette", "Blue Curaçao", "Orange liqueur"]
   },
   {
     "ingredient": "Passion fruit syrup",
@@ -1307,11 +799,7 @@
   {
     "ingredient": "Rum, Jamaican",
     "weight": 4,
-    "replacements": [
-      "Rum, dark",
-      "Rum, Barbados",
-      "Rum, Demerara"
-    ]
+    "replacements": ["Rum, dark", "Rum, Barbados", "Rum, Demerara"]
   },
   {
     "ingredient": "Rumple Minze",
@@ -1325,38 +813,22 @@
   {
     "ingredient": "Tabasco sauce",
     "weight": 4,
-    "replacements": [
-      "Hot sauce",
-      "Sriracha",
-      "Cayenne pepper"
-    ]
+    "replacements": ["Hot sauce", "Sriracha", "Cayenne pepper"]
   },
   {
     "ingredient": "Vodka, orange",
     "weight": 4,
-    "replacements": [
-      "Vodka, citrus",
-      "Vodka, mandarin",
-      "Vodka, tangerine"
-    ]
+    "replacements": ["Vodka, citrus", "Vodka, mandarin", "Vodka, tangerine"]
   },
   {
     "ingredient": "Whiskey",
     "weight": 4,
-    "replacements": [
-      "Bourbon",
-      "Scotch",
-      "Rye whiskey"
-    ]
+    "replacements": ["Bourbon", "Scotch", "Rye whiskey"]
   },
   {
     "ingredient": "Whiskey, Jack Daniel’s",
     "weight": 4,
-    "replacements": [
-      "Bourbon",
-      "Whiskey, Jim Beam",
-      "Whiskey, Maker's Mark"
-    ]
+    "replacements": ["Bourbon", "Whiskey, Jim Beam", "Whiskey, Maker's Mark"]
   },
   {
     "ingredient": "Wine, red",
@@ -1379,11 +851,7 @@
   {
     "ingredient": "Brandy, Spanish",
     "weight": 3,
-    "replacements": [
-      "Brandy, French",
-      "Brandy, Armenian",
-      "Brandy, Cognac"
-    ]
+    "replacements": ["Brandy, French", "Brandy, Armenian", "Brandy, Cognac"]
   },
   {
     "ingredient": "Crème de menthe, white",
@@ -1397,128 +865,72 @@
   {
     "ingredient": "Goldschläger",
     "weight": 3,
-    "replacements": [
-      "Cinnamon schnapps",
-      "Fireball",
-      "Cinnamon liqueur"
-    ]
+    "replacements": ["Cinnamon schnapps", "Fireball", "Cinnamon liqueur"]
   },
   {
     "ingredient": "Limoncello",
     "weight": 3,
-    "replacements": [
-      "Limecello",
-      "Orange liqueur",
-      "Lemon liqueur"
-    ]
+    "replacements": ["Limecello", "Orange liqueur", "Lemon liqueur"]
   },
   {
     "ingredient": "Macadamia nut liqueur",
     "weight": 3,
-    "replacements": [
-      "Amaretto",
-      "Frangelico",
-      "Hazelnut liqueur"
-    ]
+    "replacements": ["Amaretto", "Frangelico", "Hazelnut liqueur"]
   },
   {
     "ingredient": "Mangos",
     "weight": 3,
-    "replacements": [
-      "Pineapple",
-      "Papaya",
-      "Guava"
-    ]
+    "replacements": ["Pineapple", "Papaya", "Guava"]
   },
   {
     "ingredient": "Nutmeg",
     "weight": 3,
-    "replacements": [
-      "Cinnamon",
-      "Allspice",
-      "Mace"
-    ]
+    "replacements": ["Cinnamon", "Allspice", "Mace"]
   },
   {
     "ingredient": "Orange flower water",
     "weight": 3,
-    "replacements": [
-      "Rose water",
-      "Jasmine water",
-      "Violet water"
-    ]
+    "replacements": ["Rose water", "Jasmine water", "Violet water"]
   },
   {
     "ingredient": "Orange juice, blood",
     "weight": 3,
-    "replacements": [
-      "Orange juice",
-      "Tangerine juice",
-      "Clementine juice"
-    ]
+    "replacements": ["Orange juice", "Tangerine juice", "Clementine juice"]
   },
   {
     "ingredient": "Pears",
     "weight": 3,
-    "replacements": [
-      "Apples",
-      "Peaches",
-      "Apricots"
-    ]
+    "replacements": ["Apples", "Peaches", "Apricots"]
   },
   {
     "ingredient": "Port",
     "weight": 3,
-    "replacements": [
-      "Madeira",
-      "Marsala",
-      "Sherry"
-    ]
+    "replacements": ["Madeira", "Marsala", "Sherry"]
   },
   {
     "ingredient": "Prosecco",
     "weight": 3,
-    "replacements": [
-      "Champagne",
-      "Cava",
-      "Sparkling wine"
-    ]
+    "replacements": ["Champagne", "Cava", "Sparkling wine"]
   },
   {
     "ingredient": "Rhum agricole",
     "weight": 3,
-    "replacements": [
-      "Cachaça",
-      "Rum, white",
-      "Rum, gold"
-    ]
+    "replacements": ["Cachaça", "Rum, white", "Rum, gold"]
   },
   {
     "ingredient": "Rum, Cruzan Black Strap",
     "weight": 3,
-    "replacements": [
-      "Rum, dark",
-      "Rum, molasses-based",
-      "Rum, Demerara"
-    ]
+    "replacements": ["Rum, dark", "Rum, molasses-based", "Rum, Demerara"]
   },
   {
     "ingredient": "Sage",
     "weight": 3,
-    "replacements": [
-      "Thyme",
-      "Mint",
-      "Rosemary"
-    ]
+    "replacements": ["Thyme", "Mint", "Rosemary"]
   },
   {
     "ingredient": "Torani Amer",
     "weight": 3,
-    "replacements": [
-      "Amer Picon",
-      "Amaro Ramazzotti",
-      "CioCiaro"
-    ]
+    "replacements": ["Amer Picon", "Amaro Ramazzotti", "CioCiaro"]
   },
   {
     "ingredient": "Vodka, vanilla",
@@ -1550,20 +962,12 @@
   {
     "ingredient": "Apples",
     "weight": 2,
-    "replacements": [
-      "Pears",
-      "Quinces",
-      "Plums"
-    ]
+    "replacements": ["Pears", "Quinces", "Plums"]
   },
   {
     "ingredient": "Bacon syrup",
     "weight": 2,
-    "replacements": [
-      "Maple syrup",
-      "Hickory syrup",
-      "Liquid smoke"
-    ]
+    "replacements": ["Maple syrup", "Hickory syrup", "Liquid smoke"]
   },
   {
     "ingredient": "Bitters, Old Fashion",
@@ -1586,146 +990,82 @@
   {
     "ingredient": "Bitters, lemon",
     "weight": 2,
-    "replacements": [
-      "Bitters, lime",
-      "Bitters, grapefruit",
-      "Bitters, orange"
-    ]
+    "replacements": ["Bitters, lime", "Bitters, grapefruit", "Bitters, orange"]
   },
   {
     "ingredient": "Brandy, Jacquin’s ginger",
     "weight": 2,
-    "replacements": [
-      "Ginger liqueur",
-      "Domaine de Canton",
-      "King's Ginger"
-    ]
+    "replacements": ["Ginger liqueur", "Domaine de Canton", "King's Ginger"]
   },
   {
     "ingredient": "Cantaloupes",
     "weight": 2,
-    "replacements": [
-      "Honeydew melon",
-      "Watermelon",
-      "Crenshaw melon"
-    ]
+    "replacements": ["Honeydew melon", "Watermelon", "Crenshaw melon"]
   },
   {
     "ingredient": "Chocolate extract",
     "weight": 2,
-    "replacements": [
-      "Vanilla extract",
-      "Cacao nibs",
-      "Chocolate liqueur"
-    ]
+    "replacements": ["Vanilla extract", "Cacao nibs", "Chocolate liqueur"]
   },
   {
     "ingredient": "Cocoa powder",
     "weight": 2,
-    "replacements": [
-      "Cacao powder",
-      "Carob powder",
-      "Chocolate syrup"
-    ]
+    "replacements": ["Cacao powder", "Carob powder", "Chocolate syrup"]
   },
   {
     "ingredient": "Crème de framboise",
     "weight": 2,
-    "replacements": [
-      "Raspberry liqueur",
-      "Chambord",
-      "Raspberry syrup"
-    ]
+    "replacements": ["Raspberry liqueur", "Chambord", "Raspberry syrup"]
   },
   {
     "ingredient": "Ginger",
     "weight": 2,
-    "replacements": [
-      "Galangal",
-      "Turmeric",
-      "Cardamom"
-    ]
+    "replacements": ["Galangal", "Turmeric", "Cardamom"]
   },
   {
     "ingredient": "Grapefruit soda",
     "weight": 2,
-    "replacements": [
-      "Orange soda",
-      "Lemon soda",
-      "Lime soda"
-    ]
+    "replacements": ["Orange soda", "Lemon soda", "Lime soda"]
   },
   {
     "ingredient": "Grapes",
     "weight": 2,
-    "replacements": [
-      "Raisins",
-      "Currants",
-      "Plums"
-    ]
+    "replacements": ["Raisins", "Currants", "Plums"]
   },
   {
     "ingredient": "Irish Mist",
     "weight": 2,
-    "replacements": [
-      "Drambuie",
-      "Glayva",
-      "Honey liqueur"
-    ]
+    "replacements": ["Drambuie", "Glayva", "Honey liqueur"]
   },
   {
     "ingredient": "Lemon sorbet",
     "weight": 2,
-    "replacements": [
-      "Lime sorbet",
-      "Orange sorbet",
-      "Raspberry sorbet"
-    ]
+    "replacements": ["Lime sorbet", "Orange sorbet", "Raspberry sorbet"]
   },
   {
     "ingredient": "Lemon syrup",
     "weight": 2,
-    "replacements": [
-      "Lime syrup",
-      "Orange syrup",
-      "Simple syrup"
-    ]
+    "replacements": ["Lime syrup", "Orange syrup", "Simple syrup"]
   },
   {
     "ingredient": "Rosemary",
     "weight": 2,
-    "replacements": [
-      "Thyme",
-      "Oregano",
-      "Sage"
-    ]
+    "replacements": ["Thyme", "Oregano", "Sage"]
   },
   {
     "ingredient": "Sherry",
     "weight": 2,
-    "replacements": [
-      "Port",
-      "Madeira",
-      "Marsala"
-    ]
+    "replacements": ["Port", "Madeira", "Marsala"]
   },
   {
     "ingredient": "Sour Apple Pucker",
     "weight": 2,
-    "replacements": [
-      "Sour Apple Schnapps",
-      "Apple liqueur",
-      "Applejack"
-    ]
+    "replacements": ["Sour Apple Schnapps", "Apple liqueur", "Applejack"]
   },
   {
     "ingredient": "Tequila, gold",
     "weight": 2,
-    "replacements": [
-      "Tequila, silver",
-      "Tequila, reposado",
-      "Mezcal"
-    ]
+    "replacements": ["Tequila, silver", "Tequila, reposado", "Mezcal"]
   },
   {
     "ingredient": "Whisky, Scotch (Peat Monster)",
@@ -1748,29 +1088,17 @@
   {
     "ingredient": "Apple juice",
     "weight": 1,
-    "replacements": [
-      "Pear juice",
-      "White grape juice",
-      "Pineapple juice"
-    ]
+    "replacements": ["Pear juice", "White grape juice", "Pineapple juice"]
   },
   {
     "ingredient": "Armagnac",
     "weight": 1,
-    "replacements": [
-      "Cognac",
-      "Brandy",
-      "Calvados"
-    ]
+    "replacements": ["Cognac", "Brandy", "Calvados"]
   },
   {
     "ingredient": "Berries",
     "weight": 1,
-    "replacements": [
-      "Raspberries",
-      "Blackberries",
-      "Blueberries"
-    ]
+    "replacements": ["Raspberries", "Blackberries", "Blueberries"]
   },
   {
     "ingredient": "Bitters, Swedish",
@@ -1793,65 +1121,37 @@
   {
     "ingredient": "Bitters, rhubarb",
     "weight": 1,
-    "replacements": [
-      "Bitters, cranberry",
-      "Bitters, cherry",
-      "Bitters, peach"
-    ]
+    "replacements": ["Bitters, cranberry", "Bitters, cherry", "Bitters, peach"]
   },
   {
     "ingredient": "Blackberries",
     "weight": 1,
-    "replacements": [
-      "Raspberries",
-      "Blueberries",
-      "Boysenberries"
-    ]
+    "replacements": ["Raspberries", "Blueberries", "Boysenberries"]
   },
   {
     "ingredient": "Blueberries",
     "weight": 1,
-    "replacements": [
-      "Blackberries",
-      "Raspberries",
-      "Bilberries"
-    ]
+    "replacements": ["Blackberries", "Raspberries", "Bilberries"]
   },
   {
     "ingredient": "Brandy, peach",
     "weight": 1,
-    "replacements": [
-      "Peach liqueur",
-      "Peach schnapps",
-      "Apricot brandy"
-    ]
+    "replacements": ["Peach liqueur", "Peach schnapps", "Apricot brandy"]
   },
   {
     "ingredient": "Butter",
     "weight": 1,
-    "replacements": [
-      "Margarine",
-      "Ghee",
-      "Coconut oil"
-    ]
+    "replacements": ["Margarine", "Ghee", "Coconut oil"]
   },
   {
     "ingredient": "Candy corn",
     "weight": 1,
-    "replacements": [
-      "Candy pumpkins",
-      "Jelly beans",
-      "Gumdrops"
-    ]
+    "replacements": ["Candy pumpkins", "Jelly beans", "Gumdrops"]
   },
   {
     "ingredient": "Cayenne pepper",
     "weight": 1,
-    "replacements": [
-      "Red pepper flakes",
-      "Hot sauce",
-      "Paprika"
-    ]
+    "replacements": ["Red pepper flakes", "Hot sauce", "Paprika"]
   },
   {
     "ingredient": "Cherries, brandied",
@@ -1865,56 +1165,32 @@
   {
     "ingredient": "Chocolate syrup",
     "weight": 1,
-    "replacements": [
-      "Hot fudge",
-      "Caramel syrup",
-      "Butterscotch syrup"
-    ]
+    "replacements": ["Hot fudge", "Caramel syrup", "Butterscotch syrup"]
   },
   {
     "ingredient": "Cloves",
     "weight": 1,
-    "replacements": [
-      "Allspice",
-      "Nutmeg",
-      "Star anise"
-    ]
+    "replacements": ["Allspice", "Nutmeg", "Star anise"]
   },
   {
     "ingredient": "Coconut milk",
     "weight": 1,
-    "replacements": [
-      "Coconut cream",
-      "Almond milk",
-      "Oat milk"
-    ]
+    "replacements": ["Coconut cream", "Almond milk", "Oat milk"]
   },
   {
     "ingredient": "Crème de violette",
     "weight": 1,
-    "replacements": [
-      "Parfait Amour",
-      "Violet syrup",
-      "Lavender liqueur"
-    ]
+    "replacements": ["Parfait Amour", "Violet syrup", "Lavender liqueur"]
   },
   {
     "ingredient": "Dill",
     "weight": 1,
-    "replacements": [
-      "Fennel fronds",
-      "Tarragon",
-      "Parsley"
-    ]
+    "replacements": ["Fennel fronds", "Tarragon", "Parsley"]
   },
   {
     "ingredient": "Earl Grey Tea",
     "weight": 1,
-    "replacements": [
-      "English Breakfast Tea",
-      "Darjeeling Tea",
-      "Lady Grey Tea"
-    ]
+    "replacements": ["English Breakfast Tea", "Darjeeling Tea", "Lady Grey Tea"]
   },
   {
     "ingredient": "Graham crackers",
@@ -1928,20 +1204,12 @@
   {
     "ingredient": "Habanero hot sauce",
     "weight": 1,
-    "replacements": [
-      "Jalapeño hot sauce",
-      "Tabasco sauce",
-      "Sriracha sauce"
-    ]
+    "replacements": ["Jalapeño hot sauce", "Tabasco sauce", "Sriracha sauce"]
   },
   {
     "ingredient": "Horseradish",
     "weight": 1,
-    "replacements": [
-      "Wasabi",
-      "Dijon mustard",
-      "Grated ginger"
-    ]
+    "replacements": ["Wasabi", "Dijon mustard", "Grated ginger"]
   },
   {
     "ingredient": "Ice cream, coffee",
@@ -1955,20 +1223,12 @@
   {
     "ingredient": "Lemon soda",
     "weight": 1,
-    "replacements": [
-      "Lime soda",
-      "Orange soda",
-      "Sprite or 7-Up"
-    ]
+    "replacements": ["Lime soda", "Orange soda", "Sprite or 7-Up"]
   },
   {
     "ingredient": "Lemonade",
     "weight": 1,
-    "replacements": [
-      "Limeade",
-      "Orangeade",
-      "Grapefruitade"
-    ]
+    "replacements": ["Limeade", "Orangeade", "Grapefruitade"]
   },
   {
     "ingredient": "Milk, condensed",
@@ -1982,74 +1242,42 @@
   {
     "ingredient": "Nutella",
     "weight": 1,
-    "replacements": [
-      "Hazelnut spread",
-      "Chocolate spread",
-      "Peanut butter"
-    ]
+    "replacements": ["Hazelnut spread", "Chocolate spread", "Peanut butter"]
   },
   {
     "ingredient": "Olive brine",
     "weight": 1,
-    "replacements": [
-      "Pickle brine",
-      "Capers brine",
-      "Saltwater"
-    ]
+    "replacements": ["Pickle brine", "Capers brine", "Saltwater"]
   },
   {
     "ingredient": "Orange marmalade",
     "weight": 1,
-    "replacements": [
-      "Apricot jam",
-      "Peach preserves",
-      "Lemon curd"
-    ]
+    "replacements": ["Apricot jam", "Peach preserves", "Lemon curd"]
   },
   {
     "ingredient": "Oregano",
     "weight": 1,
-    "replacements": [
-      "Marjoram",
-      "Thyme",
-      "Basil"
-    ]
+    "replacements": ["Marjoram", "Thyme", "Basil"]
   },
   {
     "ingredient": "Papayas",
     "weight": 1,
-    "replacements": [
-      "Mangoes",
-      "Pineapples",
-      "Cantaloupes"
-    ]
+    "replacements": ["Mangoes", "Pineapples", "Cantaloupes"]
   },
   {
     "ingredient": "Pepper",
     "weight": 1,
-    "replacements": [
-      "White pepper",
-      "Pink peppercorns",
-      "Ground allspice"
-    ]
+    "replacements": ["White pepper", "Pink peppercorns", "Ground allspice"]
   },
   {
     "ingredient": "Port, tawny",
     "weight": 1,
-    "replacements": [
-      "Port, ruby",
-      "Port, vintage",
-      "Madeira"
-    ]
+    "replacements": ["Port, ruby", "Port, vintage", "Madeira"]
   },
   {
     "ingredient": "Raspberries",
     "weight": 1,
-    "replacements": [
-      "Blackberries",
-      "Strawberries",
-      "Boysenberries"
-    ]
+    "replacements": ["Blackberries", "Strawberries", "Boysenberries"]
   },
   {
     "ingredient": "Red bell pepper",
@@ -2063,20 +1291,12 @@
   {
     "ingredient": "Rum, navy strength",
     "weight": 1,
-    "replacements": [
-      "Rum, overproof",
-      "Rum, dark",
-      "Cachaça"
-    ]
+    "replacements": ["Rum, overproof", "Rum, dark", "Cachaça"]
   },
   {
     "ingredient": "Saffron",
     "weight": 1,
-    "replacements": [
-      "Turmeric",
-      "Safflower",
-      "Annatto"
-    ]
+    "replacements": ["Turmeric", "Safflower", "Annatto"]
   },
   {
     "ingredient": "Sherry, manzanilla",
@@ -2099,47 +1319,27 @@
   {
     "ingredient": "Star anise",
     "weight": 1,
-    "replacements": [
-      "Anise seed",
-      "Fennel seed",
-      "Licorice root"
-    ]
+    "replacements": ["Anise seed", "Fennel seed", "Licorice root"]
   },
   {
     "ingredient": "Tomato juice",
     "weight": 1,
-    "replacements": [
-      "Vegetable juice",
-      "Clamato juice",
-      "V8 juice"
-    ]
+    "replacements": ["Vegetable juice", "Clamato juice", "V8 juice"]
   },
   {
     "ingredient": "Tomatoes, cherry",
     "weight": 1,
-    "replacements": [
-      "Tomatoes, grape",
-      "Tomatoes, plum",
-      "Tomatoes, yellow"
-    ]
+    "replacements": ["Tomatoes, grape", "Tomatoes, plum", "Tomatoes, yellow"]
   },
   {
     "ingredient": "Vodka, pepper",
     "weight": 1,
-    "replacements": [
-      "Vodka, plain",
-      "Vodka, citrus",
-      "Vodka, jalapeño"
-    ]
+    "replacements": ["Vodka, plain", "Vodka, citrus", "Vodka, jalapeño"]
   },
   {
     "ingredient": "Watermelon",
     "weight": 1,
-    "replacements": [
-      "Cantaloupe",
-      "Honeydew melon",
-      "Crenshaw melon"
-    ]
+    "replacements": ["Cantaloupe", "Honeydew melon", "Crenshaw melon"]
   },
   {
     "ingredient": "Whisky, Scotch (Ardbeg)",
@@ -2162,10 +1362,6 @@
   {
     "ingredient": "Worcestershire sauce",
     "weight": 1,
-    "replacements": [
-      "Soy sauce",
-      "A.1. Steak Sauce",
-      "HP Sauce"
-    ]
+    "replacements": ["Soy sauce", "A.1. Steak Sauce", "HP Sauce"]
   }
 ]
