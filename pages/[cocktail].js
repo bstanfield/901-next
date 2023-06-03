@@ -6,7 +6,11 @@ import Cocktail from "../components/cocktail";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-export default function CocktailPage({ cocktail, similarCocktails }) {
+export default function CocktailPage({
+  cocktail,
+  similarCocktails,
+  ingredientsMasterList,
+}) {
   const [keywords, setKeywords] = useState([]);
   const adjective = {
     4: "Solid",
@@ -48,7 +52,12 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
         <label style={{ marginBottom: 24 }}>
           <Link href="/">&larr; HOME</Link>
         </label>
-        <Cocktail details keywords={keywords} cocktail={cocktail} />
+        <Cocktail
+          details
+          keywords={keywords}
+          ingredientsMasterList={ingredientsMasterList}
+          cocktail={cocktail}
+        />
         <p>Similar cocktails:</p>
         {similarCocktails.slice(0, 3).map((cocktail) => {
           return (
@@ -56,6 +65,7 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
               key={cocktail.id}
               keywords={keywords}
               parent={similarCocktails[0]}
+              ingredientsMasterList={ingredientsMasterList}
               cocktail={cocktail}
             />
           );
@@ -64,21 +74,6 @@ export default function CocktailPage({ cocktail, similarCocktails }) {
     </Layout>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   const data = getData()
-//   const id = context.params.cocktail
-//   const cocktail = getCocktailById(data.cocktails, id)
-
-//   const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients)
-
-//   return {
-//     props: {
-//       cocktail,
-//       similarCocktails,
-//     },
-//   }
-// }
 
 export async function getStaticPaths() {
   const data = getData();
@@ -94,6 +89,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const data = getData();
   const id = params.cocktail;
+  const ingredientsMasterList = data.ingredients;
   const cocktail = getCocktailById(data.cocktails, id);
   const similarCocktails = getSimilarCocktails(
     data.cocktails,
@@ -105,6 +101,7 @@ export async function getStaticProps({ params }) {
     props: {
       cocktail,
       similarCocktails,
+      ingredientsMasterList,
     },
   };
 }

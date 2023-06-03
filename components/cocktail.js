@@ -20,7 +20,13 @@ import {
 } from "../styles/classes";
 import { jsx, css } from "@emotion/react";
 
-export default function Cocktail({ cocktail, keywords, details, mapping }) {
+export default function Cocktail({
+  cocktail,
+  keywords,
+  details,
+  mapping,
+  ingredientsMasterList,
+}) {
   const [copied, setCopied] = useState(false);
   const [url, setUrl] = useState("");
 
@@ -36,6 +42,30 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
   String.prototype.indexOfEnd = function (string) {
     var io = this.indexOf(string);
     return io == -1 ? -1 : io + string.length;
+  };
+
+  const findReplacements = (ingredientName) => {
+    console.log(
+      "Function called with these parameters:",
+      ingredientsMasterList,
+      ingredientName
+    );
+    const lowerCaseIngredientName = ingredientName.toLowerCase();
+    console.log("Lowercase ingredient name:", lowerCaseIngredientName);
+    const ingredient = ingredientsMasterList.find((item) => {
+      const lowerCaseItemName = item?.ingredient?.toLowerCase();
+      console.log(
+        "Current item being checked:",
+        item,
+        "Lowercase item name:",
+        lowerCaseItemName
+      );
+      const isMatch = lowerCaseItemName?.includes(lowerCaseIngredientName);
+      console.log("Does the item match the ingredient name?", isMatch);
+      return isMatch;
+    });
+    console.log("Found ingredient:", ingredient);
+    return ingredient ? ingredient.replacements : null;
   };
 
   // Create star meter for 4, 4.5, or 5-star cocktail.
@@ -226,11 +256,11 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
               ))}
           </ul>
           {details &&
-            cocktail.lines.map((line) => (
+            cocktail.lines.map((line, i) => (
               <div className="checkableIngredients">
                 <label>
                   <input type="checkbox" name={line} value={line} key={line} />
-                  &nbsp;{line}
+                  &nbsp;{line} ({findReplacements(cocktail.ingredients[i])})
                 </label>
               </div>
             ))}
