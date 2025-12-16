@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider node ./node_modules/next/dist/bin/next dev",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider node ./node_modules/next/dist/bin/next build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider node ./node_modules/next/dist/bin/next start"
   },
   "dependencies": {
     "date-fns": "^2.15.0",
