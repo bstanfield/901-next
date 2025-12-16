@@ -66,28 +66,85 @@ export default function Layout({
       </Head>
 
       {home && (
-        <div className="navItems">
+        <div
+          className="navItems"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            flexWrap: "wrap",
+          }}
+        >
           {favorites.length > 0 && (
-            <>
-              <a
-                onClick={toggleFavorites}
-                style={{ fontWeight: isFavoritesActive ? 700 : 400 }}
-              >
-                {isFavoritesActive ? "✓ " : ""}Favorites ({favorites.length})
-              </a>
-              <span style={{ padding: "0px 10px", opacity: 0.5 }}>|</span>
-            </>
+            <button
+              onClick={toggleFavorites}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                height: 32,
+                padding: "0 12px",
+                backgroundColor: isFavoritesActive ? "#e8f4f8" : "#f5f5f5",
+                border: "1px solid #ccc",
+                borderRadius: 6,
+                cursor: "pointer",
+                fontSize: 14,
+                fontFamily:
+                  "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+                color: "#333",
+                boxSizing: "content-box",
+                fontWeight: isFavoritesActive ? 600 : 400,
+              }}
+            >
+              {isFavoritesActive ? "✓ " : ""}Favorites ({favorites.length})
+            </button>
           )}
-          <a
+          <button
             onClick={() => {
               setPantry(!pantry);
               localStorage.setItem("pantry", !pantry);
             }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              height: 32,
+              padding: "0 12px",
+              backgroundColor: "#f5f5f5",
+              border: "1px solid #ccc",
+              borderRadius: 6,
+              cursor: "pointer",
+              fontSize: 14,
+              fontFamily:
+                "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+              color: "#333",
+              boxSizing: "content-box",
+            }}
           >
             {pantry ? "Exit" : "Enter"} Pantry
+          </button>
+          <a
+            href="/tips"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              height: 32,
+              padding: "0 12px",
+              backgroundColor: "#f5f5f5",
+              border: "1px solid #ccc",
+              borderRadius: 6,
+              cursor: "pointer",
+              fontSize: 14,
+              fontFamily:
+                "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+              color: "#333",
+              boxSizing: "content-box",
+              textDecoration: "none",
+            }}
+          >
+            Tips
           </a>
-          <span style={{ padding: "0px 10px", opacity: 0.5 }}>|</span>
-          <a href="/tips">Tips</a>
         </div>
       )}
 

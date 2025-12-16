@@ -305,6 +305,19 @@ export default function Cocktail({
                 </li>
               ))}
           </ul>
+          {details && drinkCount > 1 && (
+            <p
+              style={{
+                fontSize: 14,
+                color: "#666",
+                marginTop: 8,
+                marginBottom: 4,
+                fontStyle: "italic",
+              }}
+            >
+              For {drinkCount} drinks:
+            </p>
+          )}
           {details &&
             cocktail.lines.map((line) => {
               const scaledLine = scaleIngredientLine(line, drinkCount);
