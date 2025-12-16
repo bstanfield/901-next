@@ -262,7 +262,7 @@ export default function Cocktail({
             style={{
               position: "absolute",
               right: 8,
-              top: 8,
+              top: details ? 38 : 8,
               background: "none",
               border: "none",
               cursor: "pointer",

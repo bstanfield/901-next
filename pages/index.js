@@ -98,7 +98,8 @@ export default function Home({ data }) {
         data.cocktails,
         cocktails,
         keywords,
-        pantry
+        pantry,
+        favorites
       );
       setPopularIngredients(ingredients);
     } else {
