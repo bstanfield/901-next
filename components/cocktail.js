@@ -342,8 +342,6 @@ export default function Cocktail({
               <span
                 key={list}
                 style={{
-                  fontSize: details ? 18 : 16,
-                  margin: details ? 3 : 2,
                   fontWeight: keywordValues.includes(list) ? 700 : 400,
                   cursor:
                     setKeywords && !keywordValues.includes(list)
