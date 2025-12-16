@@ -72,7 +72,9 @@ export default function Layout({
             display: "flex",
             alignItems: "center",
             gap: 12,
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
+            overflowX: "auto",
+            WebkitOverflowScrolling: "touch",
           }}
         >
           {favorites.length > 0 && (

@@ -349,3 +349,22 @@ input {
   width: 18px;
   height: 16px;
 }
+
+@media (max-width: 768px) {
+  .navItems {
+    position: static;
+    top: auto;
+    right: auto;
+    justify-content: center;
+    margin: 24px auto;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .navItems button,
+  .navItems a {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
