@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import Link from "next/link";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useState, useEffect } from "react";
-import { Heart, Link2, Check } from "lucide-react";
+import { Heart } from "lucide-react";
 import {
   starsBox,
   cocktailName,
@@ -17,7 +15,6 @@ import {
   cocktailContainer,
   noStyleLink,
 } from "../styles/classes";
-import DrinkStepper from "./drinkStepper";
 import { scaleIngredientLine } from "../lib/helpers";
 
 export default function Cocktail({
@@ -29,11 +26,8 @@ export default function Cocktail({
   pantry,
   favorites = [],
   setFavorites,
+  drinkCount = 1,
 }) {
-  const [copied, setCopied] = useState(false);
-  const [url, setUrl] = useState("");
-  const [drinkCount, setDrinkCount] = useState(1);
-
   const isFavorite = favorites.includes(cocktail.id);
 
   const toggleFavorite = (e) => {
@@ -52,11 +46,6 @@ export default function Cocktail({
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
     }
   };
-
-  // Used for "copy link"
-  useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
 
   String.prototype.insert = function (index, value) {
     return this.substr(0, index) + value + this.substr(index);
@@ -355,58 +344,6 @@ export default function Cocktail({
               </span>
             ))}
           </div>
-
-          {details && (
-            <div
-              style={{
-                position: "absolute",
-                right: 0,
-                top: -8,
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-              }}
-            >
-              <DrinkStepper
-                value={drinkCount}
-                onChange={setDrinkCount}
-                min={1}
-                max={10}
-              />
-              <CopyToClipboard text={url || ""} onCopy={() => setCopied(true)}>
-                <button
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    height: 32,
-                    padding: "0 12px",
-                    backgroundColor: "#f5f5f5",
-                    border: "1px solid #ccc",
-                    borderRadius: 6,
-                    cursor: "pointer",
-                    fontSize: 14,
-                    fontFamily:
-                      "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-                    color: "#333",
-                    boxSizing: "content-box",
-                  }}
-                >
-                  {copied ? (
-                    <>
-                      <Check size={16} />
-                      Copied
-                    </>
-                  ) : (
-                    <>
-                      <Link2 size={16} />
-                      Copy link
-                    </>
-                  )}
-                </button>
-              </CopyToClipboard>
-            </div>
-          )}
         </strong>
       </div>
       <hr />
