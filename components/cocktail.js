@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Link2, Check } from "lucide-react";
 import {
   starsBox,
   cocktailName,
@@ -13,11 +13,12 @@ import {
   ingredients,
   instructions,
   listTags,
-  copyLink,
   origin,
   cocktailContainer,
   noStyleLink,
 } from "../styles/classes";
+import DrinkStepper from "./drinkStepper";
+import { scaleIngredientLine } from "../lib/helpers";
 
 export default function Cocktail({
   cocktail,
@@ -31,6 +32,7 @@ export default function Cocktail({
 }) {
   const [copied, setCopied] = useState(false);
   const [url, setUrl] = useState("");
+  const [drinkCount, setDrinkCount] = useState(1);
 
   const isFavorite = favorites.includes(cocktail.id);
 
@@ -315,14 +317,17 @@ export default function Cocktail({
               ))}
           </ul>
           {details &&
-            cocktail.lines.map((line) => (
-              <div className="checkableIngredients">
-                <label>
-                  <input type="checkbox" name={line} value={line} key={line} />
-                  &nbsp;{line}
-                </label>
-              </div>
-            ))}
+            cocktail.lines.map((line) => {
+              const scaledLine = scaleIngredientLine(line, drinkCount);
+              return (
+                <div className="checkableIngredients" key={line}>
+                  <label>
+                    <input type="checkbox" name={line} value={line} />
+                    &nbsp;{scaledLine}
+                  </label>
+                </div>
+              );
+            })}
 
           <p css={instructions(details)}>{cocktail.description}</p>
 
@@ -352,10 +357,52 @@ export default function Cocktail({
           </div>
 
           {details && (
-            <div css={copyLink}>
+            <div
+              style={{
+                position: "absolute",
+                right: 0,
+                top: -8,
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+              }}
+            >
+              <DrinkStepper
+                value={drinkCount}
+                onChange={setDrinkCount}
+                min={1}
+                max={10}
+              />
               <CopyToClipboard text={url || ""} onCopy={() => setCopied(true)}>
-                <button>
-                  {copied ? "✅ Copied to clipboard" : "🔗 Copy link"}
+                <button
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    height: 32,
+                    padding: "0 12px",
+                    backgroundColor: "#f5f5f5",
+                    border: "1px solid #ccc",
+                    borderRadius: 6,
+                    cursor: "pointer",
+                    fontSize: 14,
+                    fontFamily:
+                      "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+                    color: "#333",
+                    boxSizing: "content-box",
+                  }}
+                >
+                  {copied ? (
+                    <>
+                      <Check size={16} />
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <Link2 size={16} />
+                      Copy link
+                    </>
+                  )}
                 </button>
               </CopyToClipboard>
             </div>
