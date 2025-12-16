@@ -78,7 +78,11 @@ const listTags = (details) => scale({
     margin: 2,
     padding: '2px 10px',
     borderRadius: 4,
-    fontSize: 14
+    fontSize: 14,
+    transition: 'background-color 0.15s ease, transform 0.1s ease',
+    '&:hover': {
+      backgroundColor: 'rgb(200, 220, 240)',
+    }
   }
 })
 

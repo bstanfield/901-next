@@ -1,6 +1,6 @@
 import Cocktail from './cocktail'
 
-export default function Results({ cocktails, keywords, displayMaximum, mapping, pantry }) {
+export default function Results({ cocktails, keywords, displayMaximum, mapping, pantry, setKeywords }) {
   // Not using mapping right now -- use for advanced sorting
   // No results found
   if (cocktails.length === 0) {
@@ -31,11 +31,11 @@ export default function Results({ cocktails, keywords, displayMaximum, mapping, 
       return 0
     })
     return (
-      cocktailsSortedByPrimaryKeyword.map((cocktail) => (<Cocktail mapping={mapping} key={cocktail.id} keywords={keywords} cocktail={cocktail} />))
+      cocktailsSortedByPrimaryKeyword.map((cocktail) => (<Cocktail mapping={mapping} key={cocktail.id} keywords={keywords} cocktail={cocktail} setKeywords={setKeywords} pantry={pantry} />))
     )
   } else {
     return (
-      cocktailsToDisplay.map((cocktail) => (<Cocktail mapping={mapping} key={cocktail.id} keywords={keywords} cocktail={cocktail} />))
+      cocktailsToDisplay.map((cocktail) => (<Cocktail mapping={mapping} key={cocktail.id} keywords={keywords} cocktail={cocktail} setKeywords={setKeywords} pantry={pantry} />))
     )
   }
 }

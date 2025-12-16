@@ -19,7 +19,7 @@ import {
 } from '../styles/classes'
 import { jsx } from '@emotion/core'
 
-export default function Cocktail({ cocktail, keywords, details, mapping }) {
+export default function Cocktail({ cocktail, keywords, details, mapping, setKeywords, pantry }) {
   const [copied, setCopied] = useState(false)
   const [url, setUrl] = useState('')
 
@@ -143,6 +143,31 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
   // Used to bold tags
   const keywordValues = keywords.map(kw => kw.value)
 
+  // Handler for clicking a tag to add it to search
+  const handleTagClick = (tagName) => {
+    // Skip if tag is already in keywords
+    if (keywordValues.includes(tagName)) return
+    
+    const newKeyword = {
+      data: 'category',
+      value: tagName,
+      strippedValue: tagName.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+      label: tagName,
+      type: 'positive',
+      bgColor: 'rgb(221, 237, 255)'
+    }
+    
+    const newKeywords = [...keywords, newKeyword]
+    setKeywords(newKeywords)
+    
+    // Persist to localStorage
+    if (!pantry) {
+      localStorage.setItem('keywords', JSON.stringify(newKeywords))
+    } else {
+      localStorage.setItem('pantryKeywords', JSON.stringify(newKeywords))
+    }
+  }
+
   // Used to bold line items
   const selectedLines = keywords.map(kw => findSelectedLines(cocktail.lines, kw))
 
@@ -193,7 +218,16 @@ export default function Cocktail({ cocktail, keywords, details, mapping }) {
           <div css={listTags(details)}>
             {
               cocktail.lists.map(list =>
-                <span key={list} style={{ fontSize: details ? 18 : 16, margin: details ? 3 : 2, fontWeight: keywordValues.includes(list) ? 700 : 400 }}>
+                <span 
+                  key={list} 
+                  style={{ 
+                    fontSize: details ? 18 : 16, 
+                    margin: details ? 3 : 2, 
+                    fontWeight: keywordValues.includes(list) ? 700 : 400,
+                    cursor: setKeywords && !keywordValues.includes(list) ? 'pointer' : 'default'
+                  }}
+                  onClick={() => setKeywords && handleTagClick(list)}
+                >
                   {keywordValues.includes(list) && '✔ '}{list}
                 </span>
               )
