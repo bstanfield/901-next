@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import Layout, { siteTitle, siteImage, siteDescription } from '../components/layout'
 import { getData } from '../lib/data'
-import { throttleCocktailsToDisplay, improvedGetRelevantCocktails, getPopularIngredients, createSentence } from '../lib/helpers'
+import { throttleCocktailsToDisplay, improvedGetRelevantCocktails, getPopularIngredients } from '../lib/helpers'
 import Results from '../components/results'
-import { useState, useEffect } from 'react'
-import SearchBar from '../components/search'
 import Suggestions from '../components/suggestions'
-import PopularIngredientsBox from '../components/popularIngredientsBox';
+
+// Dynamically import SearchBar (contains heavy react-select library)
+// This reduces First Load JS significantly
+const SearchBar = dynamic(() => import('../components/search'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ 
+      height: 38, 
+      border: '1px solid grey', 
+      borderRadius: 4, 
+      backgroundColor: 'white',
+      boxShadow: '-1px 4px 14px -6px rgba(148,148,148,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      paddingLeft: 12,
+      color: '#999',
+      fontSize: 18
+    }}>
+      Loading search...
+    </div>
+  )
+})
 
 export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100)
@@ -20,13 +40,18 @@ export default function Home({ data }) {
   const [keywords, setKeywords] = useState([])
   const [pantry, setPantry] = useState(false)
 
-  // "infinite scroll"
-  useEffect(() => {
-    document.addEventListener('scroll', () => throttleCocktailsToDisplay(document, setDisplayMaximum));
-    return () => document.removeEventListener('scroll', throttleCocktailsToDisplay(document, setDisplayMaximum))
-  }, [])
+  // Memoize the scroll handler to prevent recreating on each render
+  const handleScroll = useCallback(() => {
+    throttleCocktailsToDisplay(document, setDisplayMaximum);
+  }, []);
 
-  // localstorage
+  // "infinite scroll" with passive listener for better performance
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  // localstorage - load initial state
   useEffect(() => {
     // Pantry
     const localStoragePantry = JSON.parse(localStorage.getItem('pantry'))
@@ -56,6 +81,7 @@ export default function Home({ data }) {
     }
   }, [pantry])
 
+  // Memoize cocktail filtering for performance
   useEffect(() => {
     // This is an important fn that gets cocktails based off of keywords entered by user.
     const cocktails = improvedGetRelevantCocktails(data.cocktails, keywords, pantry)
@@ -68,7 +94,7 @@ export default function Home({ data }) {
     } else {
       setPopularIngredients([])
     }
-  }, [keywords])
+  }, [keywords, pantry, data.cocktails])
 
   return (
     <Layout home pantry={pantry} setPantry={setPantry}>

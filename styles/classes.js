@@ -1,4 +1,15 @@
-import { scale } from '../lib/helpers'
+import { css } from '@emotion/react'
+import facepaint from 'facepaint'
+
+// Media queries and Emotion CSS - defined here to avoid circular dependency
+const mq = facepaint([
+  '@media(min-width: 420px)',
+  '@media(min-width: 720px)',
+  '@media(min-width: 1000px)',
+  '@media(min-width: 1500px)',
+]);
+
+const scale = (x) => css(mq(x));
 
 const fonts = {
   sans: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
@@ -13,13 +24,13 @@ const colors = {
 // Page-specific styles
 
 // cocktail.js
-const starsBox = (details) => scale({
+export const starsBox = (details) => scale({
   width: 140,
   position: 'relative',
   marginTop: details ? 8 : 0
 })
 
-const cocktailName = (details) => scale({
+export const cocktailName = (details) => scale({
   fontFamily: fonts.serif,
   fontWeight: 600,
   margin: 0,
@@ -30,7 +41,7 @@ const cocktailName = (details) => scale({
   lineHeight: '140%',
 })
 
-const starStyles = (details) => scale({
+export const starStyles = (details) => scale({
   fontSize: details ? 16 : 12,
   color: 'white',
   backgroundColor: '#50B27F',
@@ -40,11 +51,11 @@ const starStyles = (details) => scale({
   position: 'relative',
 })
 
-const fadedStarStyles = scale({
+export const fadedStarStyles = scale({
   opacity: .2,
 })
 
-const halfStar = (details) => scale({
+export const halfStar = (details) => scale({
   backgroundColor: colors.bgColor,
   opacity: 0.95,
   position: 'absolute',
@@ -54,13 +65,13 @@ const halfStar = (details) => scale({
   bottom: 0,
 })
 
-const ingredients = (details) => scale({
+export const ingredients = (details) => scale({
   margin: 0,
   paddingLeft: 32,
   paddingTop: details ? 18 : 12,
 })
 
-const instructions = (details) => scale({
+export const instructions = (details) => scale({
   fontFamily: 'georgia, serif',
   color: '#333333',
   fontSize: details ? 22 : 18,
@@ -68,7 +79,7 @@ const instructions = (details) => scale({
   margin: '24px 0px',
 })
 
-const listTags = (details) => scale({
+export const listTags = (details) => scale({
   marginBottom: details ? 80 : 20,
   span: {
     display: 'inline-block',
@@ -86,7 +97,7 @@ const listTags = (details) => scale({
   }
 })
 
-const copyLink = () => scale({
+export const copyLink = () => scale({
   "position": "absolute",
   "right": "0px",
   "top": "-8px",
@@ -106,7 +117,7 @@ const copyLink = () => scale({
   }
 })
 
-const origin = scale({
+export const origin = scale({
   "color": "#333333",
   "fontSize": "16px",
   "marginTop": "18px",
@@ -114,7 +125,7 @@ const origin = scale({
   "textTransform": "uppercase"
 })
 
-const cocktailContainer = scale({
+export const cocktailContainer = scale({
   "opacity": "0.9",
   "paddingLeft": "16px",
   "paddingTop": "16px",
@@ -127,27 +138,11 @@ const cocktailContainer = scale({
   }
 })
 
-const noStyleLink = scale({
+export const noStyleLink = scale({
   color: 'inherit',
   '&:hover': {
     textDecoration: 'underline',
   }
 })
-// -- End cocktail.js
 
-module.exports = {
-  fonts,
-  colors,
-  starsBox,
-  cocktailName,
-  starStyles,
-  fadedStarStyles,
-  halfStar,
-  ingredients,
-  instructions,
-  listTags,
-  copyLink,
-  origin,
-  cocktailContainer,
-  noStyleLink,
-};
+export { fonts, colors }

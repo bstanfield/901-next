@@ -1,12 +1,12 @@
-import Select, { createFilter, components } from 'react-select';
+import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
+import { formatGroupLabel } from '../lib/search';
+import { improvedGetRelevantCocktails } from '../lib/helpers';
+import Select, { components } from 'react-select';
 import {
   SortableContainer,
   SortableElement,
   sortableHandle,
 } from 'react-sortable-hoc';
-import { formatGroupLabel } from '../lib/search'
-import { improvedGetRelevantCocktails } from '../lib/helpers'
-import { useState, useEffect } from 'react'
 
 // react-sortable fns
 function arrayMove(array, from, to) {
