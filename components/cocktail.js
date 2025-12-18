@@ -1,8 +1,8 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 
 import Link from 'next/link'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import { useState, useEffect, memo } from 'react'
 import {
   starsBox,
   cocktailName,
@@ -17,9 +17,14 @@ import {
   cocktailContainer,
   noStyleLink,
 } from '../styles/classes'
-import { jsx } from '@emotion/core'
 
-export default function Cocktail({ cocktail, keywords, details, mapping, setKeywords, pantry }) {
+// Dynamic import for copy-to-clipboard (only used in detail view)
+const CopyToClipboard = dynamic(
+  () => import('react-copy-to-clipboard').then(mod => mod.CopyToClipboard),
+  { ssr: false }
+)
+
+function Cocktail({ cocktail, keywords, details, mapping, setKeywords, pantry }) {
   const [copied, setCopied] = useState(false)
   const [url, setUrl] = useState('')
 
@@ -248,3 +253,6 @@ export default function Cocktail({ cocktail, keywords, details, mapping, setKeyw
     </>
   )
 }
+
+// Memoize to prevent unnecessary re-renders
+export default memo(Cocktail)

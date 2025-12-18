@@ -71,7 +71,8 @@ export async function getStaticProps({ params }) {
   const data = getData()
   const id = params.cocktail
   const cocktail = getCocktailById(data.cocktails, id)
-  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients, cocktail.id)
+  // Only get the top 3 similar cocktails to reduce page size
+  const similarCocktails = getSimilarCocktails(data.cocktails, cocktail.ingredients, cocktail.id).slice(0, 3)
 
   return {
     props: {
