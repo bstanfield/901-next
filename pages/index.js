@@ -320,10 +320,17 @@ export default function Home({ data }) {
         {" "}
         <span>
           {pantry ? (
-            <>
-              ({cocktailsToDisplay.length}) Result
-              {cocktailsToDisplay.length === 1 ? "" : "s"}
-            </>
+            keywords.length === 0 ? (
+              <>Add items to your pantry</>
+            ) : (
+              <>
+                {cocktailsToDisplay.length} cocktail
+                {cocktailsToDisplay.length === 1 ? "" : "s"} from{" "}
+                {keywords.length} pantry item
+                {keywords.length === 1 ? "" : "s"}
+                <span style={{ opacity: 0.6 }}> · Near-matches included</span>
+              </>
+            )
           ) : (
             <ResultsSentence
               count={cocktailsToDisplay.length}
