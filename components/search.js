@@ -1,40 +1,8 @@
-import Select, { createFilter, components } from "react-select";
-import {
-  SortableContainer,
-  SortableElement,
-  sortableHandle,
-} from "react-sortable-hoc";
+import Select from "react-select";
 import { formatGroupLabel } from "../lib/search";
 import { improvedGetRelevantCocktails } from "../lib/helpers";
 import { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js";
-
-// react-sortable fns
-function arrayMove(array, from, to) {
-  array = array.slice();
-  array.splice(to < 0 ? array.length + to : to, 0, array.splice(from, 1)[0]);
-  return array;
-}
-
-const SortableMultiValue = SortableElement((props) => {
-  // this prevents the menu from being opened/closed when the user clicks
-  // on a value to begin dragging it. ideally, detecting a click (instead of
-  // a drag) would still focus the control and toggle the menu, but that
-  // requires some magic with refs that are out of scope for this example
-  const onMouseDown = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const innerProps = { ...props.innerProps, onMouseDown };
-  return <components.MultiValue {...props} innerProps={innerProps} />;
-});
-
-const SortableMultiValueLabel = sortableHandle((props) => (
-  <components.MultiValueLabel {...props} />
-));
-
-const SortableSelect = SortableContainer(Select);
-// end react-select sort fns
 
 // Build a reverse lookup map: synonym -> canonical ingredient name
 const buildSynonymLookup = (synonyms) => {
@@ -158,24 +126,6 @@ export default function Search({
     type: "positive",
     bgColor: "rgb(221, 237, 255)",
   };
-
-  // react-select sortable
-  const onSortEnd = ({ oldIndex, newIndex }) => {
-    const newlyOrderedKeywords = arrayMove(keywords, oldIndex, newIndex);
-    setKeywords(newlyOrderedKeywords);
-    {
-      !pantry &&
-        localStorage.setItem("keywords", JSON.stringify(newlyOrderedKeywords));
-    }
-    {
-      pantry &&
-        localStorage.setItem(
-          "pantryKeywords",
-          JSON.stringify(newlyOrderedKeywords)
-        );
-    }
-  };
-  // end react-select sortable
 
   // Reloads data with negative or positive param
   useEffect(() => {
@@ -490,21 +440,9 @@ export default function Search({
   };
 
   return (
-    <SortableSelect
-      useDragHandle
-      // react-sortable-hoc props:
-      axis="xy"
-      onSortEnd={onSortEnd}
-      distance={4}
-      // small fix for https://github.com/clauderic/react-sortable-hoc/pull/352:
-      getHelperDimensions={({ node }) => node.getBoundingClientRect()}
-      // react-select props:
+    <Select
       isMulti
       autoFocus
-      components={{
-        MultiValue: SortableMultiValue,
-        MultiValueLabel: SortableMultiValueLabel,
-      }}
       closeMenuOnSelect={false}
       isLoading={isLoading}
       styles={{
