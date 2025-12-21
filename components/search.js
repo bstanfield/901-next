@@ -6,7 +6,8 @@ import {
 } from "react-sortable-hoc";
 import { formatGroupLabel } from "../lib/search";
 import { improvedGetRelevantCocktails } from "../lib/helpers";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import Fuse from "fuse.js";
 
 // react-sortable fns
 function arrayMove(array, from, to) {
@@ -75,6 +76,15 @@ const loadData = (data, negativeMode) => {
   };
 };
 
+// Fuse.js configuration for fuzzy search
+const fuseOptions = {
+  keys: ["strippedValue"],
+  threshold: 0.4, // 0 = exact match, 1 = match anything. 0.4 is good for typos
+  distance: 100,
+  includeScore: true,
+  minMatchCharLength: 2,
+};
+
 export default function Search({
   data,
   values,
@@ -91,6 +101,16 @@ export default function Search({
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [groupedOptions, setGroupedOptions] = useState([]);
+
+  // Create Fuse instances for fuzzy search - memoized based on loadedData
+  const fuseInstances = useMemo(() => {
+    if (!loadedData.ingredients) return null;
+    return {
+      ingredients: new Fuse(loadedData.ingredients, fuseOptions),
+      lists: new Fuse(loadedData.lists, fuseOptions),
+      cocktails: new Fuse(loadedData.cocktails, fuseOptions),
+    };
+  }, [loadedData]);
 
   // Favorites filter option
   const favoritesOption = {
@@ -267,6 +287,42 @@ export default function Search({
       2
     );
 
+    // Fuzzy matches = priority #3 (for typo tolerance)
+    // Uses Fuse.js to find similar matches that weren't caught by exact/partial matching
+    let fuzzy_ingredients = [];
+    let fuzzy_lists = [];
+    let fuzzy_cocktails = [];
+
+    if (fuseInstances && input.length >= 2) {
+      // Get fuzzy results and filter out already-matched items
+      fuzzy_ingredients = fuseInstances.ingredients
+        .search(input)
+        .filter((result) => !existingMatches.includes(result.item.value))
+        .slice(0, 8)
+        .map((result) => {
+          existingMatches.push(result.item.value);
+          return result.item;
+        });
+
+      fuzzy_lists = fuseInstances.lists
+        .search(input)
+        .filter((result) => !existingMatches.includes(result.item.value))
+        .slice(0, 5)
+        .map((result) => {
+          existingMatches.push(result.item.value);
+          return result.item;
+        });
+
+      fuzzy_cocktails = fuseInstances.cocktails
+        .search(input)
+        .filter((result) => !existingMatches.includes(result.item.value))
+        .slice(0, 8)
+        .map((result) => {
+          existingMatches.push(result.item.value);
+          return result.item;
+        });
+    }
+
     // Check if "favorites" matches the search input
     const favoritesMatches =
       favorites.length > 0 && "favorites".includes(input);
@@ -278,15 +334,20 @@ export default function Search({
       },
       {
         label: "Ingredients",
-        options: [...p0_ingredients, ...p1_ingredients, ...p2_ingredients],
+        options: [
+          ...p0_ingredients,
+          ...p1_ingredients,
+          ...p2_ingredients,
+          ...fuzzy_ingredients,
+        ],
       },
       {
         label: "Categories",
-        options: [...p1_lists, ...p2_lists],
+        options: [...p1_lists, ...p2_lists, ...fuzzy_lists],
       },
       {
         label: "Cocktails",
-        options: [...p1_cocktails, ...p2_cocktails],
+        options: [...p1_cocktails, ...p2_cocktails, ...fuzzy_cocktails],
       },
     ];
 
@@ -329,6 +390,14 @@ export default function Search({
           fontWeight: 400,
           opacity: 0.8,
         }),
+        input: (styles) => ({
+          ...styles,
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+          fontSize: 18,
+          fontWeight: 400,
+          color: "#333333",
+        }),
         option: (styles) => ({
           ...styles,
           cursor: "pointer",
@@ -369,6 +438,9 @@ export default function Search({
       className="basic-multi-select"
       classNamePrefix="select"
       value={keywords}
+      // Disable react-select's internal filtering since we do our own in filterOptions
+      // This is crucial for fuzzy search to work - otherwise react-select filters out fuzzy matches
+      filterOption={() => true}
       formatOptionLabel={function (data) {
         return <span dangerouslySetInnerHTML={{ __html: data.label }} />;
       }}
@@ -376,6 +448,17 @@ export default function Search({
       inputValue={inputValue}
       formatGroupLabel={formatGroupLabel}
       placeholder='Search for "sweet" or "bourbon"'
+      // Allow cmd-A / ctrl-A to select all text in the input
+      onKeyDown={(e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === "a") {
+          e.preventDefault();
+          // Use event.target directly - it's the actual input element
+          const input = e.target;
+          if (input && input.select) {
+            input.select();
+          }
+        }
+      }}
       // Checks for someone entering or exiting negative mode
       onInputChange={(input, type) => {
         // Determines if negative search is on/off

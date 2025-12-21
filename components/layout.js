@@ -7,6 +7,7 @@ export const siteTitle = "901 Cocktails";
 export const siteDescription =
   "Find the best cocktails you can make with ingredients in your pantry.";
 export const siteImage = "https://i.imgur.com/PA7puwU.png";
+export const appVersion = "2.005";
 
 export default function Layout({
   children,
@@ -46,6 +47,20 @@ export default function Layout({
   };
   return (
     <Fragment>
+      <span
+        style={{
+          position: "fixed",
+          top: 8,
+          left: 8,
+          fontSize: 11,
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif",
+          color: "#999",
+          zIndex: 1000,
+        }}
+      >
+        v{appVersion}
+      </span>
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,700&display=swap"
