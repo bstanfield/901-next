@@ -18,6 +18,158 @@ import SearchBar from "../components/search";
 import Suggestions from "../components/suggestions";
 import PopularIngredientsBox from "../components/popularIngredientsBox";
 
+// Build a descriptive sentence for the results based on keywords
+function ResultsSentence({ count, keywords }) {
+  if (keywords.length === 0) {
+    return <>{count} cocktails</>;
+  }
+
+  // Separate positive and negative keywords by type
+  const positiveIngredients = keywords.filter(
+    (k) => k.data === "ingredient" && k.type === "positive"
+  );
+  const negativeIngredients = keywords.filter(
+    (k) => k.data === "ingredient" && k.type === "negative"
+  );
+  const positiveCategories = keywords.filter(
+    (k) => k.data === "category" && k.type === "positive"
+  );
+  const negativeCategories = keywords.filter(
+    (k) => k.data === "category" && k.type === "negative"
+  );
+  const positiveCocktails = keywords.filter(
+    (k) => k.data === "cocktail" && k.type === "positive"
+  );
+  const negativeCocktails = keywords.filter(
+    (k) => k.data === "cocktail" && k.type === "negative"
+  );
+  const positiveFavorites = keywords.filter(
+    (k) => k.data === "favorites" && k.type === "positive"
+  );
+
+  const parts = [];
+
+  // Build sentence parts
+  if (positiveIngredients.length > 0) {
+    const names = positiveIngredients.map((k) => `"${k.value}"`);
+    if (names.length === 1) {
+      parts.push(<>contain {names[0]}</>);
+    } else if (names.length === 2) {
+      parts.push(
+        <>
+          contain {names[0]} and {names[1]}
+        </>
+      );
+    } else {
+      const last = names.pop();
+      parts.push(
+        <>
+          contain {names.join(", ")}, and {last}
+        </>
+      );
+    }
+  }
+
+  if (negativeIngredients.length > 0) {
+    const names = negativeIngredients.map((k) => `"${k.value}"`);
+    if (names.length === 1) {
+      parts.push(<>without {names[0]}</>);
+    } else if (names.length === 2) {
+      parts.push(
+        <>
+          without {names[0]} or {names[1]}
+        </>
+      );
+    } else {
+      const last = names.pop();
+      parts.push(
+        <>
+          without {names.join(", ")}, or {last}
+        </>
+      );
+    }
+  }
+
+  if (positiveCategories.length > 0) {
+    const names = positiveCategories.map((k) => `"${k.value}"`);
+    if (names.length === 1) {
+      parts.push(<>tagged {names[0]}</>);
+    } else if (names.length === 2) {
+      parts.push(
+        <>
+          tagged {names[0]} and {names[1]}
+        </>
+      );
+    } else {
+      const last = names.pop();
+      parts.push(
+        <>
+          tagged {names.join(", ")}, and {last}
+        </>
+      );
+    }
+  }
+
+  if (negativeCategories.length > 0) {
+    const names = negativeCategories.map((k) => `"${k.value}"`);
+    if (names.length === 1) {
+      parts.push(<>not tagged {names[0]}</>);
+    } else if (names.length === 2) {
+      parts.push(
+        <>
+          not tagged {names[0]} or {names[1]}
+        </>
+      );
+    } else {
+      const last = names.pop();
+      parts.push(
+        <>
+          not tagged {names.join(", ")}, or {last}
+        </>
+      );
+    }
+  }
+
+  if (positiveCocktails.length > 0) {
+    const names = positiveCocktails.map((k) => `"${k.value}"`);
+    if (names.length === 1) {
+      parts.push(<>similar to {names[0]}</>);
+    } else {
+      parts.push(<>similar to {names.join(" and ")}</>);
+    }
+  }
+
+  if (negativeCocktails.length > 0) {
+    const names = negativeCocktails.map((k) => `"${k.value}"`);
+    if (names.length === 1) {
+      parts.push(<>excluding {names[0]}</>);
+    } else {
+      parts.push(<>excluding {names.join(" and ")}</>);
+    }
+  }
+
+  if (positiveFavorites.length > 0) {
+    parts.push(<>in your favorites</>);
+  }
+
+  // Combine parts with commas
+  if (parts.length === 0) {
+    return <>{count} cocktails</>;
+  }
+
+  return (
+    <>
+      {count} cocktail{count === 1 ? "" : "s"}{" "}
+      {parts.map((part, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && ", "}
+          {part}
+        </React.Fragment>
+      ))}
+    </>
+  );
+}
+
 export default function Home({ data }) {
   const [displayMaximum, setDisplayMaximum] = useState(100);
   const [cocktailsToDisplay, setCocktailsToDisplay] = useState(data.cocktails);
@@ -167,8 +319,17 @@ export default function Home({ data }) {
       >
         {" "}
         <span>
-          ({cocktailsToDisplay.length}) Result
-          {cocktailsToDisplay.length === 1 ? "" : "s"}{" "}
+          {pantry ? (
+            <>
+              ({cocktailsToDisplay.length}) Result
+              {cocktailsToDisplay.length === 1 ? "" : "s"}
+            </>
+          ) : (
+            <ResultsSentence
+              count={cocktailsToDisplay.length}
+              keywords={keywords}
+            />
+          )}
         </span>
       </label>
 

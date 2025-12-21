@@ -7,7 +7,7 @@ export const siteTitle = "901 Cocktails";
 export const siteDescription =
   "Find the best cocktails you can make with ingredients in your pantry.";
 export const siteImage = "https://i.imgur.com/PA7puwU.png";
-export const appVersion = "2.007";
+export const appVersion = "2.011";
 
 export default function Layout({
   children,

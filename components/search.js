@@ -86,19 +86,35 @@ const loadData = (data, negativeMode) => {
   // Build synonym lookup from data.synonyms
   const synonymLookup = buildSynonymLookup(data.synonyms);
 
+  // Build synonym list for fuzzy searching
+  // Each entry has the synonym as strippedValue and the canonical ingredient name
+  const synonymsForFuzzy = [];
+  if (data.synonyms) {
+    for (const [canonical, synonymList] of Object.entries(data.synonyms)) {
+      for (const synonym of synonymList) {
+        synonymsForFuzzy.push({
+          synonym: synonym,
+          strippedValue: synonym.toLowerCase(),
+          canonical: canonical,
+        });
+      }
+    }
+  }
+
   return {
     ingredients: ingredientsInSearchFormat,
     cocktails: cocktailNamesInSearchFormat,
     lists: listsInSearchFormat,
     synonymLookup,
+    synonymsForFuzzy,
   };
 };
 
 // Fuse.js configuration for fuzzy search
 const fuseOptions = {
   keys: ["strippedValue"],
-  threshold: 0.4, // 0 = exact match, 1 = match anything. 0.4 is good for typos
-  distance: 100,
+  threshold: 0.3, // 0 = exact match, 1 = match anything. 0.3 is stricter for typos
+  distance: 50, // How close the match must be to the search term
   includeScore: true,
   minMatchCharLength: 2,
 };
@@ -127,6 +143,9 @@ export default function Search({
       ingredients: new Fuse(loadedData.ingredients, fuseOptions),
       lists: new Fuse(loadedData.lists, fuseOptions),
       cocktails: new Fuse(loadedData.cocktails, fuseOptions),
+      synonyms: loadedData.synonymsForFuzzy
+        ? new Fuse(loadedData.synonymsForFuzzy, fuseOptions)
+        : null,
     };
   }, [loadedData]);
 
@@ -221,81 +240,15 @@ export default function Search({
     let { ingredients, lists, cocktails, synonymLookup } = loadedData;
     let existingMatches = [];
 
-    // Synonym matches = priority #-1 (highest priority)
-    // If user types a synonym, show the canonical ingredient first
-    let synonym_ingredients = [];
-    if (synonymLookup && input.length >= 2) {
-      // Check for exact synonym match
-      const canonicalIngredient = synonymLookup[input];
-      if (canonicalIngredient) {
-        const matchedIngredient = ingredients.find(
-          (i) => i.value === canonicalIngredient
-        );
-        if (
-          matchedIngredient &&
-          !existingMatches.includes(matchedIngredient.value)
-        ) {
-          // Clone the ingredient and add the matched synonym for display
-          const ingredientWithSynonym = {
-            ...matchedIngredient,
-            matchedSynonym: input,
-          };
-          synonym_ingredients.push(ingredientWithSynonym);
-          existingMatches.push(matchedIngredient.value);
-        }
-      }
-
-      // Also check for partial synonym matches (e.g., "lux" should match "luxardo" -> "Maraschino")
-      for (const [synonym, canonical] of Object.entries(synonymLookup)) {
-        if (synonym.startsWith(input) || synonym.includes(input)) {
-          const matchedIngredient = ingredients.find(
-            (i) => i.value === canonical
-          );
-          if (
-            matchedIngredient &&
-            !existingMatches.includes(matchedIngredient.value)
-          ) {
-            // Clone the ingredient and add the matched synonym for display
-            const ingredientWithSynonym = {
-              ...matchedIngredient,
-              matchedSynonym: synonym,
-            };
-            synonym_ingredients.push(ingredientWithSynonym);
-            existingMatches.push(matchedIngredient.value);
-          }
-        }
-      }
-    }
-
-    // Precise matches = priority #0
+    // Precise matches = priority #0 (highest priority for direct ingredient matches)
     let p0_ingredients = filterAndIgnoreExistingMatches(
       input,
       ingredients,
       existingMatches
     );
 
-    // Finds permutations ahead of time for synonym matches
+    // Finds permutations ahead of time for precise matches
     let limit = 0;
-    for (const i in synonym_ingredients) {
-      if (limit >= 8) break;
-      const keywordsPlusIngredient = keywords.concat([synonym_ingredients[i]]);
-      const relevantCocktails = improvedGetRelevantCocktails(
-        data.cocktails,
-        keywordsPlusIngredient,
-        pantry
-      );
-      // Show the matched synonym in parentheses with 50% opacity
-      const synonymDisplay = synonym_ingredients[i].matchedSynonym
-        ? ` <span style="opacity: 0.5">(${synonym_ingredients[i].matchedSynonym})</span>`
-        : "";
-      synonym_ingredients[
-        i
-      ].label = `${synonym_ingredients[i].value}${synonymDisplay} <span style="position: absolute; right: 16px; opacity: 0.6">${relevantCocktails.length} pairings</span>`;
-      synonym_ingredients[i]["count"] = relevantCocktails.length;
-      limit++;
-    }
-
-    // Finds permutations ahead of time
     for (const i in p0_ingredients) {
       if (limit >= 8) break;
       const keywordsPlusIngredient = keywords.concat([p0_ingredients[i]]);
@@ -371,7 +324,94 @@ export default function Search({
       2
     );
 
-    // Fuzzy matches = priority #3 (for typo tolerance)
+    // Synonym matches = priority #3 (after direct ingredient matches)
+    // If user types a synonym, show the canonical ingredient (but only if not already matched directly)
+    let synonym_ingredients = [];
+    if (synonymLookup && input.length >= 2) {
+      // Check for exact synonym match
+      const canonicalIngredient = synonymLookup[input];
+      if (canonicalIngredient) {
+        const matchedIngredient = ingredients.find(
+          (i) => i.value === canonicalIngredient
+        );
+        if (
+          matchedIngredient &&
+          !existingMatches.includes(matchedIngredient.value)
+        ) {
+          // Clone the ingredient and add the matched synonym for display
+          const ingredientWithSynonym = {
+            ...matchedIngredient,
+            matchedSynonym: input,
+          };
+          synonym_ingredients.push(ingredientWithSynonym);
+          existingMatches.push(matchedIngredient.value);
+        }
+      }
+
+      // Also check for partial synonym matches (e.g., "lux" should match "luxardo" -> "Maraschino")
+      for (const [synonym, canonical] of Object.entries(synonymLookup)) {
+        if (synonym.startsWith(input) || synonym.includes(input)) {
+          const matchedIngredient = ingredients.find(
+            (i) => i.value === canonical
+          );
+          if (
+            matchedIngredient &&
+            !existingMatches.includes(matchedIngredient.value)
+          ) {
+            // Clone the ingredient and add the matched synonym for display
+            const ingredientWithSynonym = {
+              ...matchedIngredient,
+              matchedSynonym: synonym,
+            };
+            synonym_ingredients.push(ingredientWithSynonym);
+            existingMatches.push(matchedIngredient.value);
+          }
+        }
+      }
+
+      // Fuzzy search on synonyms (e.g., "luxerdo" should match "luxardo" -> "Maraschino")
+      if (fuseInstances && fuseInstances.synonyms) {
+        const fuzzySynonymResults = fuseInstances.synonyms.search(input);
+        for (const result of fuzzySynonymResults.slice(0, 8)) {
+          const { synonym, canonical } = result.item;
+          const matchedIngredient = ingredients.find(
+            (i) => i.value === canonical
+          );
+          if (
+            matchedIngredient &&
+            !existingMatches.includes(matchedIngredient.value)
+          ) {
+            // Clone the ingredient and add the matched synonym for display
+            const ingredientWithSynonym = {
+              ...matchedIngredient,
+              matchedSynonym: synonym,
+            };
+            synonym_ingredients.push(ingredientWithSynonym);
+            existingMatches.push(matchedIngredient.value);
+          }
+        }
+      }
+    }
+
+    // Add pairing counts for synonym matches
+    for (const i in synonym_ingredients) {
+      const keywordsPlusIngredient = keywords.concat([synonym_ingredients[i]]);
+      const relevantCocktails = improvedGetRelevantCocktails(
+        data.cocktails,
+        keywordsPlusIngredient,
+        pantry
+      );
+      // Show the matched synonym in parentheses with 50% opacity
+      const synonymDisplay = synonym_ingredients[i].matchedSynonym
+        ? ` <span style="opacity: 0.5">(${synonym_ingredients[i].matchedSynonym})</span>`
+        : "";
+      synonym_ingredients[
+        i
+      ].label = `${synonym_ingredients[i].value}${synonymDisplay} <span style="position: absolute; right: 16px; opacity: 0.6">${relevantCocktails.length} pairings</span>`;
+      synonym_ingredients[i]["count"] = relevantCocktails.length;
+    }
+
+    // Fuzzy matches = priority #4 (for typo tolerance)
     // Uses Fuse.js to find similar matches that weren't caught by exact/partial matching
     let fuzzy_ingredients = [];
     let fuzzy_lists = [];
@@ -419,10 +459,10 @@ export default function Search({
       {
         label: "Ingredients",
         options: [
-          ...synonym_ingredients,
           ...p0_ingredients,
           ...p1_ingredients,
           ...p2_ingredients,
+          ...synonym_ingredients,
           ...fuzzy_ingredients,
         ],
       },
