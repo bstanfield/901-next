@@ -36,6 +36,19 @@ const SortableMultiValueLabel = sortableHandle((props) => (
 const SortableSelect = SortableContainer(Select);
 // end react-select sort fns
 
+// Build a reverse lookup map: synonym -> canonical ingredient name
+const buildSynonymLookup = (synonyms) => {
+  const lookup = {};
+  if (!synonyms) return lookup;
+
+  for (const [canonical, synonymList] of Object.entries(synonyms)) {
+    for (const synonym of synonymList) {
+      lookup[synonym.toLowerCase()] = canonical;
+    }
+  }
+  return lookup;
+};
+
 const loadData = (data, negativeMode) => {
   const ingredientsInSearchFormat = data.ingredients.map((i) => ({
     data: "ingredient",
@@ -69,10 +82,15 @@ const loadData = (data, negativeMode) => {
       type: negativeMode ? "negative" : "positive",
       bgColor: negativeMode ? "#ffbdbd" : "rgb(221, 237, 255)",
     }));
+
+  // Build synonym lookup from data.synonyms
+  const synonymLookup = buildSynonymLookup(data.synonyms);
+
   return {
     ingredients: ingredientsInSearchFormat,
     cocktails: cocktailNamesInSearchFormat,
     lists: listsInSearchFormat,
+    synonymLookup,
   };
 };
 
@@ -200,8 +218,54 @@ export default function Search({
   const filterOptions = (rawInput, pantry) => {
     const input = rawInput.toLowerCase().trim();
 
-    let { ingredients, lists, cocktails } = loadedData;
+    let { ingredients, lists, cocktails, synonymLookup } = loadedData;
     let existingMatches = [];
+
+    // Synonym matches = priority #-1 (highest priority)
+    // If user types a synonym, show the canonical ingredient first
+    let synonym_ingredients = [];
+    if (synonymLookup && input.length >= 2) {
+      // Check for exact synonym match
+      const canonicalIngredient = synonymLookup[input];
+      if (canonicalIngredient) {
+        const matchedIngredient = ingredients.find(
+          (i) => i.value === canonicalIngredient
+        );
+        if (
+          matchedIngredient &&
+          !existingMatches.includes(matchedIngredient.value)
+        ) {
+          // Clone the ingredient and add the matched synonym for display
+          const ingredientWithSynonym = {
+            ...matchedIngredient,
+            matchedSynonym: input,
+          };
+          synonym_ingredients.push(ingredientWithSynonym);
+          existingMatches.push(matchedIngredient.value);
+        }
+      }
+
+      // Also check for partial synonym matches (e.g., "lux" should match "luxardo" -> "Maraschino")
+      for (const [synonym, canonical] of Object.entries(synonymLookup)) {
+        if (synonym.startsWith(input) || synonym.includes(input)) {
+          const matchedIngredient = ingredients.find(
+            (i) => i.value === canonical
+          );
+          if (
+            matchedIngredient &&
+            !existingMatches.includes(matchedIngredient.value)
+          ) {
+            // Clone the ingredient and add the matched synonym for display
+            const ingredientWithSynonym = {
+              ...matchedIngredient,
+              matchedSynonym: synonym,
+            };
+            synonym_ingredients.push(ingredientWithSynonym);
+            existingMatches.push(matchedIngredient.value);
+          }
+        }
+      }
+    }
 
     // Precise matches = priority #0
     let p0_ingredients = filterAndIgnoreExistingMatches(
@@ -210,8 +274,28 @@ export default function Search({
       existingMatches
     );
 
-    // Finds permutations ahead of time
+    // Finds permutations ahead of time for synonym matches
     let limit = 0;
+    for (const i in synonym_ingredients) {
+      if (limit >= 8) break;
+      const keywordsPlusIngredient = keywords.concat([synonym_ingredients[i]]);
+      const relevantCocktails = improvedGetRelevantCocktails(
+        data.cocktails,
+        keywordsPlusIngredient,
+        pantry
+      );
+      // Show the matched synonym in parentheses with 50% opacity
+      const synonymDisplay = synonym_ingredients[i].matchedSynonym
+        ? ` <span style="opacity: 0.5">(${synonym_ingredients[i].matchedSynonym})</span>`
+        : "";
+      synonym_ingredients[
+        i
+      ].label = `${synonym_ingredients[i].value}${synonymDisplay} <span style="position: absolute; right: 16px; opacity: 0.6">${relevantCocktails.length} pairings</span>`;
+      synonym_ingredients[i]["count"] = relevantCocktails.length;
+      limit++;
+    }
+
+    // Finds permutations ahead of time
     for (const i in p0_ingredients) {
       if (limit >= 8) break;
       const keywordsPlusIngredient = keywords.concat([p0_ingredients[i]]);
@@ -335,6 +419,7 @@ export default function Search({
       {
         label: "Ingredients",
         options: [
+          ...synonym_ingredients,
           ...p0_ingredients,
           ...p1_ingredients,
           ...p2_ingredients,
